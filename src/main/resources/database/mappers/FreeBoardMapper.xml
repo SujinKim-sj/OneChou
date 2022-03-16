@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.onechou.shop.board.freeboard.FreeBoardDAO">
+	<select id="list" resultType="FreeBoardDTO">
+		SELECT * 
+		FROM FREEBOARD
+	</select>
+	
+	<select id="detail" resultType="FreeBoardDTO" parameterType="FreeBoardDTO">
+		SELECT * 
+		FROM FREEBOARD 
+		WHERE NUM = #{num}
+	</select>
+	
+	<insert id="add" parameterType="FreeBoardDTO">
+		INSERT INTO FREEBOARD 
+		VALUES (#{num},#{title},#{contents},#{writer},SYSDATE,0,#{memberId})
+	</insert>
+	
+	<update id="update" parameterType="FreeBoardDTO">
+	UPDATE FREEBOARD SET TITLE=#{title},CONTENTS=#{contents}	
+	</update>
+	
+	<delete id="delete" parameterType="FreeBoardDTO">
+	DELETE FREEBOARD WHERE NUM = #{num}
+	</delete>
+	
+	
+
+</mapper>

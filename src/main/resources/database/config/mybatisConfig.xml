@@ -7,6 +7,12 @@
   	<typeAliases>
   		<typeAlias type="java.lang.Long" alias="Long"/>
   		<typeAlias type="java.util.List" alias="List"/>
+  		<typeAlias type="com.onechou.shop.board.BoardDTO" alias="BoardDTO"/>
+  		<typeAlias type="com.onechou.shop.board.BoardFileDTO" alias="BoardFileDTO"/>
+  		<typeAlias type="com.onechou.shop.board.freeboard.FreeBoardDTO" alias="FreeBoardDTO"/>
+  		<typeAlias type="com.onechou.shop.board.freeboard.FreeBoardFileDTO" alias="FreeBoardFileDTO"/>
+  		<typeAlias type="com.onechou.shop.board.notice.NoticeDTO" alias="NoticeDTO"/>
+  		<typeAlias type="com.onechou.shop.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
   		<!-- 추가 예정 -->
   	</typeAliases>
 
