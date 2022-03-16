@@ -8,6 +8,14 @@
   		<typeAlias type="java.lang.Long" alias="Long"/>
   		<typeAlias type="java.util.List" alias="List"/>
   		<!-- 추가 예정 -->
+  		
+  		<typeAlias type="com.onechou.shop.product.ProductDTO" alias="ProductDTO"/>
+  		<typeAlias type="com.onechou.shop.product.ProductFeatureDTO" alias="ProductFeatureDTO"/>
+  		<typeAlias type="com.onechou.shop.product.ProductCupnoteDTO" alias="ProductCupnoteDTO"/>
+  		<typeAlias type="com.onechou.shop.product.ProductFileDTO" alias="ProductFileDTO"/>
+  		<typeAlias type="com.onechou.shop.product.ProductOptionDTO" alias="ProductOptionDTO"/>
+  		
+  		
   	</typeAliases>
 
   </configuration> 
