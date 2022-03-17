@@ -23,7 +23,7 @@
 		
 			<fieldset>
 				<legend>Remember Me</legend>
-				<input type="checkbox" name="remember" value="1">
+				<input type="checkbox" name="remember" id="rememberId" value="1">
 			</fieldset>
 			<button type="submit">LOGIN</button>			
 			

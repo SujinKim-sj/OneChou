@@ -9,7 +9,9 @@
 </head>
 <body>
 	<a href="/shop/member/login">Login</a>
-	
+	<c:if test="${not empty member}">
+	<a href="./member/logout">Log out</a>
+	</c:if>
 	<h3>닉네임 ${member.nickname}님 환영합니다.</h3>
 	
 	<c:if test="${member.kind eq 0}">

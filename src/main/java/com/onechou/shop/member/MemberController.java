@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -17,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MemberController {
 	
 	@Autowired
-	private MemberService memberService;
+	private MemberService memberService; 
 	
 	//Login - POST, GET방식
+	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(HttpSession session, MemberDTO memberDTO, String remember, Model model, HttpServletResponse response) throws Exception {
 		if(remember != null && remember.equals("1")) {
@@ -54,7 +56,31 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.GET) 
-	public void login(Model model, @CookieValue(value = "remember", defaultValue = "", required = false) String rememberId) throws Exception {
-
+	public void login(Model model, @CookieValue(value = "remember", defaultValue = "") String rememberId) throws Exception {
+		model.addAttribute("rememberId", rememberId);
 	}
+	
+	@RequestMapping(value = "logout" , method = RequestMethod.GET)
+	public String logout(HttpSession session) throws Exception{
+		session.invalidate();
+		return "redirect:../";
+	}
+	
+	@RequestMapping(value="join", method = RequestMethod.GET)
+	public String join() {
+		return "member/join";
+	}
+	@RequestMapping(value = "joinCheck", method = RequestMethod.GET)
+	public void joinCheck() throws Exception{}
+	
+	@RequestMapping(value = "mypage", method = RequestMethod.GET)
+	public ModelAndView mypage(HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		memberDTO = memberService.mypage(memberDTO);
+		mv.setViewName("member/mypage");
+		mv.addObject("dto", memberDTO);
+		return mv;
+	} 
 }
+	
