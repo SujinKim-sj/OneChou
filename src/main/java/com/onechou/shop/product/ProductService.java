@@ -48,16 +48,9 @@ public class ProductService {
 		System.out.println(result4);
 		
 		// PRODUCTOPTION 테이블에 데이터 삽입
-		// 기본 옵션은 서버에서 하나 기본으로 처리
-		ProductOptionDTO productOptionDTO = new ProductOptionDTO();
-		productOptionDTO.setOptionName("기본 옵션");
-		productOptionDTO.setAddPrice(0);
-		productOptionDTO.setProductNum(productDTO.getNum());
-		productDAO.addOption(productOptionDTO);
-		// 클라이언트가 입력한 옵션들 삽입
 		List<ProductOptionDTO> productOptionDTOs = productDTO.getProductOptionDTOs();
 		for(int i=0;i<productOptionDTOs.size();i++) {
-			productOptionDTO = productOptionDTOs.get(i);
+			ProductOptionDTO productOptionDTO = productOptionDTOs.get(i);
 			productOptionDTO.setProductNum(productDTO.getNum());
 			int result5 = productDAO.addOption(productOptionDTO);
 			System.out.println(result5);

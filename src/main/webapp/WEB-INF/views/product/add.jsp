@@ -33,32 +33,20 @@
                 <br>
                 <div class="input-group mb-3">
                     <input type="file" class="form-control" id="file" name="file">
-                    <label class="input-group-text" for="files"> 상품 이미지 파일 등록 </label>
+                    <label class="input-group-text" for="files"> 로스터리 이미지 파일 등록 </label>
                 </div>
             </div>
             <br>
-            <div class="text-center">
+            <div class="text-center" id="options">
+                <!-- 나중에 지우기 만들기 -->
+                <!-- 상품옵션 추가버튼을 누르고, 입력폼만 추가한 다음 값을 입력하지 않고 등록하면 예외 발생-->
+                <!-- JS에서 이거 처리해야함-->
                 <h3>상품 옵션 추가</h3>
-                <div class="row">
-                    <div class="col form-floating mb-3">
-                        <input type="text" class="form-control" id="optionnames" name="optionNames" placeholder="상품명입력">
-                        <label for="name">&nbsp;&nbsp;옵션명입력</label>
-                    </div>
-                    <div class="col form-floating mb-3">
-                        <input type="text" class="form-control" id="addprices" name="addPrices" placeholder="상품가격입력">
-                        <label for="price">&nbsp;&nbsp;옵션가격입력</label>
-                    </div>
-                    <div class="col form-floating mb-3">
-                        <input type="text" class="form-control" id="optionnames" name="optionNames" placeholder="상품명입력">
-                        <label for="name">&nbsp;&nbsp;옵션명입력</label>
-                    </div>
-                    <div class="col form-floating mb-3">
-                        <input type="text" class="form-control" id="addprices" name="addPrices" placeholder="상품가격입력">
-                        <label for="price">&nbsp;&nbsp;옵션가격입력</label>
-                    </div>
-                </div>
-                <!-- 나중에 JS로 추가하기 버튼 누르면 옵션 추가 생기는거 만들기 -->
-                <button type="button" class="btn btn-secondary">추가하기</button>
+                        <input type="hidden" name="optionNames" value="기본옵션">
+                        <input type="hidden" name="addPrices" value="0">
+            </div>
+            <div class="text-center">
+                <button type="button" id="addBtn" class="btn btn-secondary">추가하기</button>
             </div>
             <br>
             <div class="text-center">
@@ -281,6 +269,7 @@
         </form>
     </div>
 
+    <script src="../resources/js/product/add.js"></script>
 
 
 </body>
