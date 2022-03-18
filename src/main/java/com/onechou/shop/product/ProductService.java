@@ -58,4 +58,8 @@ public class ProductService {
 		
 		return result;
 	}
+	
+	public List<ProductDTO> list() throws Exception {
+		return productDAO.list();
+	}
 }

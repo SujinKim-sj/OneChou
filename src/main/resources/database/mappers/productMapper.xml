@@ -36,4 +36,22 @@
 		VALUES (PRODUCTOPTION_SEQ.NEXTVAL, #{optionName}, #{addPrice}, #{productNum})
 	</insert>
 	
+	<select id="list" resultMap="listResult">
+		SELECT A.NUM, A.NAME, A.PRICE, B.FILENAME 
+		FROM PRODUCT A
+		JOIN PRODUCTFILE B
+		ON A.NUM = B.PRODUCTNUM
+	</select>
+	
+	<resultMap type="ProductDTO" id="listResult">
+		<id column="num" property="num"/>
+		<result column="name" property="name" />
+		<result column="price" property="price" />
+		
+		<association property="productFileDTO" javaType="ProductFileDTO">
+			<id column="filenum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+		</association>
+	</resultMap>
+	
 </mapper>

@@ -1,5 +1,7 @@
 package com.onechou.shop.product;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,6 +32,10 @@ public class ProductDAO {
 	
 	public int addOption(ProductOptionDTO productOptionDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"addOption", productOptionDTO);
+	}
+	
+	public List<ProductDTO> list() throws Exception {
+		return sqlSession.selectList(NAMESPACE+"list");
 	}
 	
 }
