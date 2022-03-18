@@ -8,7 +8,9 @@
 	<title>Home</title>
 </head>
 <body>
+	<c:if test="${empty member}">
 	<a href="/shop/member/login">Login</a>
+	</c:if>
 	<c:if test="${not empty member}">
 	<a href="./member/logout">Log out</a>
 	</c:if>

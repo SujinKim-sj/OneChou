@@ -5,8 +5,17 @@
    
 <mapper namespace="com.onechou.shop.member.MemberDAO">
 	<select id="login" parameterType="MemberDTO" resultType="MemberDTO">
-		SELECT id, nickname, kind
-		FROM member 
-		WHERE id = #{id} AND pw = #{pw}
+		SELECT ID, NICKNAME, KIND
+		FROM MEMBER 
+		WHERE ID = #{id} AND PW = #{pw}
 	</select>
+	<select id="mypage" parameterType="MemberDTO" resultType="MemberDTO">
+		SELECT *
+		FROM MEMBER
+		WHERE ID = #{id}
+	</select>
+	<insert id="join" parameterType="MemberDTO">
+		INSERT INTO MEMBER VALUES
+		(#{id},#{pw},#{name},#{email},#{phone},#{nickname},#{address},#{kind})
+	</insert>
 </mapper>

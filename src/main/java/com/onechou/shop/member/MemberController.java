@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class MemberController {
 	
 	@Autowired
-	private MemberService memberService; 
+	private MemberService memberService;
 	
 	//Login - POST, GET방식
 	
@@ -70,8 +70,18 @@ public class MemberController {
 	public String join() {
 		return "member/join";
 	}
+	@RequestMapping(value = "join",method = RequestMethod.POST)
+	public String join(MemberDTO memberDTO) throws Exception {
+		int result = memberService.join(memberDTO);
+		
+		return "redirect:../";
+	}
+	
+	
 	@RequestMapping(value = "joinCheck", method = RequestMethod.GET)
-	public void joinCheck() throws Exception{}
+	public String joinCheck() throws Exception{
+		return "member/joinCheck";
+	}
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public ModelAndView mypage(HttpSession session) throws Exception{
