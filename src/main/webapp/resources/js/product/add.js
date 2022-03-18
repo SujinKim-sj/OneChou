@@ -2,18 +2,20 @@ const options = document.getElementById('options');
 const addBtn = document.getElementById('addBtn');
 
 let count = 0;
+let num = 0;
 
 addBtn.addEventListener("click", function(){
-    count++
     
     if(count > 4) {
         alert("옵션은 최대 5개까지 추가 가능합니다.");
         return;
     }
-
+    
+    count++
 
     let divRow = document.createElement("div"); //<div>
     divRow.classList.add('row');
+    divRow.setAttribute("id", "del"+num);
 
     let divCol1 = document.createElement("div");
     divCol1.classList.add('col', 'form-floating', 'mb-3');
@@ -49,9 +51,29 @@ addBtn.addEventListener("click", function(){
     divCol2.append(input2);
     divCol2.append(label2);
 
+    let divCol3 = document.createElement("div");
+    divCol3.classList.add('col', 'col-2');
+
+    let delBtn = document.createElement("button");
+    delBtn.setAttribute("type", "button");
+    delBtn.setAttribute("data-num", "del"+num);
+    delBtn.classList.add("btn", "btn-secondary", "del");
+    delBtn.innerHTML = "옵션지우기";
+
+    divCol3.append(delBtn);
+
     divRow.append(divCol1);
     divRow.append(divCol2);
+    divRow.append(divCol3);
 
     options.append(divRow);
+    num++;
+})
 
+options.addEventListener("click", function(event) {
+    if(event.target.classList.contains('del')){
+        let delNum = event.target.getAttribute("data-num");
+        document.getElementById(delNum).remove();
+        count--;
+    }
 })

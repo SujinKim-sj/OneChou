@@ -40,7 +40,7 @@
             <div class="text-center" id="options">
                 <!-- 나중에 지우기 만들기 -->
                 <!-- 상품옵션 추가버튼을 누르고, 입력폼만 추가한 다음 값을 입력하지 않고 등록하면 예외 발생-->
-                <!-- JS에서 이거 처리해야함-->
+                <!-- JS에서 이거 처리해야함, 입력폼만 추가하면 값을 꼭 입력하고 등록하게끔!-->
                 <h3>상품 옵션 추가</h3>
                         <input type="hidden" name="optionNames" value="기본옵션">
                         <input type="hidden" name="addPrices" value="0">
