@@ -20,10 +20,10 @@
 				<div class="col">
 					<div class="card text-center">
 						<img src="../resources/upload/product/${productDTO.productFileDTO.fileName}" class="card-img-top" alt="...">
-						<div class="card-body">
-						<!-- 로스터리 이름 들어가는게 좋아보임 -->
+						<div class="card-body">						
+						<h5 class="card-title">${productDTO.roasteryName}</h5>
 						<h5 class="card-title">${productDTO.name}</h5>
-						<p class="card-text">price : ${productDTO.price}</p>
+						<p class="card-text">${productDTO.price}</p>
 						<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
 						</div>
 					</div>
@@ -57,6 +57,11 @@
 			  </ul>
 			</nav>
 			<form action="./list" method="get" class="d-flex">
+				<select class="form-select" name="kind">
+				  <option selected>검색기준을 골라주세요</option>
+				  <option value="col1">상품명</option>
+				  <option value="col2">로스터리정보</option>
+				</select>
 		        <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
 		        <button class="btn btn-outline-success" type="submit">Search</button>
 		    </form>

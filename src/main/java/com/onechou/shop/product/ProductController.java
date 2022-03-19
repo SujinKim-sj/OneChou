@@ -22,12 +22,12 @@ public class ProductController {
 	
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public void add() throws Exception {
-		// 여기서 회원 ID를 통해 로스터리 번호를 조회해서 Attribute로 담아서 입력폼으로 넘겨줌 (나중에 할것!!)
+		// 여기서 회원 ID를 통해 로스터리 번호, 로스터리이름을 조회해서 Attribute로 담아서 입력폼으로 넘겨줌 (나중에 할것!!)
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public String add(ProductDTO productDTO, MultipartFile file, String[] optionNames, String[] addPrices, ProductFeatureDTO productFeatureDTO, String[] noteNames) throws Exception {
-		// 입력폼에서 받은 로스터리 번호가 productDTO에 담기게 됨, 알아서 INSERT하면 됨
+		// 입력폼에서 받은 로스터리 번호, 이름이 productDTO에 담기게 됨, 알아서 INSERT하면 됨
 		
 		// 받은 옵션내용 + 가격들 DTO에 넣고 List에 담기
 		List<ProductOptionDTO> productOptionDTOs = new ArrayList<ProductOptionDTO>();

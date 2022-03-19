@@ -40,12 +40,21 @@
 	<select id="list" parameterType="Pager" resultMap="listResult">
 		SELECT * 
 		FROM (SELECT ROWNUM R, B.* 
-		      FROM (SELECT A.NUM, A.NAME, A.PRICE, B.FILENAME 
+		      FROM (SELECT A.NUM, A.NAME, A.PRICE, A.ROASTERYNAME, B.FILENAME 
 		            FROM PRODUCT A
 		            JOIN PRODUCTFILE B
 		            ON A.NUM = B.PRODUCTNUM
 		            WHERE A.NUM > 0
-		            AND NAME LIKE '%' || #{search} || '%' 
+		            AND
+		            <choose>
+		            	<when test="kind=='col2'">
+		            		ROASTERYNAME
+		            	</when>
+		            	<otherwise>
+		            		NAME
+		            	</otherwise>
+		            </choose>
+		            LIKE '%' || #{search} || '%' 
 		            ORDER BY NUM DESC) B)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
@@ -54,6 +63,7 @@
 		<id column="num" property="num"/>
 		<result column="name" property="name" />
 		<result column="price" property="price" />
+		<result column="roasteryName" property="roasteryName"/>
 		
 		<association property="productFileDTO" javaType="ProductFileDTO">
 			<id column="filenum" property="fileNum"/>
@@ -64,7 +74,16 @@
 	<select id="getTotal" parameterType="Pager" resultType="Long">
 		SELECT COUNT(NUM) FROM PRODUCT
 		WHERE NUM > 0
-		AND NAME LIKE '%' || #{search} || '%'
+		AND 		            
+		<choose>
+			<when test="kind=='col2'">
+           		ROASTERYNAME
+           	</when>
+           	<otherwise>
+           		NAME
+           	</otherwise>
+        </choose> 
+        LIKE '%' || #{search} || '%'
 	</select>
 
 	<!-- 상품, 특성, 컵노트, 파일까지만 -->	
