@@ -109,7 +109,7 @@
 			</div>	
 		</div>
 
-		<div class="row mt-5">
+		<div class="row mt-5 mb-5">
 			<div class="col">
 				<div class="accordion" id="accordionExample">
 					<div class="accordion-item">
@@ -142,7 +142,7 @@
 										  <tr>
 											<th scope="col">별점</th>
 											<th scope="col">작성자</th>
-											<th colspan="5" scope="col">내용</th>
+											<th colspan="5" scope="col" style="width:50%">내용</th>
 											<th scope="col">작성일</th>
 										  </tr>
 										</thead>
@@ -151,7 +151,7 @@
 											  <tr>
 												<th scope="row">${review.rating}</th>
 												<td>${review.writer}</td>
-												<td colspan="5">${review.contents}</td>
+												<td colspan="5" style="width:50%">${review.contents}</td>
 												<td>${review.regDate}</td>
 											  </tr>
 										  	</c:forEach>
@@ -179,7 +179,7 @@
 										<thead>
 										  <tr>
 											<th scope="col">작성자</th>
-											<th colspan="5" scope="col">질문 내용</th>
+											<th colspan="5" style="width:50%" scope="col">질문 내용</th>
 											<th scope="col">작성일</th>
 											<th scope="col"></th>
 											<th scope="col"></th>
@@ -189,7 +189,7 @@
 											<c:forEach items="${productDTO.qnaDTOs}" var="qna">
 											  <tr>
 												<th>${qna.writer}</th>
-												<td colspan="5">${qna.contents}</td>
+												<td colspan="5" style="width:50%">${qna.contents}</td>
 												<td>${qna.regDate}</td>
 												<td><a class="btn btn-secondary" href="../qna/reply?num=${qna.num}">답글달기</a></td>
 												<td><a class="btn btn-secondary" href="../qna/delete?num=${qna.num}">삭제하기</a></td>
@@ -199,19 +199,20 @@
 									</table>
 								</c:otherwise>
 							</c:choose>
+							<form action="../qna/add" method="post">
+								<input type="hidden" name="productNum" value="${productDTO.num}">
+								<div class="input-group">
+								  <span class="input-group-text">질문을 입력해주세요</span>
+								  <textarea class="form-control" name="contents"></textarea>
+								  <button class="btn btn-outline-secondary" type="submit">질문등록</button>
+								</div>
+							</form>
 						</div>
 					  </div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="row mt-5">
-			<div>
-
-			</div>
-		</div>
-
 	</div>
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

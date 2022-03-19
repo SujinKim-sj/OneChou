@@ -12,6 +12,10 @@
 
     <div class="container">
         <form action="./add" enctype="multipart/form-data" method="post">
+        <!-- 나중에 주석 해제해야함 -->
+<%--         <input type="hidden" name="roasteryName" value="${roasteryDTO.name}">
+        <input type="hidden" name="roasteryNum" value="${roasteryDTO.num}"> --%>
+        
             <div class="text-center">
                 <h3>상품 기본정보 입력</h3>
                 <br>
