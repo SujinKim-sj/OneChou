@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.onechou.shop.qna.QnaDTO;
 import com.onechou.shop.review.ReviewDTO;
 import com.onechou.shop.util.FileManager;
+import com.onechou.shop.util.Pager;
 
 @Service
 public class ProductService {
@@ -61,8 +62,13 @@ public class ProductService {
 		return result;
 	}
 	
-	public List<ProductDTO> list() throws Exception {
-		return productDAO.list();
+	public List<ProductDTO> list(Pager pager) throws Exception {
+		
+		pager.makeRow();
+		Long totalCount = productDAO.getTotal(pager);
+		pager.makeNum(totalCount);
+		
+		return productDAO.list(pager);
 	}
 	
 	public ProductDTO detailBasic(ProductDTO productDTO) throws Exception {

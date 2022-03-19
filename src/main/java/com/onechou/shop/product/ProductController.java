@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.onechou.shop.review.ReviewDTO;
+import com.onechou.shop.util.Pager;
 
 @Controller
 @RequestMapping(value = "/product/**")
@@ -56,9 +57,10 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public void list(Model model) throws Exception {
-		List<ProductDTO> productDTOs = productService.list();
+	public void list(Model model, Pager pager) throws Exception {
+		List<ProductDTO> productDTOs = productService.list(pager);
 		model.addAttribute("productDTOs", productDTOs);
+		model.addAttribute("pager", pager);
 	}
 	
 	@RequestMapping(value = "detail", method = RequestMethod.GET)

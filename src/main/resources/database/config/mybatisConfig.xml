@@ -17,6 +17,10 @@
   		<typeAlias type="com.onechou.shop.product.ProductOptionDTO" alias="ProductOptionDTO"/>
   		<typeAlias type="com.onechou.shop.review.ReviewDTO" alias="ReviewDTO"/>
   		<typeAlias type="com.onechou.shop.qna.QnaDTO" alias="QnaDTO"/>
+
+  		<typeAlias type="com.onechou.shop.util.Pager" alias="Pager"/>
+  		
+  		
   		
   		
   	</typeAliases>

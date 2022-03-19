@@ -36,11 +36,18 @@
 		VALUES (PRODUCTOPTION_SEQ.NEXTVAL, #{optionName}, #{addPrice}, #{productNum})
 	</insert>
 	
-	<select id="list" resultMap="listResult">
-		SELECT A.NUM, A.NAME, A.PRICE, B.FILENAME 
-		FROM PRODUCT A
-		JOIN PRODUCTFILE B
-		ON A.NUM = B.PRODUCTNUM
+	<!-- 아직 검색조건은 넣지 않음 -->
+	<select id="list" parameterType="Pager" resultMap="listResult">
+		SELECT * 
+		FROM (SELECT ROWNUM R, B.* 
+		      FROM (SELECT A.NUM, A.NAME, A.PRICE, B.FILENAME 
+		            FROM PRODUCT A
+		            JOIN PRODUCTFILE B
+		            ON A.NUM = B.PRODUCTNUM
+		            WHERE A.NUM > 0
+		            AND NAME LIKE '%' || #{search} || '%' 
+		            ORDER BY NUM DESC) B)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
 	<resultMap type="ProductDTO" id="listResult">
@@ -53,6 +60,12 @@
 			<result column="fileName" property="fileName"/>
 		</association>
 	</resultMap>
+	
+	<select id="getTotal" parameterType="Pager" resultType="Long">
+		SELECT COUNT(NUM) FROM PRODUCT
+		WHERE NUM > 0
+		AND NAME LIKE '%' || #{search} || '%'
+	</select>
 
 	<!-- 상품, 특성, 컵노트, 파일까지만 -->	
 	<select id="detailBasic" parameterType="ProductDTO" resultMap="detailBasicResult">

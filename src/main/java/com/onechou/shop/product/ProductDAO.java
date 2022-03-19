@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.onechou.shop.qna.QnaDTO;
 import com.onechou.shop.review.ReviewDTO;
+import com.onechou.shop.util.Pager;
 
 @Repository
 public class ProductDAO {
@@ -37,8 +38,12 @@ public class ProductDAO {
 		return sqlSession.insert(NAMESPACE+"addOption", productOptionDTO);
 	}
 	
-	public List<ProductDTO> list() throws Exception {
-		return sqlSession.selectList(NAMESPACE+"list");
+	public List<ProductDTO> list(Pager pager) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"list", pager);
+	}
+	
+	public Long getTotal(Pager pager) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getTotal", pager);
 	}
 	
 	public ProductDTO detailBasic(ProductDTO productDTO) throws Exception{
