@@ -3,6 +3,9 @@ package com.onechou.shop.product;
 import java.sql.Date;
 import java.util.List;
 
+import com.onechou.shop.qna.QnaDTO;
+import com.onechou.shop.review.ReviewDTO;
+
 public class ProductDTO {
 	
 	private Long num;
@@ -16,25 +19,9 @@ public class ProductDTO {
 	private ProductFileDTO productFileDTO;
 	private ProductFeatureDTO productFeatureDTO;
 	private List<ProductOptionDTO> productOptionDTOs;
+	private List<ReviewDTO> reviewDTOs;
+	private List<QnaDTO> qnaDTOs;
 	
-	public List<ProductOptionDTO> getProductOptionDTOs() {
-		return productOptionDTOs;
-	}
-	public void setProductOptionDTOs(List<ProductOptionDTO> productOptionDTOs) {
-		this.productOptionDTOs = productOptionDTOs;
-	}
-	public ProductFileDTO getProductFileDTO() {
-		return productFileDTO;
-	}
-	public void setProductFileDTO(ProductFileDTO productFileDTO) {
-		this.productFileDTO = productFileDTO;
-	}
-	public ProductFeatureDTO getProductFeatureDTO() {
-		return productFeatureDTO;
-	}
-	public void setProductFeatureDTO(ProductFeatureDTO productFeatureDTO) {
-		this.productFeatureDTO = productFeatureDTO;
-	}
 	public Long getNum() {
 		return num;
 	}
@@ -77,4 +64,35 @@ public class ProductDTO {
 	public void setRoasteryNum(Long roasteryNum) {
 		this.roasteryNum = roasteryNum;
 	}
+	public ProductFileDTO getProductFileDTO() {
+		return productFileDTO;
+	}
+	public void setProductFileDTO(ProductFileDTO productFileDTO) {
+		this.productFileDTO = productFileDTO;
+	}
+	public ProductFeatureDTO getProductFeatureDTO() {
+		return productFeatureDTO;
+	}
+	public void setProductFeatureDTO(ProductFeatureDTO productFeatureDTO) {
+		this.productFeatureDTO = productFeatureDTO;
+	}
+	public List<ProductOptionDTO> getProductOptionDTOs() {
+		return productOptionDTOs;
+	}
+	public void setProductOptionDTOs(List<ProductOptionDTO> productOptionDTOs) {
+		this.productOptionDTOs = productOptionDTOs;
+	}
+	public List<ReviewDTO> getReviewDTOs() {
+		return reviewDTOs;
+	}
+	public void setReviewDTOs(List<ReviewDTO> reviewDTOs) {
+		this.reviewDTOs = reviewDTOs;
+	}
+	public List<QnaDTO> getQnaDTOs() {
+		return qnaDTOs;
+	}
+	public void setQnaDTOs(List<QnaDTO> qnaDTOs) {
+		this.qnaDTOs = qnaDTOs;
+	}
+	
 }

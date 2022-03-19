@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.onechou.shop.review.ReviewDTO;
+
 @Controller
 @RequestMapping(value = "/product/**")
 public class ProductController {
@@ -57,6 +59,29 @@ public class ProductController {
 	public void list(Model model) throws Exception {
 		List<ProductDTO> productDTOs = productService.list();
 		model.addAttribute("productDTOs", productDTOs);
+	}
+	
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public void detail(ProductDTO productDTO, Model model) throws Exception {
+		
+		// 해당 상품의 기본 특징들 조회해오기 (상품정보, 특징, 이미지 등)
+		productDTO = productService.detailBasic(productDTO);
+		
+		// 해당 상품의 옵션들 조회해오기
+		productDTO.setProductOptionDTOs(productService.detailOption(productDTO));
+		
+		// 해당 상품의 리뷰들 조회해오기
+		productDTO.setReviewDTOs(productService.detailReview(productDTO));
+		
+		// 리뷰 평균 DB에서 조회하기
+		Double reviewAvg = productService.getReviewAvg(productDTO);
+		
+		// 해당 상품의 질문들 조회해오기
+		productDTO.setQnaDTOs(productService.detailQna(productDTO));
+		
+		// 조회한 정보 Attribute에 담아서 보내기
+		model.addAttribute("productDTO", productDTO);
+		model.addAttribute("reviewAvg", reviewAvg);
 	}
 	
 }

@@ -19,6 +19,7 @@
 					<div class="card text-center">
 						<img src="../resources/upload/product/${productDTO.productFileDTO.fileName}" class="card-img-top" alt="...">
 						<div class="card-body">
+						<!-- 로스터리 이름 들어가는게 좋아보임 -->
 						<h5 class="card-title">${productDTO.name}</h5>
 						<p class="card-text">price : ${productDTO.price}</p>
 						<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>

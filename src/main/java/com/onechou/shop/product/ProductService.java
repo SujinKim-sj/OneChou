@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.onechou.shop.qna.QnaDTO;
+import com.onechou.shop.review.ReviewDTO;
 import com.onechou.shop.util.FileManager;
 
 @Service
@@ -61,5 +63,25 @@ public class ProductService {
 	
 	public List<ProductDTO> list() throws Exception {
 		return productDAO.list();
+	}
+	
+	public ProductDTO detailBasic(ProductDTO productDTO) throws Exception {
+		return productDAO.detailBasic(productDTO);
+	}
+	
+	public List<ProductOptionDTO> detailOption(ProductDTO productDTO) throws Exception {
+		return productDAO.detailOption(productDTO);
+	}
+	
+	public List<ReviewDTO> detailReview(ProductDTO productDTO) throws Exception {
+		return productDAO.detailReview(productDTO);
+	}
+	
+	public Double getReviewAvg(ProductDTO productDTO) throws Exception {
+		return productDAO.getReviewAvg(productDTO);
+	}
+	
+	public List<QnaDTO> detailQna(ProductDTO productDTO) throws Exception {
+		return productDAO.detailQna(productDTO);
 	}
 }

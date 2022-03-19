@@ -6,6 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.onechou.shop.qna.QnaDTO;
+import com.onechou.shop.review.ReviewDTO;
+
 @Repository
 public class ProductDAO {
 
@@ -36,6 +39,26 @@ public class ProductDAO {
 	
 	public List<ProductDTO> list() throws Exception {
 		return sqlSession.selectList(NAMESPACE+"list");
+	}
+	
+	public ProductDTO detailBasic(ProductDTO productDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"detailBasic", productDTO);
+	}
+	
+	public List<ProductOptionDTO> detailOption(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"detailOption", productDTO);
+	}
+	
+	public List<ReviewDTO> detailReview(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"detailReview", productDTO);
+	}
+	
+	public Double getReviewAvg(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getReviewAvg", productDTO);
+	}
+	
+	public List<QnaDTO> detailQna(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"detailQna", productDTO);
 	}
 	
 }
