@@ -73,6 +73,10 @@
 						</c:choose>
 					</tr>
 					<tr>
+						<td>로스터리</td>
+						<td colspan="5"><a class="link-secondary" href="../roastery/detail?num=${productDTO.roasteryNum}">${productDTO.roasteryName}</a></td>
+					</tr>
+					<tr>
 						<td>상품옵션</td>
 						<td colspan="5">
 							<select class="form-select">

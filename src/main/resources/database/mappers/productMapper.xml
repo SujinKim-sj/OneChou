@@ -107,6 +107,7 @@
 		<result column="purchase" property="purchase"/>
 		<result column="regDate" property="regDate"/>
 		<result column="roasteryNum" property="roasteryNum"/>
+		<result column="roasteryName" property="roasteryName"/>
 		
 		<association property="productFeatureDTO" javaType="ProductFeatureDTO">
 			<result column="flavor" property="flavor"/>
