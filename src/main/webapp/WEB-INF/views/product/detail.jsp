@@ -125,7 +125,7 @@
 			<div class="mt-3 mb-3">
 				<c:choose>
 					<c:when test="${empty productDTO.reviewDTOs}">
-						<h5>아직 이 상품에는 아무런 리뷰도 없어요</h5>
+						<h5 class="text-center">아직 이 상품에는 아무런 리뷰도 없어요</h5>
 					</c:when>
 					<c:otherwise>
 						<table class="table table-striped">
@@ -160,7 +160,7 @@
 			<div class="mt-3 mb-3">
 				<c:choose>
 					<c:when test="${empty productDTO.qnaDTOs}">
-						<h5>아직 이 상품에는 아무런 질문도 없어요</h5>
+						<h5 class="text-center">아직 이 상품에는 아무런 질문도 없어요</h5>
 					</c:when>
 					<c:otherwise>
 						<table class="table table-striped">
@@ -177,14 +177,18 @@
 								<c:forEach items="${productDTO.qnaDTOs}" var="qna">
 								  <tr>
 									<th>${qna.writer}</th>
-									<td class="text-wrap" colspan="5" style="width:50%">${qna.contents}</td>
+									<td class="text-wrap" colspan="5" style="width:50%">
+									<c:forEach begin="1" end="${qna.depth}">└───</c:forEach>
+									${qna.contents}</td>
 									<td>${qna.regDate}</td>
-									<!-- 로그인 한 사람만 보이도록 -->
-									<td><a class="btn btn-secondary" href="../qna/reply?num=${qna.num}">답글달기</a></td>
+									<c:if test="${qna.step==0}"> <!-- 답변에 답글은 못달게 함 -->
+										<!-- 나중에 로그인 한 사람만 보이도록 -->
+										<td><a class="btn btn-secondary" href="../qna/reply?num=${qna.num}">답글달기</a></td>
+									</c:if>
 									<!-- 나중에 작성자랑 로그인한 사람의 닉네임이랑 같다면 삭제버튼이 보이도록 -->
 									<td><a class="btn btn-secondary" href="../qna/delete?num=${qna.num}">삭제하기</a></td>
 								  </tr>
-								  </c:forEach>
+								</c:forEach>
 							</tbody>
 						</table>
 					</c:otherwise>

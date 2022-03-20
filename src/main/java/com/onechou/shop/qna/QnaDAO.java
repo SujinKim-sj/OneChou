@@ -15,4 +15,16 @@ public class QnaDAO {
 	public int add(QnaDTO qnaDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"add", qnaDTO);
 	}
+	
+	public QnaDTO detail(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"detail", qnaDTO);
+	}
+	
+	public int stepUpdate(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"stepUpdate", qnaDTO);
+	}
+	
+	public int reply(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"reply", qnaDTO);
+	}
 }
