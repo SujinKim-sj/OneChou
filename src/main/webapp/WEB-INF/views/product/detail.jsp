@@ -13,18 +13,18 @@
 	
 	<div class="container mt-5">
 
-		<div class="row row-cols-2">
+		<div class="row row-cols-2 border border-2 rounded">
 			<div class="col col-5">
 				<img class="img-fluid" src="../resources/upload/product/${productDTO.productFileDTO.fileName}">
 			</div>
 			<div class="col col-7">
 				<table class="table">
 					<tr>
-						<td>상품명</td>
+						<td>원두명</td>
 						<td colspan="5">${productDTO.name}</td>
 					</tr>
 					<tr>
-						<td>상품가격</td>
+						<td>가격</td>
 						<td colspan="5">${productDTO.price}</td>
 					</tr>
 					<tr>
@@ -48,7 +48,7 @@
 						</c:choose>
 					</tr>
 					<tr>
-						<td>상품향미</td>
+						<td>향미</td>
 						<c:choose>
 							<c:when test="${productDTO.productFeatureDTO.flavor==1}">
 								<td colspan="5">산미 위주의 상큼한 커피</td>
@@ -102,117 +102,104 @@
 						</td>
 					</tr>
 				</table>
-				<div class="d-flex justify-content-between">
+				<div class="d-flex justify-content-between mb-3">
 					<button class="btn btn-secondary" type="button">장바구니담기</button>
 					<button class="btn btn-secondary" type="button">바로구매하기</button>
 				</div>
 			</div>	
 		</div>
 
-		<div class="row mt-5 mb-5">
-			<div class="col">
-				<div class="accordion" id="accordionExample">
-					<div class="accordion-item">
-					  <h2 class="accordion-header" id="headingOne">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						  상품설명보기
-						</button>
-					  </h2>
-					  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-						  ${productDTO.info}
-						</div>
-					  </div>
-					</div>
-					<div class="accordion-item">
-					  <h2 class="accordion-header" id="headingTwo">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						  리뷰
-						</button>
-					  </h2>
-					  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<c:choose>
-								<c:when test="${empty productDTO.reviewDTOs}">
-									<h5>아직 이 상품에는 아무런 리뷰도 없어요</h5>
-								</c:when>
-								<c:otherwise>
-									<table class="table">
-										<thead>
-										  <tr>
-											<th scope="col">별점</th>
-											<th scope="col">작성자</th>
-											<th colspan="5" scope="col" style="width:50%">내용</th>
-											<th scope="col">작성일</th>
-										  </tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${productDTO.reviewDTOs}" var="review">
-											  <tr>
-												<th scope="row">${review.rating}</th>
-												<td>${review.writer}</td>
-												<td colspan="5" style="width:50%">${review.contents}</td>
-												<td>${review.regDate}</td>
-											  </tr>
-										  	</c:forEach>
-										</tbody>
-									</table>
-								</c:otherwise>
-							</c:choose>
-						</div>
-					  </div>
-					</div>
-					<div class="accordion-item">
-					  <h2 class="accordion-header" id="headingThree">
-						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-						  질문
-						</button>
-					  </h2>
-					  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-						  	<c:choose>
-								<c:when test="${empty productDTO.qnaDTOs}">
-									<h5>아직 이 상품에는 아무런 질문도 없어요</h5>
-								</c:when>
-								<c:otherwise>
-									<table class="table">
-										<thead>
-										  <tr>
-											<th scope="col">작성자</th>
-											<th colspan="5" style="width:50%" scope="col">질문 내용</th>
-											<th scope="col">작성일</th>
-											<th scope="col"></th>
-											<th scope="col"></th>
-										  </tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${productDTO.qnaDTOs}" var="qna">
-											  <tr>
-												<th>${qna.writer}</th>
-												<td colspan="5" style="width:50%">${qna.contents}</td>
-												<td>${qna.regDate}</td>
-												<td><a class="btn btn-secondary" href="../qna/reply?num=${qna.num}">답글달기</a></td>
-												<td><a class="btn btn-secondary" href="../qna/delete?num=${qna.num}">삭제하기</a></td>
-											  </tr>
-										  	</c:forEach>
-										</tbody>
-									</table>
-								</c:otherwise>
-							</c:choose>
-							<form action="../qna/add" method="post">
-								<input type="hidden" name="productNum" value="${productDTO.num}">
-								<div class="input-group">
-								  <span class="input-group-text">질문을 입력해주세요</span>
-								  <textarea class="form-control" name="contents"></textarea>
-								  <button class="btn btn-outline-secondary" type="submit">질문등록</button>
-								</div>
-							</form>
-						</div>
-					  </div>
-					</div>
-				</div>
+		<div class="row mt-5 mb-5 border border-2 rounded">
+			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
+				<p class="text-center fs-2">원두설명</p>
+			</div>
+			<div class="mt-3 mb-3">
+				<p class="fs-5 text-wrap">${productDTO.info}</p>
 			</div>
 		</div>
+
+		<div class="row mt-5 mb-5 border border-2 rounded">
+			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
+				<p class="text-center fs-2">원두리뷰</p>
+			</div>
+			<div class="mt-3 mb-3">
+				<c:choose>
+					<c:when test="${empty productDTO.reviewDTOs}">
+						<h5>아직 이 상품에는 아무런 리뷰도 없어요</h5>
+					</c:when>
+					<c:otherwise>
+						<table class="table table-striped">
+							<thead>
+							  <tr>
+								<th scope="col">별점</th>
+								<th scope="col">작성자</th>
+								<th colspan="5" scope="col" style="width:50%">리뷰내용</th>
+								<th scope="col">작성일</th>
+							  </tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${productDTO.reviewDTOs}" var="review">
+								  <tr>
+									<th scope="row">${review.rating}</th>
+									<td>${review.writer}</td>
+									<td class="text-wrap" colspan="5" style="width:50%">${review.contents}</td>
+									<td>${review.regDate}</td>
+								  </tr>
+								  </c:forEach>
+							</tbody>
+						</table>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+
+		<div class="row mt-5 mb-5 border border-2 rounded">
+			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
+				<p class="text-center fs-2">원두질문</p>
+			</div>
+			<div class="mt-3 mb-3">
+				<c:choose>
+					<c:when test="${empty productDTO.qnaDTOs}">
+						<h5>아직 이 상품에는 아무런 질문도 없어요</h5>
+					</c:when>
+					<c:otherwise>
+						<table class="table table-striped">
+							<thead>
+							  <tr>
+								<th scope="col">작성자</th>
+								<th colspan="5" style="width:50%" scope="col">질문 내용</th>
+								<th scope="col">작성일</th>
+								<th scope="col"></th>
+								<th scope="col"></th>
+							  </tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${productDTO.qnaDTOs}" var="qna">
+								  <tr>
+									<th>${qna.writer}</th>
+									<td class="text-wrap" colspan="5" style="width:50%">${qna.contents}</td>
+									<td>${qna.regDate}</td>
+									<!-- 로그인 한 사람만 보이도록 -->
+									<td><a class="btn btn-secondary" href="../qna/reply?num=${qna.num}">답글달기</a></td>
+									<!-- 나중에 작성자랑 로그인한 사람의 닉네임이랑 같다면 삭제버튼이 보이도록 -->
+									<td><a class="btn btn-secondary" href="../qna/delete?num=${qna.num}">삭제하기</a></td>
+								  </tr>
+								  </c:forEach>
+							</tbody>
+						</table>
+					</c:otherwise>
+				</c:choose>
+				<form action="../qna/add" method="post">
+					<input type="hidden" name="productNum" value="${productDTO.num}">
+					<div class="input-group">
+					  <span class="input-group-text">질문을 입력해주세요</span>
+					  <textarea class="form-control" name="contents"></textarea>
+					  <button class="btn btn-outline-secondary" type="submit">질문등록</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
 	</div>
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
