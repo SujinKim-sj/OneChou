@@ -20,7 +20,8 @@ public class ProductService {
 	@Autowired
 	private FileManager fileManager;
 	
-	public int add(ProductDTO productDTO, MultipartFile file) throws Exception {
+	public boolean add(ProductDTO productDTO, MultipartFile file) throws Exception {
+		boolean check = true;
 		
 		// PRODUCT 테이블에 데이터 삽입
 		int result = productDAO.add(productDTO);
@@ -39,6 +40,9 @@ public class ProductService {
 			productCupnoteDTO.setFeatureNum(productFeatureDTO.getNum());
 			int result3 = productDAO.addCupnote(productCupnoteDTO);
 			System.out.println(result3);
+			if (result3 < 1) {
+				check = false;
+			}
 		}
 		
 		// PRODUCTFILE 테이블에 데이터 삽입
@@ -57,9 +61,17 @@ public class ProductService {
 			productOptionDTO.setProductNum(productDTO.getNum());
 			int result5 = productDAO.addOption(productOptionDTO);
 			System.out.println(result5);
+			if (result5 < 1) {
+				check = false;
+			}
 		}
 		
-		return result;
+		
+		if(result < 1 && result2 < 1 && result4 < 1) {
+			check = false;
+		}
+		
+		return check;
 	}
 	
 	public List<ProductDTO> list(Pager pager) throws Exception {

@@ -9,54 +9,56 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-    <div class="container">
+	<c:import url="../template/header.jsp"></c:import>
+    <div class="container mt-5">
         <form action="./add" enctype="multipart/form-data" method="post">
         <!-- 나중에 주석 해제해야함 -->
 <%--         <input type="hidden" name="roasteryName" value="${roasteryDTO.name}">
         <input type="hidden" name="roasteryNum" value="${roasteryDTO.num}"> --%>
-        
-            <div class="text-center">
-                <h3>상품 기본정보 입력</h3>
-                <br>
+            
+            <div class="border border-2 rounded">
+                <div class="border-bottom border-2 text-center pt-3 pb-3">
+                    <h3>상품 기본정보 입력</h3>
+                </div>
                 <div class="row">
-                    <div class="col form-floating mb-3">
+                    <div class="col form-floating m-3">
                         <input type="text" class="form-control" id="name" name="name" placeholder="상품명입력">
                         <label for="name">&nbsp;&nbsp;상품명입력</label>
                     </div>
-                    <div class="col form-floating mb-3">
+                    <div class="col form-floating m-3">
                         <input type="text" class="form-control" id="price" name="price" placeholder="상품가격입력">
                         <label for="price">&nbsp;&nbsp;상품가격입력</label>
                     </div>
                 </div>
-                <br>
-                <div class="form-floating">
+                <div class="form-floating m-3">
                     <textarea class="form-control" placeholder="상품설명을 입력해주세요." id="info" style="height: 200px" name="info"></textarea>
                     <label for="info">상품설명을 입력해주세요</label>
                 </div>
-                <br>
-                <div class="input-group mb-3">
+                <div class="input-group p-3">
                     <input type="file" class="form-control" id="file" name="file">
                     <label class="input-group-text" for="files"> 로스터리 이미지 파일 등록 </label>
                 </div>
             </div>
-            <br>
-            <div class="text-center" id="options">
-                <!-- 나중에 지우기 만들기 -->
-                <!-- 상품옵션 추가버튼을 누르고, 입력폼만 추가한 다음 값을 입력하지 않고 등록하면 예외 발생-->
-                <!-- JS에서 이거 처리해야함, 입력폼만 추가하면 값을 꼭 입력하고 등록하게끔!-->
-                <h3>상품 옵션 추가</h3>
-                        <input type="hidden" name="optionNames" value="기본옵션">
-                        <input type="hidden" name="addPrices" value="0">
+            <div class="border border-2 rounded mt-5">
+                <div class="text-center pt-3 pb-3 border-bottom border-2">
+                    <h3>상품 옵션 추가</h3>
+                </div>
+                <div class="m-3" id="options">
+                    <!-- 나중에 지우기 만들기 -->
+                    <!-- 상품옵션 추가버튼을 누르고, 입력폼만 추가한 다음 값을 입력하지 않고 등록하면 예외 발생-->
+                    <!-- JS에서 이거 처리해야함, 입력폼만 추가하면 값을 꼭 입력하고 등록하게끔!-->
+                            <input type="hidden" name="optionNames" value="기본옵션">
+                            <input type="hidden" name="addPrices" value="0">
+                </div>
+                <div class="text-center mb-3">
+                    <button type="button" id="addBtn" class="btn btn-secondary">추가하기</button>
+                </div>
             </div>
-            <div class="text-center">
-                <button type="button" id="addBtn" class="btn btn-secondary">추가하기</button>
-            </div>
-            <br>
-            <div class="text-center">
-                <h3>상품 특성 선택</h3>
-                <br>
-                <ul class="list-group text-center">
+            <div class="border border-2 rounded mt-5">
+                <div class="border-bottom border-2 pt-3 pb-3 text-center">
+                    <h3>상품 특성 선택</h3>
+                </div>
+                <ul class="list-group text-center m-5">
                     <li class="list-group-item"> <h5>해당 상품의 컵노트를 골라주세요</h5></li>
                     <li class="list-group-item">
                         <select class="form-select" name="noteNames">
@@ -239,9 +241,7 @@
                         </select>
                     </li>
                 </ul>
-                <br>
-                <br>
-                <ul class="list-group text-center">
+                <ul class="list-group text-center m-5">
                     <li class="list-group-item"> <h5>해당 상품의 로스팅포인트를 골라주세요</h5></li>
                     <li class="list-group-item">
                         <input type="radio" class="btn-check" name="roastingPoint" value="1" id="light" autocomplete="off">
@@ -252,9 +252,7 @@
                         <label class="btn btn-outline-secondary" for="dark">다크 로스트</label>			
                     </li>
                 </ul>
-                <br>
-                <br>
-                <ul class="list-group text-center">
+                <ul class="list-group text-center m-5">
                     <li class="list-group-item"> <h5>해당 상품은 어느쪽에 가까운가요?</h5></li>
                     <li class="list-group-item">
                         <input type="radio" class="btn-check" name="flavor" value="1" id="acidity" autocomplete="off">
@@ -266,9 +264,8 @@
                     </li>
                 </ul>
             </div>
-            <br>
-            <div class="text-center">
-            <button type="submit" class="btn btn-secondary">등록하기</button>
+            <div class="mt-5 mb-5 text-center">
+                <button type="submit" class="btn btn-secondary">등록하기</button>
             </div>
         </form>
     </div>

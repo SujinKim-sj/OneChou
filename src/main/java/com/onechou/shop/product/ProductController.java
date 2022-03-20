@@ -26,7 +26,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String add(ProductDTO productDTO, MultipartFile file, String[] optionNames, String[] addPrices, ProductFeatureDTO productFeatureDTO, String[] noteNames) throws Exception {
+	public String add(ProductDTO productDTO, MultipartFile file, String[] optionNames, String[] addPrices, ProductFeatureDTO productFeatureDTO, String[] noteNames, Model model) throws Exception {
 		// 입력폼에서 받은 로스터리 번호, 이름이 productDTO에 담기게 됨, 알아서 INSERT하면 됨
 		
 		// 받은 옵션내용 + 가격들 DTO에 넣고 List에 담기
@@ -51,9 +51,19 @@ public class ProductController {
 		productDTO.setProductFeatureDTO(productFeatureDTO);
 		productDTO.setProductOptionDTOs(productOptionDTOs); 
 		
-		productService.add(productDTO, file);
+		boolean check = productService.add(productDTO, file);
 		
-		return "redirect:../";
+		String message = "정상적으로 등록되었습니다.";
+		String path = "../"; // 나중에 내 상품 리스트로 수정
+		
+		if (!check) {
+			message = "등록에 실패했습니다.";
+		}
+		
+		model.addAttribute("message", message);
+		model.addAttribute("path", path);
+		
+		return "common/result";
 	}
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)

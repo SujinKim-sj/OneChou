@@ -9,8 +9,8 @@
 		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
 			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM)
-		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, 1)
+		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME)
+		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, 1, 'roastery1')
 	</insert>
 	
 	<insert id="addFeature" parameterType="ProductFeatureDTO">

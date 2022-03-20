@@ -23,7 +23,7 @@
 						<div class="card-body">						
 						<h5 class="card-title">${productDTO.roasteryName}</h5>
 						<h5 class="card-title">${productDTO.name}</h5>
-						<p class="card-text">${productDTO.price}</p>
+						<p class="card-text">${productDTO.price}원</p>
 						<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
 						</div>
 					</div>
