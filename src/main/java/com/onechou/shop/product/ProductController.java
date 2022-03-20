@@ -32,10 +32,13 @@ public class ProductController {
 		// 받은 옵션내용 + 가격들 DTO에 넣고 List에 담기
 		List<ProductOptionDTO> productOptionDTOs = new ArrayList<ProductOptionDTO>();
 		for(int i=0;i<optionNames.length;i++) {
-			ProductOptionDTO productOptionDTO = new ProductOptionDTO();
-			productOptionDTO.setOptionName(optionNames[i]);
-			productOptionDTO.setAddPrice(Integer.parseInt(addPrices[i]));
-			productOptionDTOs.add(productOptionDTO);
+			// 사용자가 옵션추가버튼을 눌러놓고 값을 입력하지 않으면 발생하는 예외 처리
+			if(!addPrices[i].equals("") && !optionNames[i].equals("")) {
+				ProductOptionDTO productOptionDTO = new ProductOptionDTO();
+				productOptionDTO.setOptionName(optionNames[i]);
+				productOptionDTO.setAddPrice(Integer.parseInt(addPrices[i]));
+				productOptionDTOs.add(productOptionDTO);
+			}
 		}
 		
 		// 받은 컵노트들 DTO에 넣고 List에 담기
