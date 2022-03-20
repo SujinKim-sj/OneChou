@@ -181,12 +181,17 @@
 									<c:forEach begin="1" end="${qna.depth}">└───</c:forEach>
 									${qna.contents}</td>
 									<td>${qna.regDate}</td>
-									<c:if test="${qna.step==0}"> <!-- 답변에 답글은 못달게 함 -->
+									<c:choose> 
+										<c:when test="${qna.step==0}"> <!-- 답변에 답글은 못달게 함 -->
 										<!-- 나중에 로그인 한 사람만 보이도록 -->
-										<td><a class="btn btn-secondary" href="../qna/reply?num=${qna.num}">답글달기</a></td>
-									</c:if>
+											<td><a class="btn btn-secondary" href="../qna/reply?num=${qna.num}">답글달기</a></td>
+										</c:when>
+										<c:otherwise>
+											<td></td>
+										</c:otherwise>
+									</c:choose>
 									<!-- 나중에 작성자랑 로그인한 사람의 닉네임이랑 같다면 삭제버튼이 보이도록 -->
-									<td><a class="btn btn-secondary" href="../qna/delete?num=${qna.num}">삭제하기</a></td>
+									<td><a class="btn btn-secondary" href="../qna/delete?num=${qna.num}&productNum=${qna.productNum}">삭제하기</a></td>
 								  </tr>
 								</c:forEach>
 							</tbody>
@@ -195,8 +200,8 @@
 				</c:choose>
 				<form action="../qna/add" method="post">
 					<input type="hidden" name="productNum" value="${productDTO.num}">
-					<div class="input-group">
-					  <span class="input-group-text">질문을 입력해주세요</span>
+					<div class="input-group mt-5">
+					  <span class="input-group-text">질문이 있으신가요?</span>
 					  <textarea class="form-control" name="contents"></textarea>
 					  <button class="btn btn-outline-secondary" type="submit">질문등록</button>
 					</div>

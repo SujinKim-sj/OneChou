@@ -58,4 +58,24 @@ public class QnaController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public ModelAndView delete(QnaDTO qnaDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		int result = qnaService.delete(qnaDTO);
+		
+		String message = "질문 삭제에 성공했습니다.";
+		String path = "../product/detail?num="+qnaDTO.getProductNum();
+		
+		if(result<1) {
+			message = "질문 삭제에 실패했습니다.";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", path);
+		
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
 }

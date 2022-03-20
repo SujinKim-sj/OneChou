@@ -25,4 +25,13 @@
 		INSERT INTO QNA (NUM, CONTENTS, REGDATE, REF, STEP, DEPTH, MEMBERID, WRITER, PRODUCTNUM)
 		VALUES (QNA_SEQ.NEXTVAL, #{contents}, SYSDATE, #{ref}, #{step}, #{depth}, 'id1', 'nickname1', #{productNum})
 	</insert>
+	
+	<delete id="deleteAll" parameterType="QnaDTO">
+		DELETE QNA WHERE REF = #{num}
+	</delete>
+	
+	<delete id="deleteReply" parameterType="QnaDTO">
+		DELETE QNA WHERE NUM = #{num}
+	</delete>
+	
 </mapper>

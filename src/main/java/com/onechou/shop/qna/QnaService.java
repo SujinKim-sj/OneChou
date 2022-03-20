@@ -28,4 +28,19 @@ public class QnaService {
 		
 		return qnaDAO.reply(qnaDTO);
 	}
+	
+	public int delete(QnaDTO qnaDTO) throws Exception {
+		qnaDTO = qnaDAO.detail(qnaDTO);
+		
+		int result = 0;
+		
+		// 질문글이 부모글일 경우에는 답변글까지 삭제하도록
+		if(qnaDTO.getStep()==0) {
+			result = qnaDAO.deleteAll(qnaDTO);
+		} else { // 질문글이 답변글인 경우 그 글만 삭제하도록
+			result = qnaDAO.deleteReply(qnaDTO);
+		}
+		
+		return result;
+	}
 }

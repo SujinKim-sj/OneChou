@@ -27,4 +27,12 @@ public class QnaDAO {
 	public int reply(QnaDTO qnaDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"reply", qnaDTO);
 	}
+	
+	public int deleteAll(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"deleteAll", qnaDTO);
+	}
+	
+	public int deleteReply(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"deleteReply", qnaDTO);
+	}
 }
