@@ -21,11 +21,11 @@
 				<table class="table">
 					<tr>
 						<td>원두명</td>
-						<td colspan="5">${productDTO.name}</td>
+						<td colspan="3">${productDTO.name}</td>
 					</tr>
 					<tr>
 						<td>가격</td>
-						<td colspan="5">${productDTO.price}</td>
+						<td colspan="3">${productDTO.price}</td>
 					</tr>
 					<tr>
 						<td>컵노트</td>
@@ -37,13 +37,13 @@
 						<td>로스팅포인트</td>
 						<c:choose>
 							<c:when test="${productDTO.productFeatureDTO.roastingPoint==1}">
-								<td colspan="5">Light Roast</td>
+								<td colspan="3">Light Roast</td>
 							</c:when>
 							<c:when test="${productDTO.productFeatureDTO.roastingPoint==2}">
-								<td colspan="5">Medium Roast</td>
+								<td colspan="3">Medium Roast</td>
 							</c:when>
 							<c:otherwise>
-								<td colspan="5">Dark Roast</td>
+								<td colspan="3">Dark Roast</td>
 							</c:otherwise>
 						</c:choose>
 					</tr>
@@ -51,13 +51,13 @@
 						<td>향미</td>
 						<c:choose>
 							<c:when test="${productDTO.productFeatureDTO.flavor==1}">
-								<td colspan="5">산미 위주의 상큼한 커피</td>
+								<td colspan="3">산미 위주의 상큼한 커피</td>
 							</c:when>
 							<c:when test="${productDTO.productFeatureDTO.flavor==2}">
-								<td colspan="5">고소하면서 부드러운 커피</td>
+								<td colspan="3">고소하면서 부드러운 커피</td>
 							</c:when>
 							<c:otherwise>
-								<td colspan="5">묵직하면서 단맛이 잘 느껴지는 커피</td>
+								<td colspan="3">묵직하면서 단맛이 잘 느껴지는 커피</td>
 							</c:otherwise>
 						</c:choose>
 					</tr>
@@ -65,20 +65,20 @@
 						<td>리뷰별점</td>
 						<c:choose>
 							<c:when test="${empty productDTO.reviewDTOs}">
-								<td colspan="5">리뷰정보없음</td>
+								<td colspan="3">리뷰정보없음</td>
 							</c:when>
 							<c:otherwise>
-								<td colspan="5">${reviewAvg}</td>
+								<td colspan="3">${reviewAvg}</td>
 							</c:otherwise>
 						</c:choose>
 					</tr>
 					<tr>
 						<td>로스터리</td>
-						<td colspan="5"><a class="link-secondary" href="../roastery/detail?num=${productDTO.roasteryNum}">${productDTO.roasteryName}</a></td>
+						<td colspan="3"><a class="link-secondary" href="../roastery/detail?num=${productDTO.roasteryNum}">${productDTO.roasteryName}</a></td>
 					</tr>
 					<tr>
 						<td>상품옵션</td>
-						<td colspan="5">
+						<td colspan="3">
 							<select class="form-select">
 								<option selected>상품 옵션을 골라주세요</option>
 									<c:forEach items="${productDTO.productOptionDTOs}" var="productOption">
@@ -89,7 +89,7 @@
 					</tr>
 					<tr>
 						<td>상품수량</td>
-						<td colspan="5">
+						<td colspan="3">
 							<select class="form-select">
 								<option selected>상품 수량을 골라주세요</option>
 								<option value="1">1</option>

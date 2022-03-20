@@ -11,7 +11,7 @@
 <body>
 	<c:import url="../template/header.jsp"></c:import>
     <div class="container mt-5">
-        <form action="./add" enctype="multipart/form-data" method="post">
+        <form action="./add" id="frm" enctype="multipart/form-data" method="post">
         <!-- 나중에 주석 해제해야함 -->
 <%--         <input type="hidden" name="roasteryName" value="${roasteryDTO.name}">
         <input type="hidden" name="roasteryNum" value="${roasteryDTO.num}"> --%>
@@ -61,8 +61,8 @@
                 <ul class="list-group text-center m-5">
                     <li class="list-group-item"> <h5>해당 상품의 컵노트를 골라주세요</h5></li>
                     <li class="list-group-item">
-                        <select class="form-select" name="noteNames">
-                            <option selected>첫 번째 컵노트 선택</option>
+                        <select class="form-select" id="cupnote1" name="noteNames">
+                            <option value="no" selected>첫 번째 컵노트 선택</option>
                             <option value="chamomile">카모마일</option>
                             <option value="jasmine">자스민</option>
                             <option value="blackberry">블랙베리</option>
@@ -97,8 +97,8 @@
                         </select>
                     </li>
                     <li class="list-group-item">
-                        <select class="form-select" name="noteNames">
-                            <option selected>두 번째 컵노트 선택</option>
+                        <select class="form-select" id="cupnote2" name="noteNames">
+                            <option value="no" selected>두 번째 컵노트 선택</option>
                             <option value="chamomile">카모마일</option>
                             <option value="jasmine">자스민</option>
                             <option value="blackberry">블랙베리</option>
@@ -133,80 +133,8 @@
                         </select>
                     </li>
                     <li class="list-group-item">
-                        <select class="form-select" name="noteNames">
-                            <option selected>세 번째 컵노트 선택</option>
-                            <option value="chamomile">카모마일</option>
-                            <option value="jasmine">자스민</option>
-                            <option value="blackberry">블랙베리</option>
-                            <option value="raspberry">라즈베리</option>
-                            <option value="strawberry">딸기</option>
-                            <option value="raisin">건포도</option>
-                            <option value="prune">자두</option>
-                            <option value="coconut">코코넛</option>
-                            <option value="cherry">체리</option>
-                            <option value="pomegranate">석류</option>
-                            <option value="pineapple">파인애플</option>
-                            <option value="grape">포도</option>
-                            <option value="apple">사과</option>
-                            <option value="peach">복숭아</option>
-                            <option value="pear">배</option>
-                            <option value="grapefruit">자몽</option>
-                            <option value="orange">오렌지</option>
-                            <option value="lemon">레몬</option>
-                            <option value="lime">라임</option>
-                            <option value="wine">와인</option>
-                            <option value="whiskey">위스키</option>
-                            <option value="herb">허브</option>
-                            <option value="cinnamon">시나몬</option>
-                            <option value="peanut">땅콩</option>
-                            <option value="hazelnut">헤이즐넛</option>
-                            <option value="almond">아몬드</option>
-                            <option value="milkchocolate">밀크초콜릿</option>
-                            <option value="darkchocolate">다크초콜릿</option>
-                            <option value="maple">메이플시럽</option>
-                            <option value="caramel">카라멜</option>
-                            <option value="honey">꿀</option>
-                        </select>
-                    </li>
-                    <li class="list-group-item">
-                        <select class="form-select" name="noteNames">
-                            <option selected>네 번째 컵노트 선택</option>
-                            <option value="chamomile">카모마일</option>
-                            <option value="jasmine">자스민</option>
-                            <option value="blackberry">블랙베리</option>
-                            <option value="raspberry">라즈베리</option>
-                            <option value="strawberry">딸기</option>
-                            <option value="raisin">건포도</option>
-                            <option value="prune">자두</option>
-                            <option value="coconut">코코넛</option>
-                            <option value="cherry">체리</option>
-                            <option value="pomegranate">석류</option>
-                            <option value="pineapple">파인애플</option>
-                            <option value="grape">포도</option>
-                            <option value="apple">사과</option>
-                            <option value="peach">복숭아</option>
-                            <option value="pear">배</option>
-                            <option value="grapefruit">자몽</option>
-                            <option value="orange">오렌지</option>
-                            <option value="lemon">레몬</option>
-                            <option value="lime">라임</option>
-                            <option value="wine">와인</option>
-                            <option value="whiskey">위스키</option>
-                            <option value="herb">허브</option>
-                            <option value="cinnamon">시나몬</option>
-                            <option value="peanut">땅콩</option>
-                            <option value="hazelnut">헤이즐넛</option>
-                            <option value="almond">아몬드</option>
-                            <option value="milkchocolate">밀크초콜릿</option>
-                            <option value="darkchocolate">다크초콜릿</option>
-                            <option value="maple">메이플시럽</option>
-                            <option value="caramel">카라멜</option>
-                            <option value="honey">꿀</option>
-                        </select>
-                    </li>
-                    <li class="list-group-item">
-                        <select class="form-select" name="noteNames">
-                            <option selected>다섯 번째 컵노트 선택</option>
+                        <select class="form-select" id="cupnote3" name="noteNames">
+                            <option value="no" selected>세 번째 컵노트 선택</option>
                             <option value="chamomile">카모마일</option>
                             <option value="jasmine">자스민</option>
                             <option value="blackberry">블랙베리</option>
@@ -242,30 +170,30 @@
                     </li>
                 </ul>
                 <ul class="list-group text-center m-5">
-                    <li class="list-group-item"> <h5>해당 상품의 로스팅포인트를 골라주세요</h5></li>
+                    <li class="list-group-item"><h5>해당 상품의 로스팅포인트를 골라주세요</h5></li>
                     <li class="list-group-item">
-                        <input type="radio" class="btn-check" name="roastingPoint" value="1" id="light" autocomplete="off">
+                        <input type="radio" class="btn-check roasting" name="roastingPoint" value="1" id="light" autocomplete="off">
                         <label class="btn btn-outline-warning" for="light">라이트 로스트</label>			
-                        <input type="radio" class="btn-check" name="roastingPoint" value="2" id="medium" autocomplete="off">
+                        <input type="radio" class="btn-check roasting" name="roastingPoint" value="2" id="medium" autocomplete="off">
                         <label class="btn btn-outline-success" for="medium">미디엄 로스트</label>			
-                        <input type="radio" class="btn-check" name="roastingPoint" value="3" id="dark" autocomplete="off">
+                        <input type="radio" class="btn-check roasting" name="roastingPoint" value="3" id="dark" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="dark">다크 로스트</label>			
                     </li>
                 </ul>
                 <ul class="list-group text-center m-5">
-                    <li class="list-group-item"> <h5>해당 상품은 어느쪽에 가까운가요?</h5></li>
+                    <li class="list-group-item"><h5>해당 상품은 어느쪽에 가까운가요?</h5></li>
                     <li class="list-group-item">
-                        <input type="radio" class="btn-check" name="flavor" value="1" id="acidity" autocomplete="off">
+                        <input type="radio" class="btn-check flavor" name="flavor" value="1" id="acidity" autocomplete="off">
                         <label class="btn btn-outline-warning" for="acidity">산미 위주의 상큼한 커피</label>			
-                        <input type="radio" class="btn-check" name="flavor" value="2" id="nutty" autocomplete="off">
+                        <input type="radio" class="btn-check flavor" name="flavor" value="2" id="nutty" autocomplete="off">
                         <label class="btn btn-outline-success" for="nutty">고소하면서 부드러운 커피</label>			
-                        <input type="radio" class="btn-check" name="flavor" value="3" id="sweet" autocomplete="off">
+                        <input type="radio" class="btn-check flavor" name="flavor" value="3" id="sweet" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="sweet">묵직하면서 단맛이 잘 느껴지는 커피</label>					
                     </li>
                 </ul>
             </div>
             <div class="mt-5 mb-5 text-center">
-                <button type="submit" class="btn btn-secondary">등록하기</button>
+                <button type="button" id="regBtn" class="btn btn-secondary">등록하기</button>
             </div>
         </form>
     </div>
