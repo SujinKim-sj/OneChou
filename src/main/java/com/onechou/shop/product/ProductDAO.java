@@ -6,8 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.qna.QnaDTO;
 import com.onechou.shop.review.ReviewDTO;
+import com.onechou.shop.roastery.RoasteryDTO;
 import com.onechou.shop.util.Pager;
 
 @Repository
@@ -17,6 +19,10 @@ public class ProductDAO {
 	private SqlSession sqlSession;
 	
 	private final String NAMESPACE = "com.onechou.shop.product.ProductDAO.";
+	
+	public RoasteryDTO searchRoastery(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"searchRoastery", memberDTO);
+	}
 	
 	public int add(ProductDTO productDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"add", productDTO);

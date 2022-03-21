@@ -12,10 +12,8 @@
 	<c:import url="../template/header.jsp"></c:import>
     <div class="container mt-5">
         <form action="./add" id="frm" enctype="multipart/form-data" method="post">
-        <!-- 나중에 주석 해제해야함 -->
-<%--         <input type="hidden" name="roasteryName" value="${roasteryDTO.name}">
-        <input type="hidden" name="roasteryNum" value="${roasteryDTO.num}"> --%>
-            
+	        <input type="hidden" name="roasteryName" value="${roasteryDTO.name}">
+	        <input type="hidden" name="roasteryNum" value="${roasteryDTO.num}">            
             <div class="border border-2 rounded">
                 <div class="border-bottom border-2 text-center pt-3 pb-3">
                     <h3>상품 기본정보 입력</h3>

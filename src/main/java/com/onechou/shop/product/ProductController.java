@@ -3,6 +3,8 @@ package com.onechou.shop.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.review.ReviewDTO;
+import com.onechou.shop.roastery.RoasteryDTO;
 import com.onechou.shop.util.Pager;
 
 @Controller
@@ -21,8 +25,14 @@ public class ProductController {
 	private ProductService productService;
 	
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public void add() throws Exception {
-		// 여기서 회원 ID를 통해 로스터리 번호, 로스터리이름을 조회해서 Attribute로 담아서 입력폼으로 넘겨줌 (나중에 할것!!)
+	public void add(HttpSession session, Model model) throws Exception {
+		// 여기서 회원 ID를 통해 로스터리 번호, 로스터리이름을 조회해서 Attribute로 담아서 입력폼으로 넘겨줌
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		
+		RoasteryDTO roasteryDTO = productService.searchRoastery(memberDTO);
+		
+		model.addAttribute("roasteryDTO", roasteryDTO);
+		
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)

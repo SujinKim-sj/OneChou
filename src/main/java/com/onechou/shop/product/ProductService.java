@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.qna.QnaDTO;
 import com.onechou.shop.review.ReviewDTO;
+import com.onechou.shop.roastery.RoasteryDTO;
 import com.onechou.shop.util.FileManager;
 import com.onechou.shop.util.Pager;
 
@@ -19,6 +21,10 @@ public class ProductService {
 	
 	@Autowired
 	private FileManager fileManager;
+	
+	public RoasteryDTO searchRoastery(MemberDTO memberDTO) throws Exception {
+		return productDAO.searchRoastery(memberDTO);
+	}
 	
 	public boolean add(ProductDTO productDTO, MultipartFile file) throws Exception {
 		boolean check = true;
