@@ -203,6 +203,8 @@
 					</c:otherwise>
 				</c:choose>
 				<form action="../qna/add" method="post">
+					<input type="hidden" name="memberId" value="${member.id}">
+					<input type="hidden" name="writer" value="${member.nickname}">
 					<input type="hidden" name="productNum" value="${productDTO.num}">
 					<div class="input-group mt-5">
 					  <span class="input-group-text">질문이 있으신가요?</span>
