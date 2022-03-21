@@ -27,7 +27,7 @@ rules.addEventListener("click",function(){
 
 btn.onclick = function(){
 	if(checkAll.checked){
-		location.href='./join';
+		location.href='./kindSelect';
 	}
 	else{
 		alert("약관에 동의해주세요.");

@@ -71,16 +71,36 @@ public class MemberController {
 		return "member/join";
 	}
 	@RequestMapping(value = "join",method = RequestMethod.POST)
-	public String join(MemberDTO memberDTO) throws Exception {
+	public String join(MemberDTO memberDTO, Model model,HttpSession session) throws Exception {
 		int result = memberService.join(memberDTO);
+		String message = "join Fail";
+		String p = "./join";
 		
-		return "redirect:../";
+		if(result>0) {
+			Long kind = memberDTO.getKind();
+			session.setAttribute("member", memberDTO);
+			message = "join Success";
+			if(kind>1) {
+				p = "./favorite/add";				
+			}else {
+				p = "./roastery/add";
+			}
+		}
+		
+		model.addAttribute("message", message);
+		model.addAttribute("path", p);
+		String path = "common/result";
+		return path;
 	}
 	
 	
 	@RequestMapping(value = "joinCheck", method = RequestMethod.GET)
 	public String joinCheck() throws Exception{
 		return "member/joinCheck";
+	}
+	
+	@RequestMapping(value = "kindSelect", method = RequestMethod.GET)
+	public void kindSelect()throws Exception{
 	}
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)

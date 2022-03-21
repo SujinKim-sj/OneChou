@@ -44,13 +44,8 @@
 			<legend>address</legend>
 			<input type="text" name="address" id="address">
 		</fieldset>
-		
-		<fieldset>
-			일반 회원
-			<input type="radio" name="kind" value="2">
-			로스터리 회원
-			<input type="radio" name="kind" value="1">
-		</fieldset>
+		<input type="hidden" name="kind" value="${kind}">
+
 		
 		<button id="btn" type="button">회원가입</button>
 	</form>

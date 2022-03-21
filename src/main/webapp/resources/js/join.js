@@ -9,7 +9,6 @@ const nickname = document.getElementById("nickname");
 const email = document.getElementById("email");
 const phone = document.getElementById("phone");
 const address = document.getElementById("address");
-const kind = document.getElementById("kind");
 const btn = document.getElementById("btn");
 const frm = document.getElementById("frm");
 
@@ -21,7 +20,6 @@ let nicknameCheck=false;
 let emailCheck=false;
 let phoneCheck=false;
 let addressCheck=false;
-let kindCheck=false;
 
 
 id.addEventListener("blur",function(){
@@ -106,17 +104,13 @@ address.addEventListener("blur",function(){
 		addressCheck=false;
 	}
 })
-kind.addEventListener("blur",function(){
-	if(kind.value>0){
-		kindCheck=true;
-	}
-	else{
-		kindCheck=false;
-	}
-})
+
+
+
+
 
 btn.addEventListener("click",function(){
-	if(idCheck&&pwCheck&&pw2Check&&nameCheck&&nicknameCheck&&emailCheck&&phoneCheck&&addressCheck&&kindCheck){
+	if(idCheck&&pwCheck&&pw2Check&&nameCheck&&nicknameCheck&&emailCheck&&phoneCheck&&addressCheck){
 		frm.submit();
 	}
 	else if(idCheck==false){
@@ -151,9 +145,7 @@ btn.addEventListener("click",function(){
 		alert("주소를 확인해주세요.");
 		address.focus=true;
 	}
-	else if(kindCheck==false){
-		alert("회원 종류를 선택하세요.");
-	}
+
 })
 
 
