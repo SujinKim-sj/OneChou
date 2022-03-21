@@ -1,6 +1,7 @@
 package com.onechou.shop.member;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -67,7 +68,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="join", method = RequestMethod.GET)
-	public String join() {
+	public String join(HttpSession session,Long kind) {
+		session.setAttribute("kind", kind);
 		return "member/join";
 	}
 	@RequestMapping(value = "join",method = RequestMethod.POST)

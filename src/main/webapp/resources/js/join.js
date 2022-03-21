@@ -11,6 +11,7 @@ const phone = document.getElementById("phone");
 const address = document.getElementById("address");
 const btn = document.getElementById("btn");
 const frm = document.getElementById("frm");
+const kind = document.getElementsByName("kind");
 
 let idCheck=false;
 let pwCheck=false;
@@ -110,6 +111,7 @@ address.addEventListener("blur",function(){
 
 
 btn.addEventListener("click",function(){
+	
 	if(idCheck&&pwCheck&&pw2Check&&nameCheck&&nicknameCheck&&emailCheck&&phoneCheck&&addressCheck){
 		frm.submit();
 	}
