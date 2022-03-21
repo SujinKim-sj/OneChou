@@ -18,6 +18,6 @@
 	<button type="button" id="btn">선택</button>
 	</form>
 
-	<script src="../resources/js/kindSelect.js"></script>
+	<script src="../resources/js/member/kindSelect.js"></script>
 </body>
 </html>

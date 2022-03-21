@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+	<option value='chamomile'>chamomile</option>
+	<option value='jasmine'>jasmine</option>
+	<option value='blackberry'>blackberry</option>
+	<option value='raspberry'>raspberry</option>
+	<option value='strawberry'>strawberry</option>
+	<option value='raisin'>raisin</option>
+	<option value='prune'>prune</option>
+	<option value='coconut'>coconut</option>
+	<option value='cherry'>cherry</option>
+	<option value='pomegranate'>pomegranate</option>
+	<option value='pineapple'>pineapple</option>
+	<option value='grape'>grape</option>
+	<option value='apple'>apple</option>
+	<option value='peach'>peach</option>
+	<option value='pear'>pear</option>
+	<option value='grapefruit'>grapefruit</option>
+	<option value='orange'>orange</option>
+	<option value='lemon'>lemon</option>
+	<option value='lime'>lime</option>
+	<option value='wine'>wine</option>
+	<option value='whiskey'>whiskey</option>
+	<option value='herb'>herb</option>
+	<option value='cinnamon'>cinnamon</option>
+	<option value='peanut'>peanut</option>
+	<option value='hazelnut'>hazelnut</option>
+	<option value='almond'>almond</option>
+	<option value='milkchocolate'>milkchocolate</option>
+	<option value='darkchocolate'>darkchocolate</option>
+	<option value='maple'>maple</option>
+	<option value='caramel'>caramel</option>
+	<option value='honey'>honey</option>

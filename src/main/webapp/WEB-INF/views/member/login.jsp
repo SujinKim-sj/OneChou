@@ -28,7 +28,7 @@
 			<button type="submit">LOGIN</button>			
 			
 		</form>
-			
+			<script src="../resources/js/member/login.js"></script>
 	</div>
 </body>
 </html>

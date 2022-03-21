@@ -49,6 +49,6 @@
 		<button id="btn" type="button">회원가입</button>
 	</form>
 	
-	<script src="../resources/js/join.js"></script>
+	<script src="../resources/js/member/join.js"></script>
 </body>
 </html>

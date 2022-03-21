@@ -9,6 +9,8 @@
   		<typeAlias type="java.util.List" alias="List"/>
   		<!-- 추가 예정 -->
   		<typeAlias type="com.onechou.shop.member.MemberDTO" alias="MemberDTO"/>
+  		<typeAlias type="com.onechou.shop.favorite.FavoriteDTO" alias="FavoriteDTO"/>
+  		<typeAlias type="com.onechou.shop.favorite.CupnoteDTO" alias="CupnoteDTO"/>
   	</typeAliases>
 
   </configuration> 
