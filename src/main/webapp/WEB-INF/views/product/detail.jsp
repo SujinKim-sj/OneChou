@@ -76,38 +76,51 @@
 						<td>로스터리</td>
 						<td colspan="3"><a class="link-secondary" href="../roastery/detail?num=${productDTO.roasteryNum}">${productDTO.roasteryName}</a></td>
 					</tr>
+					<form action="../cart/add" id="cartFrm" method="post">
+						<input type="hidden" name="productNum" value="${productDTO.num}">
+						<input type="hidden" name="memberId" value="${member.id}">
+						
+						<input type="hidden" disabled id="price" value="${productDTO.price}">
+						
+						<input type="hidden" name="perPrice" id="perPrice">
+						<tr>
+							<td>상품옵션</td>
+							<td colspan="3">
+								<select class="form-select" name="optionNum" id="optionNum">
+									<option value="no" selected>상품 옵션을 골라주세요</option>
+										<c:forEach items="${productDTO.productOptionDTOs}" var="productOption">
+											<option class="options" value="${productOption.num}">옵션명 : ${productOption.optionName}&nbsp;옵션가격 : ${productOption.addPrice}</option>									
+										</c:forEach>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>상품수량</td>
+							<td colspan="3">
+								<select class="form-select" name="amount" id="amount">
+									<option value="no" selected>상품 수량을 골라주세요</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							</td>
+						</tr>
+					</form>
 					<tr>
-						<td>상품옵션</td>
-						<td colspan="3">
-							<select class="form-select">
-								<option selected>상품 옵션을 골라주세요</option>
-									<c:forEach items="${productDTO.productOptionDTOs}" var="productOption">
-										<option value="${productOption.num}">옵션명 : ${productOption.optionName}&nbsp;옵션가격 : ${productOption.addPrice}</option>									
-									</c:forEach>
-							 </select>
-						</td>
-					</tr>
-					<tr>
-						<td>상품수량</td>
-						<td colspan="3">
-							<select class="form-select">
-								<option selected>상품 수량을 골라주세요</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-							</select>
-						</td>
+						<td colspan="2" id="showOption"></td>
+						<td colspan="1" id="showAmount"></td>
+						<td colspan="1" id="showPerPrice"></td>
 					</tr>
 				</table>
 				<div class="d-flex justify-content-between mb-3">
-					<button class="btn btn-secondary" type="button">장바구니담기</button>
+					<button class="btn btn-secondary" id="cartBtn" type="button">장바구니담기</button>
 					<button class="btn btn-secondary" type="button">바로구매하기</button>
 				</div>
 			</div>	
@@ -217,6 +230,7 @@
 
 	</div>
 	
+	<script src="../resources/js/product/detail.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
