@@ -4,10 +4,12 @@ const options = document.querySelectorAll('.options'); // option을 담고있는
 const amount = document.querySelector('#amount'); // 상품수량을 담고있는 select 태그
 const price = document.querySelector('#price'); // 해당 상품의 가격정보를 담고있는 input태그
 const perPrice = document.querySelector('#perPrice'); // 최종적으로 value 속성에 담아야 할 가격 input태그
+const memberId = document.querySelector('#memberId');
+const productNum = document.querySelector('#productNum');
 
 const showOption = document.querySelector('#showOption'); // 선택한 옵션을 보여주기 위함
 const showAmount = document.querySelector('#showAmount'); // 선택한 수량을 보여주기 위함
-const showPerPrice = document.querySelector('#showPerPrice');
+const showPerPrice = document.querySelector('#showPerPrice'); // 최종 가격을 보여주기 위함
 
 let productPrice = 0; // 상품가격 + 옵션가격
 let perPriceResult = 0; // (상품가격 + 옵션가격) * 상품수량 -> 최종적으로 파라미터로 넘겨야 할 값
@@ -81,7 +83,33 @@ amount.addEventListener("change", function() {
 
 cartBtn.addEventListener("click", function(){
     if(optionCheck && amountCheck) {
-        cartFrm.submit();
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "../cart/add");
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send("amount="+amount.value+"&perPrice="+perPrice.value+"&memberId="+memberId.value+"&productNum="+productNum.value+"&optionNum="+optionNum.value);
+
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let result = this.response.trim();
+                if(result == '1') {
+                    if(confirm('장바구니에 등록되었습니다.\n 장바구니로 이동하시겠습니까?')) {
+                        window.location.href="../cart/list";
+                    }
+                } else {
+                    alert('장바구니 등록에 실패했습니다. \n 다시 시도해 주세요.');
+                }
+            }
+        }
+
+        optionCheck = false;
+        amountCheck = false;
+        showOption.innerHTML = "";
+        showAmount.innerHTML = "";
+        showPerPrice.innerHTML = "";
+
     } else if(!optionCheck) {
         alert("상품 옵션을 확인하세요.");
         optionNum.focus();

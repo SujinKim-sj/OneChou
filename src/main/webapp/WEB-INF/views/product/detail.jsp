@@ -77,8 +77,8 @@
 						<td colspan="3"><a class="link-secondary" href="../roastery/detail?num=${productDTO.roasteryNum}">${productDTO.roasteryName}</a></td>
 					</tr>
 					<form action="../cart/add" id="cartFrm" method="post">
-						<input type="hidden" name="productNum" value="${productDTO.num}">
-						<input type="hidden" name="memberId" value="${member.id}">
+						<input type="hidden" name="productNum" id="productNum" value="${productDTO.num}">
+						<input type="hidden" name="memberId" id="memberId" value="${member.id}">
 						
 						<input type="hidden" disabled id="price" value="${productDTO.price}">
 						
