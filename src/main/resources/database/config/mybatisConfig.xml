@@ -6,9 +6,23 @@
   <configuration>
   	<typeAliases>
   		<typeAlias type="java.lang.Long" alias="Long"/>
+  		<typeAlias type="java.lang.Double" alias="Double"/>
   		<typeAlias type="java.util.List" alias="List"/>
   		<!-- 추가 예정 -->
+
   		<typeAlias type="com.onechou.shop.member.MemberDTO" alias="MemberDTO"/>
+	
+  		<typeAlias type="com.onechou.shop.product.ProductDTO" alias="ProductDTO"/>
+  		<typeAlias type="com.onechou.shop.product.ProductFeatureDTO" alias="ProductFeatureDTO"/>
+  		<typeAlias type="com.onechou.shop.product.ProductCupnoteDTO" alias="ProductCupnoteDTO"/>
+  		<typeAlias type="com.onechou.shop.product.ProductFileDTO" alias="ProductFileDTO"/>
+  		<typeAlias type="com.onechou.shop.product.ProductOptionDTO" alias="ProductOptionDTO"/>
+  		<typeAlias type="com.onechou.shop.review.ReviewDTO" alias="ReviewDTO"/>
+  		<typeAlias type="com.onechou.shop.qna.QnaDTO" alias="QnaDTO"/>
+
+  		<typeAlias type="com.onechou.shop.util.Pager" alias="Pager"/>
+  		
+  
   	</typeAliases>
 
   </configuration> 

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.onechou.shop.product.ProductDAO">
+
+	<insert id="add" parameterType="ProductDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME)
+		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, 1, 'roastery1')
+	</insert>
+	
+	<insert id="addFeature" parameterType="ProductFeatureDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT PRODUCTFEATURE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCTFEATURE (NUM, ROASTINGPOINT, FLAVOR, PRODUCTNUM)
+		VALUES (#{num}, #{roastingPoint}, #{flavor}, #{productNum})
+	</insert>
+	
+	<insert id="addCupnote" parameterType="ProductCupnoteDTO">
+		INSERT INTO PRODUCTCUPNOTE (NUM, NOTENAME, FEATURENUM)
+		VALUES (PRODUCTCUPNOTE_SEQ.NEXTVAL, #{noteName}, #{featureNum})
+	</insert>
+	
+	<insert id="addFile" parameterType="ProductFileDTO">
+		INSERT INTO PRODUCTFILE (FILENUM, FILENAME, ORINAME, PRODUCTNUM)
+		VALUES (PRODUCTFILE_SEQ.NEXTVAL, #{fileName}, #{oriName}, #{productNum})
+	</insert>
+	
+	<insert id="addOption" parameterType="ProductOptionDTO">
+		INSERT INTO PRODUCTOPTION (NUM, OPTIONNAME, ADDPRICE, PRODUCTNUM)
+		VALUES (PRODUCTOPTION_SEQ.NEXTVAL, #{optionName}, #{addPrice}, #{productNum})
+	</insert>
+	
+	<!-- 아직 검색조건은 넣지 않음 -->
+	<select id="list" parameterType="Pager" resultMap="listResult">
+		SELECT * 
+		FROM (SELECT ROWNUM R, B.* 
+		      FROM (SELECT A.NUM, A.NAME, A.PRICE, A.ROASTERYNAME, B.FILENAME 
+		            FROM PRODUCT A
+		            JOIN PRODUCTFILE B
+		            ON A.NUM = B.PRODUCTNUM
+		            WHERE A.NUM > 0
+		            AND
+		            <choose>
+		            	<when test="kind=='col2'">
+		            		ROASTERYNAME
+		            	</when>
+		            	<otherwise>
+		            		NAME
+		            	</otherwise>
+		            </choose>
+		            LIKE '%' || #{search} || '%' 
+		            ORDER BY NUM DESC) B)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<resultMap type="ProductDTO" id="listResult">
+		<id column="num" property="num"/>
+		<result column="name" property="name" />
+		<result column="price" property="price" />
+		<result column="roasteryName" property="roasteryName"/>
+		
+		<association property="productFileDTO" javaType="ProductFileDTO">
+			<id column="filenum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+		</association>
+	</resultMap>
+	
+	<select id="getTotal" parameterType="Pager" resultType="Long">
+		SELECT COUNT(NUM) FROM PRODUCT
+		WHERE NUM > 0
+		AND 		            
+		<choose>
+			<when test="kind=='col2'">
+           		ROASTERYNAME
+           	</when>
+           	<otherwise>
+           		NAME
+           	</otherwise>
+        </choose> 
+        LIKE '%' || #{search} || '%'
+	</select>
+
+	<!-- 상품, 특성, 컵노트, 파일까지만 -->	
+	<select id="detailBasic" parameterType="ProductDTO" resultMap="detailBasicResult">
+		SELECT A.*, B.FLAVOR, B.ROASTINGPOINT, C.NOTENAME, D.FILENAME, D.ORINAME
+		FROM PRODUCT A
+		JOIN PRODUCTFEATURE B
+		ON A.NUM = B.PRODUCTNUM
+		JOIN PRODUCTCUPNOTE C
+		ON B.NUM = C.FEATURENUM
+		JOIN PRODUCTFILE D
+		ON A.NUM = D.PRODUCTNUM
+		WHERE A.NUM = #{num}
+	</select>
+	
+	<resultMap type="ProductDTO" id="detailBasicResult">
+		<id column="num" property="num"/>
+		<result column="name" property="name"/>
+		<result column="info" property="info"/>
+		<result column="price" property="price"/>
+		<result column="purchase" property="purchase"/>
+		<result column="regDate" property="regDate"/>
+		<result column="roasteryNum" property="roasteryNum"/>
+		<result column="roasteryName" property="roasteryName"/>
+		
+		<association property="productFeatureDTO" javaType="ProductFeatureDTO">
+			<result column="flavor" property="flavor"/>
+			<result column="roastingPoint" property="roastingPoint"/>
+			<collection property="productCupnoteDTOs" javaType="List" ofType="ProductCupnoteDTO">
+				<result column="noteName" property="noteName"/>
+			</collection>
+		</association>
+		
+		<association property="productFileDTO" javaType="ProductFileDTO">
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</association>
+	</resultMap>
+	
+	<!-- 상품 옵션 가져오기 -->
+	<select id="detailOption" parameterType="ProductDTO" resultType="ProductOptionDTO">
+		SELECT * FROM PRODUCTOPTION WHERE PRODUCTNUM = #{num}
+		ORDER BY NUM ASC
+	</select>
+	
+	<!-- 상품 리뷰 가져오기 -->
+	<select id="detailReview" parameterType="ProductDTO" resultType="ReviewDTO">
+		SELECT * FROM REVIEW WHERE PRODUCTNUM = #{num}
+	</select>
+	
+	<!-- 리뷰 별점 평균 구하기 -->
+	<select id="getReviewAvg" parameterType="productDTO" resultType="Double">
+		SELECT AVG(RATING) FROM REVIEW WHERE PRODUCTNUM = #{num}
+	</select>
+	
+	<!-- 상품 qna 가져오기 -->
+	<select id="detailQna" parameterType="ProductDTO" resultType="QnaDTO">
+		SELECT * FROM QNA WHERE PRODUCTNUM = #{num} ORDER BY REF DESC, STEP ASC
+	</select>
+	
+</mapper>
