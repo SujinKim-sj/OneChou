@@ -79,7 +79,7 @@
 					<form action="../cart/add" id="cartFrm" method="post">
 						<input type="hidden" name="productNum" id="productNum" value="${productDTO.num}">
 						<input type="hidden" name="memberId" id="memberId" value="${member.id}">
-						
+						<input type="hidden" desabled id="deliveryFee" value="${productDTO.deliveryFee}">
 						<input type="hidden" disabled id="price" value="${productDTO.price}">
 						
 						<input type="hidden" name="perPrice" id="perPrice">
@@ -113,6 +113,10 @@
 							</td>
 						</tr>
 					</form>
+					<tr>
+						<td>배송비</td>
+						<td colspan="3">${productDTO.deliveryFee}원</td>
+					</tr>
 					<tr>
 						<td colspan="2" id="showOption"></td>
 						<td colspan="1" id="showAmount"></td>

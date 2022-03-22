@@ -27,6 +27,10 @@
                         <input type="number" class="form-control" id="price" name="price" placeholder="상품가격입력">
                         <label for="price">&nbsp;&nbsp;상품가격입력</label>
                     </div>
+                    <div class="col form-floating m-3">
+                        <input type="number" class="form-control" id="deliveryFee" name="deliveryFee" placeholder="배송비입력">
+                        <label for="price">&nbsp;&nbsp;배송비입력</label>
+                    </div>
                 </div>
                 <div class="form-floating m-3">
                     <textarea class="form-control" placeholder="상품설명을 입력해주세요." id="info" style="height: 200px" name="info"></textarea>

@@ -16,6 +16,7 @@ public class ProductDTO {
 	private Date regDate;
 	private Long roasteryNum;
 	private String roasteryName;
+	private Integer deliveryFee;
 	
 	private ProductFileDTO productFileDTO;
 	private ProductFeatureDTO productFeatureDTO;
@@ -70,6 +71,12 @@ public class ProductDTO {
 	}
 	public void setRoasteryName(String roasteryName) {
 		this.roasteryName = roasteryName;
+	}
+	public Integer getDeliveryFee() {
+		return deliveryFee;
+	}
+	public void setDeliveryFee(Integer deliveryFee) {
+		this.deliveryFee = deliveryFee;
 	}
 	public ProductFileDTO getProductFileDTO() {
 		return productFileDTO;

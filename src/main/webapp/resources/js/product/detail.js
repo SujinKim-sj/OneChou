@@ -6,6 +6,7 @@ const price = document.querySelector('#price'); // 해당 상품의 가격정보
 const perPrice = document.querySelector('#perPrice'); // 최종적으로 value 속성에 담아야 할 가격 input태그
 const memberId = document.querySelector('#memberId');
 const productNum = document.querySelector('#productNum');
+const deliveryFee = document.querySelector('#deliveryFee');
 
 const showOption = document.querySelector('#showOption'); // 선택한 옵션을 보여주기 위함
 const showAmount = document.querySelector('#showAmount'); // 선택한 수량을 보여주기 위함
@@ -51,7 +52,7 @@ optionNum.addEventListener("change", function() {
     // 유효한 옵션과 수량을 골랐다면
     if(optionCheck && amountCheck) {
         // 선택한 옵션과 수량을 토대로 계산 후 파라미터로 넘기는 input태그에 대입
-        perPriceResult = productPrice * amount.value;
+        perPriceResult = (productPrice * amount.value)*1 + deliveryFee.value*1;
         perPrice.value = perPriceResult;
         showPerPrice.innerHTML = "총 가격 : " + perPriceResult;
     }
@@ -75,7 +76,7 @@ amount.addEventListener("change", function() {
     // 유효한 옵션과 수량을 골랐다면
     if(optionCheck && amountCheck) {
         // 선택한 옵션과 수량을 토대로 계산 후 파라미터로 넘기는 input태그에 대입
-        perPriceResult = productPrice * amount.value;
+        perPriceResult = (productPrice * amount.value)*1 + deliveryFee.value*1;
         perPrice.value = perPriceResult;
         showPerPrice.innerHTML = "총 가격 : " + perPriceResult;
     }

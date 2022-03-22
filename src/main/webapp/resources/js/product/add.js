@@ -134,6 +134,7 @@ options.addEventListener("click", function(event) {
 
 const name = document.getElementById('name');
 const price = document.getElementById('price');
+const deliveryFee = document.getElementById('deliveryFee');
 const info = document.getElementById('info');
 const file = document.getElementById('file');
 // const cupnote = document.getElementsByClassName('cupnote');
@@ -147,6 +148,7 @@ const frm = document.getElementById('frm');
 
 let nameCheck = false;
 let priceCheck = false;
+let deliveryFeeCheck = false;
 let infoCheck = false;
 let fileCheck = false;
 let cupnote1Check = false;
@@ -171,6 +173,14 @@ price.addEventListener("blur", function(){
         priceCheck = true;
     }
 });
+
+deliveryFee.addEventListener("blur", function(){
+    if(deliveryFee.value == ''){
+        deliveryFeeCheck = false;
+    } else {
+        deliveryFeeCheck = true;
+    }
+})
 
 info.addEventListener("blur", function(){
     if(info.value == ''){
@@ -285,7 +295,7 @@ for(let f of flavor) {
 }
 
 regBtn.addEventListener("click", function(){
-    if(nameCheck && priceCheck && infoCheck && fileCheck && optionNameCheck && optionPriceCheck && cupnote1Check && cupnote2Check && cupnote3Check && cupnoteSameCheck && roastingCheck && flavorCheck) {
+    if(nameCheck && priceCheck && deliveryFeeCheck && infoCheck && fileCheck && optionNameCheck && optionPriceCheck && cupnote1Check && cupnote2Check && cupnote3Check && cupnoteSameCheck && roastingCheck && flavorCheck) {
         frm.submit();
     } else if(!nameCheck) {
         alert("상품명을 입력하세요.");
@@ -293,6 +303,9 @@ regBtn.addEventListener("click", function(){
     } else if(!priceCheck) {
         alert("상품가격을 입력하세요.");
         price.focus();
+    } else if(!deliveryFeeCheck) {
+        alert("상품가격을 입력하세요.");
+        deliveryFee.focus();
     } else if(!infoCheck) {
         alert("상품설명을 입력하세요.");
         info.focus();
