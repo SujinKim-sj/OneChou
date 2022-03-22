@@ -1,10 +1,21 @@
 package com.onechou.shop.favorite;
 
+import java.util.List;
+
 public class FavoriteDTO {
 	private Long num;
-	private String roastingPoint;
-	private String flavor;
+	private Long roastingPoint;
+	private Long flavor;
 	private String memberId;
+	
+	private List<CupnoteDTO> cupnoteDTOs;
+	
+	public List<CupnoteDTO> getCupnoteDTOs() {
+		return cupnoteDTOs;
+	}
+	public void setCupnoteDTOs(List<CupnoteDTO> cupnoteDTOs) {
+		this.cupnoteDTOs = cupnoteDTOs;
+	}
 	
 	public Long getNum() {
 		return num;
@@ -12,16 +23,16 @@ public class FavoriteDTO {
 	public void setNum(Long num) {
 		this.num = num;
 	}
-	public String getRoastingPoint() {
+	public Long getRoastingPoint() {
 		return roastingPoint;
 	}
-	public void setRoastingPoint(String roastingPoint) {
+	public void setRoastingPoint(Long roastingPoint) {
 		this.roastingPoint = roastingPoint;
 	}
-	public String getFlavor() {
+	public Long getFlavor() {
 		return flavor;
 	}
-	public void setFlavor(String flavor) {
+	public void setFlavor(Long flavor) {
 		this.flavor = flavor;
 	}
 	public String getMemberId() {
@@ -30,6 +41,5 @@ public class FavoriteDTO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	
 	
 }

@@ -83,9 +83,9 @@ public class MemberController {
 			session.setAttribute("member", memberDTO);
 			message = "join Success";
 			if(kind>1) {
-				p = "./favorite/add";				
+				p = "../favorite/add";				
 			}else {
-				p = "./roastery/add";
+				p = "../roastery/add";
 			}
 		}
 		

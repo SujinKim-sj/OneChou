@@ -4,12 +4,15 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="com.onechou.shop.favorite.FavoriteDAO">
-	<insert id="add" parameterType="FavoriteDTO">
+	<insert id="add" parameterType="FavoriteDTO">	
 		INSERT INTO FAVORITE 
-		VALUES(FAVORITE_SEQ.NEXTVAL,#{roastingPoint},#{flavor},#{memberId})
+		VALUES(FAVORITE_SEQ.NEXTVAL, #{roastingPoint}, #{flavor}, #{memberId})
 	</insert>	
 	<insert id="noteAdd" parameterType="CupnoteDTO">
 		INSERT INTO CUPNOTE
-		VALUES(CUPNOTE_SEQ.NEXTVAL,#{noteName},#{favoriteNum})
+		VALUES(CUPNOTE_SEQ.NEXTVAL,#{noteName},
+		(SELECT last_number 
+		FROM USER_SEQUENCES 
+		WHERE SEQUENCE_NAME = 'FAVORITE_SEQ'))
 	</insert>
 </mapper>
