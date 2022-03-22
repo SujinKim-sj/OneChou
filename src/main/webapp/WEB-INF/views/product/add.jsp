@@ -27,9 +27,15 @@
                         <input type="number" class="form-control" id="price" name="price" placeholder="상품가격입력">
                         <label for="price">&nbsp;&nbsp;상품가격입력</label>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col form-floating m-3">
                         <input type="number" class="form-control" id="deliveryFee" name="deliveryFee" placeholder="배송비입력">
                         <label for="price">&nbsp;&nbsp;배송비입력</label>
+                    </div>
+                    <div class="col form-floating m-3">
+                        <input type="number" class="form-control" id="freeDelivery" name="freeDelivery" placeholder="무료배송 기준금액 입력">
+                        <label for="price">&nbsp;&nbsp;무료배송 기준금액 입력 (0원 입력시 무료배송 없음)</label>
                     </div>
                 </div>
                 <div class="form-floating m-3">

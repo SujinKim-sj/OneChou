@@ -13,8 +13,8 @@
 		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
 			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME, DELIVERYFEE)
-		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, #{roasteryNum}, #{roasteryName}, #{deliveryFee})
+		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME, DELIVERYFEE, FREEDELIVERY)
+		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery})
 	</insert>
 	
 	<insert id="addFeature" parameterType="ProductFeatureDTO">
@@ -113,6 +113,7 @@
 		<result column="roasteryNum" property="roasteryNum"/>
 		<result column="roasteryName" property="roasteryName"/>
 		<result column="deliveryFee" property="deliveryFee"/>
+		<result column="freeDelivery" property="freeDelivery"/>
 		
 		<association property="productFeatureDTO" javaType="ProductFeatureDTO">
 			<result column="flavor" property="flavor"/>

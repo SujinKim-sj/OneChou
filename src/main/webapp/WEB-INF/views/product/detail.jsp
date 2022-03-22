@@ -81,7 +81,7 @@
 						<input type="hidden" name="memberId" id="memberId" value="${member.id}">
 						<input type="hidden" desabled id="deliveryFee" value="${productDTO.deliveryFee}">
 						<input type="hidden" disabled id="price" value="${productDTO.price}">
-						
+						<input type="hidden" disabled id="freeDelivery" value="${productDTO.freeDelivery}">
 						<input type="hidden" name="perPrice" id="perPrice">
 						<tr>
 							<td>상품옵션</td>
@@ -115,7 +115,25 @@
 					</form>
 					<tr>
 						<td>배송비</td>
-						<td colspan="3">${productDTO.deliveryFee}원</td>
+						<c:choose>
+							<c:when test="${productDTO.deliveryFee == 0}">
+								<td colspan="3">해당 상품은 무료배송 상품입니다</td>
+							</c:when>
+							<c:otherwise>
+								<td colspan="3">${productDTO.deliveryFee}원</td>
+							</c:otherwise>
+						</c:choose>
+					</tr>
+					<tr>
+						<td>배송비정책</td>
+						<c:choose>
+							<c:when test="${productDTO.freeDelivery == 0}">
+								<td colspan="3">해당 상품은 무료배송이 불가능합니다</td>
+							</c:when>
+							<c:otherwise>
+								<td colspan="3">해당 상품은 ${productDTO.freeDelivery}원 이상 구매하시면 무료배송입니다</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 					<tr>
 						<td colspan="2" id="showOption"></td>
