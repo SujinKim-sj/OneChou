@@ -5,6 +5,37 @@ const addBtn = document.getElementById('addBtn');
 let count = 0;
 let num = 0;
 
+// 옵션을 추가해놓고 값을 입력하지 않을 때 검증
+let optionNameCheck = true;
+let optionPriceCheck = true;
+// 옵션을 추가하지 않을 수도 있어서 true로 해야 함, 추가버튼을 눌렀을 때 false로 초기화
+
+options.addEventListener("focusout", function(event){
+    if(event.target.classList.contains('optionName')){
+        if(!event.target.value == ""){
+            optionNameCheck = true;
+        }
+        const optionName = document.getElementsByClassName('optionName');
+        for(let opName of optionName) {
+            if(opName.value == "") {
+                optionNameCheck = false;
+            }
+        }
+    }
+
+    if(event.target.classList.contains('optionPrice')){
+        if(!event.target.value == ""){
+            optionPriceCheck = true;
+        }
+        const optionPrice = document.getElementsByClassName('optionPrice');
+        for(let opPrice of optionPrice) {
+            if(opPrice.value == "") {
+                optionPriceCheck = false;
+            }
+        }
+    }
+})
+
 addBtn.addEventListener("click", function(){
     
     if(count > 4) {
@@ -22,7 +53,7 @@ addBtn.addEventListener("click", function(){
     divCol1.classList.add('col', 'form-floating', 'mt-3', 'mb-3');
 
     let input1 = document.createElement("input");
-    input1.classList.add('form-control');
+    input1.classList.add('form-control', 'optionName');
     input1.setAttribute("type", "text");
     input1.setAttribute("id", "optionNames")
     input1.setAttribute("name", "optionNames")
@@ -39,8 +70,8 @@ addBtn.addEventListener("click", function(){
     divCol2.classList.add('col', 'form-floating', 'mt-3', 'mb-3');
 
     let input2 = document.createElement("input");
-    input2.classList.add('form-control');
-    input2.setAttribute("type", "text");
+    input2.classList.add('form-control', 'optionPrice');
+    input2.setAttribute("type", "number");
     input2.setAttribute("id", "addPrices")
     input2.setAttribute("name", "addPrices")
     input2.setAttribute("placeholder", "옵션가격입력")
@@ -69,6 +100,10 @@ addBtn.addEventListener("click", function(){
 
     options.append(divRow);
     num++;
+    
+    // 추가버튼을 누르면 옵션값을 검증하게끔
+    optionNameCheck = false;
+    optionPriceCheck = false;
 })
 
 options.addEventListener("click", function(event) {
@@ -76,6 +111,22 @@ options.addEventListener("click", function(event) {
         let delNum = event.target.getAttribute("data-num");
         document.getElementById(delNum).remove();
         count--;
+
+        optionNameCheck = true;
+        const optionName = document.getElementsByClassName('optionName');
+        for(let opName of optionName) {
+            if(opName.value == "") {
+                optionNameCheck = false;
+            }
+        }
+
+        optionPriceCheck = true;
+        const optionPrice = document.getElementsByClassName('optionPrice');
+        for(let opPrice of optionPrice) {
+            if(opPrice.value == "") {
+                optionPriceCheck = false;
+            }
+        }
     }
 })
 
@@ -234,7 +285,7 @@ for(let f of flavor) {
 }
 
 regBtn.addEventListener("click", function(){
-    if(nameCheck && priceCheck && infoCheck && fileCheck && cupnote1Check && cupnote2Check && cupnote3Check && cupnoteSameCheck && roastingCheck && flavorCheck) {
+    if(nameCheck && priceCheck && infoCheck && fileCheck && optionNameCheck && optionPriceCheck && cupnote1Check && cupnote2Check && cupnote3Check && cupnoteSameCheck && roastingCheck && flavorCheck) {
         frm.submit();
     } else if(!nameCheck) {
         alert("상품명을 입력하세요.");
@@ -248,6 +299,10 @@ regBtn.addEventListener("click", function(){
     } else if(!fileCheck) {
         alert("상품이미지를 올려주세요.");
         file.focus();
+    } else if(!optionNameCheck) {
+        alert("옵션 이름을 확인하세요.");
+    } else if(!optionPriceCheck) {
+        alert("옵션 가격을 확인하세요.");
     } else if(!cupnote1Check) {
         alert("첫 번째 컵노트를 등록하세요.");
         cupnote1.focus();
