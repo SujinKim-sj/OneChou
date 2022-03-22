@@ -10,4 +10,41 @@
 		VALUES (CART_SEQ.NEXTVAL, #{amount}, #{perPrice}, #{memberId}, #{productNum}, #{optionNum})
 	</insert>
 
+	<select id="list" parameterType="MemberDTO" resultMap="listResult">
+			SELECT A.*, B.NAME, B.PRICE, B.ROASTERYNAME, B.DELIVERYFEE, B.FREEDELIVERY, C.FILENAME, D.OPTIONNAME, D.ADDPRICE
+			FROM CART A
+			JOIN PRODUCT B
+			ON A.PRODUCTNUM = B.NUM
+			JOIN PRODUCTFILE C
+			ON A.PRODUCTNUM = C.PRODUCTNUM
+			JOIN PRODUCTOPTION D
+			ON A.OPTIONNUM = D.NUM
+			WHERE A.MEMBERID = #{id}
+	</select>
+	
+	<resultMap type="CartDTO" id="listResult">
+		<id column="num" property="num"/>
+		<result column="amount" property="amount"/>
+		<result column="perPrice" property="perPrice"/>
+		<result column="memberId" property="memberId"/>
+		<result column="productNum" property="productNum"/>
+		<result column="optionNum" property="optionNum"/>
+		
+		<association property="productDTO" javaType="ProductDTO">
+			<result column="name" property="name"/>
+			<result column="price" property="price"/>
+			<result column="roasteryName" property="roasteryName"/>
+			<result column="deliveryFee" property="deliveryFee"/>
+			<result column="freeDelivery" property="freeDelivery"/>
+			<association property="productFileDTO" javaType="ProductFileDTO">
+				<result column="fileName" property="fileName"/>
+			</association>
+		</association>
+		
+		<association property="productOptionDTO" javaType="ProductOptionDTO">
+			<result column="optionName" property="optionName"/>
+			<result column="addPrice" property="addPrice"/>
+		</association>
+	</resultMap>
+
 </mapper>

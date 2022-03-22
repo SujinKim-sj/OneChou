@@ -1,0 +1,32 @@
+.check {
+    width: 2%;
+}
+
+.productInfo {
+    width: 30%;
+}
+
+.productImg {
+    width: 120px;
+    height: 120px;
+}
+
+.productInfoBasic {
+    width: 62%;
+}
+
+.option {
+    width: 25%;
+}
+
+.optionChange {
+    width: 25%;
+}
+
+.delivery {
+    width: 9%;
+}
+
+.price {
+    width: 9%;
+}

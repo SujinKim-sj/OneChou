@@ -1,5 +1,8 @@
 package com.onechou.shop.cart;
 
+import com.onechou.shop.product.ProductDTO;
+import com.onechou.shop.product.ProductOptionDTO;
+
 public class CartDTO {
 
 	private Long num;
@@ -8,6 +11,9 @@ public class CartDTO {
 	private String memberId;
 	private Long productNum;
 	private Long optionNum;
+	
+	private ProductDTO productDTO;
+	private ProductOptionDTO productOptionDTO;
 	
 	public Long getNum() {
 		return num;
@@ -45,4 +51,17 @@ public class CartDTO {
 	public void setOptionNum(Long optionNum) {
 		this.optionNum = optionNum;
 	}
+	public ProductDTO getProductDTO() {
+		return productDTO;
+	}
+	public void setProductDTO(ProductDTO productDTO) {
+		this.productDTO = productDTO;
+	}
+	public ProductOptionDTO getProductOptionDTO() {
+		return productOptionDTO;
+	}
+	public void setProductOptionDTO(ProductOptionDTO productOptionDTO) {
+		this.productOptionDTO = productOptionDTO;
+	}
+	
 }
