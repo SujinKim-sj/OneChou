@@ -3,7 +3,7 @@
 }
 
 .productInfo {
-    width: 30%;
+    width: 39%;
 }
 
 .productImg {
@@ -16,17 +16,13 @@
 }
 
 .option {
-    width: 25%;
-}
-
-.optionChange {
-    width: 25%;
+    width: 39%;
 }
 
 .delivery {
-    width: 9%;
+    width: 10%;
 }
 
 .price {
-    width: 9%;
+    width: 10%;
 }

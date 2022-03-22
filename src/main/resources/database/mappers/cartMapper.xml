@@ -11,15 +11,15 @@
 	</insert>
 
 	<select id="list" parameterType="MemberDTO" resultMap="listResult">
-			SELECT A.*, B.NAME, B.PRICE, B.ROASTERYNAME, B.DELIVERYFEE, B.FREEDELIVERY, C.FILENAME, D.OPTIONNAME, D.ADDPRICE
-			FROM CART A
-			JOIN PRODUCT B
-			ON A.PRODUCTNUM = B.NUM
-			JOIN PRODUCTFILE C
-			ON A.PRODUCTNUM = C.PRODUCTNUM
-			JOIN PRODUCTOPTION D
-			ON A.OPTIONNUM = D.NUM
-			WHERE A.MEMBERID = #{id}
+		SELECT A.*, B.NAME, B.PRICE, B.ROASTERYNAME, B.DELIVERYFEE, B.FREEDELIVERY, C.FILENAME, D.NUM AS OPNUM, D.OPTIONNAME, D.ADDPRICE
+		FROM CART A
+		JOIN PRODUCT B
+		ON A.PRODUCTNUM = B.NUM
+		JOIN PRODUCTFILE C
+		ON A.PRODUCTNUM = C.PRODUCTNUM
+		JOIN PRODUCTOPTION D
+		ON B.NUM = D.PRODUCTNUM
+		WHERE A.MEMBERID = #{id}
 	</select>
 	
 	<resultMap type="CartDTO" id="listResult">
@@ -39,11 +39,11 @@
 			<association property="productFileDTO" javaType="ProductFileDTO">
 				<result column="fileName" property="fileName"/>
 			</association>
-		</association>
-		
-		<association property="productOptionDTO" javaType="ProductOptionDTO">
-			<result column="optionName" property="optionName"/>
-			<result column="addPrice" property="addPrice"/>
+			<collection property="productOptionDTOs" javaType="List" ofType="ProductOptionDTO">
+				<id column="opnum" property="num"/>
+				<result column="optionName" property="optionName"/>
+				<result column="addPrice" property="addPrice"/>
+			</collection>
 		</association>
 	</resultMap>
 
