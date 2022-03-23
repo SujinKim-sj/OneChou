@@ -1,9 +1,7 @@
 package com.onechou.shop.favorite;
 
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +30,15 @@ public class FavoriteController {
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST )
-	public String add(FavoriteDTO favoriteDTO, HttpServletRequest request ,Model model) throws Exception{
-		String noteName = request.getParameter("noteName");
-		int result = favoriteService.add(favoriteDTO,noteName);
+	public String add(FavoriteDTO favoriteDTO , String [] noteNames ,Model model) throws Exception{
+		int result = favoriteService.add(favoriteDTO);
+		ArrayList<CupnoteDTO> ar = new ArrayList<CupnoteDTO>();
+		for(int i=0;i<noteNames.length;i++) {
+			CupnoteDTO cupnoteDTO = new CupnoteDTO();
+			cupnoteDTO.setFavoriteNum(favoriteDTO.getNum());
+			cupnoteDTO.setNoteName(noteNames[i]);
+			ar.add(cupnoteDTO);
+		}
 		
 		if(result>0) {
 			System.out.println("성공");
@@ -56,6 +60,6 @@ public class FavoriteController {
 	}
 	
 	
-	
-	
 }
+	
+
