@@ -28,4 +28,8 @@ public class CartDAO {
 		return sqlSession.delete(NAMESPACE+"delete", cartDTO);
 	}
 	
+	public int update(CartDTO cartDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"update", cartDTO);
+	}
+	
 }

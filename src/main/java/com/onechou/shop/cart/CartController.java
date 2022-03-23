@@ -69,5 +69,15 @@ public class CartController {
 		
 		return mv;
 	}
+	
+	@PostMapping("update")
+	public ModelAndView update(CartDTO cartDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		int result = cartService.update(cartDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
 
 }

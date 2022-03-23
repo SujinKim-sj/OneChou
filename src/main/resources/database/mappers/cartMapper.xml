@@ -20,6 +20,7 @@
 		JOIN PRODUCTOPTION D
 		ON B.NUM = D.PRODUCTNUM
 		WHERE A.MEMBERID = #{id}
+		ORDER BY A.NUM ASC, D.NUM ASC
 	</select>
 	
 	<resultMap type="CartDTO" id="listResult">
@@ -50,5 +51,10 @@
 	<delete id="delete" parameterType="CartDTO">
 		DELETE CART WHERE NUM = #{num}
 	</delete>
+	
+	<update id="update" parameterType="CartDTO">
+		UPDATE CART SET AMOUNT = #{amount}, PERPRICE = #{perPrice}, OPTIONNUM = #{optionNum}
+		WHERE NUM = #{num}
+	</update>
 
 </mapper>

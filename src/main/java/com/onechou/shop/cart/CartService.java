@@ -31,4 +31,8 @@ public class CartService {
 		}
 		return check;
 	}
+	
+	public int update(CartDTO cartDTO) throws Exception {
+		return cartDAO.update(cartDTO);
+	}
 }

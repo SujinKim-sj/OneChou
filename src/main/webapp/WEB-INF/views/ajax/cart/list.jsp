@@ -19,17 +19,17 @@
 							</div>
 						</div>
 						<div class="option text-center">
-							<select class="form-select" name="" id="">
+							<select class="form-select" id="selectOption${cartDTO.num}">
 								<c:forEach items="${cartDTO.productDTO.productOptionDTOs}" var="productOptionDTO">
-									<option value="${productOptionDTO.num}" <c:if test="${productOptionDTO.num==cartDTO.optionNum}">selected</c:if>>옵션명 : ${productOptionDTO.optionName} 옵션가격 : ${productOptionDTO.addPrice}</option>
+									<option value="${productOptionDTO.num}" class="options${cartDTO.num}"<c:if test="${productOptionDTO.num==cartDTO.optionNum}">selected</c:if>>옵션명 : ${productOptionDTO.optionName} 옵션가격 : ${productOptionDTO.addPrice}</option>
 								</c:forEach>
 							</select>
-							<select class="form-select" name="" id="">
+							<select class="form-select" id="selectAmount${cartDTO.num}">
 								<c:forEach begin="1" end="10" var="i">									
 									<option value="${i}" <c:if test="${i==cartDTO.amount}">selected</c:if>>${i}</option>
 								</c:forEach>
 							</select>
-							<div><button type="button" class="btn btn-secondary mt-2">변경하기</button></div>
+							<div><button type="button" class="btn btn-secondary mt-2 updateBtn" data-num="${cartDTO.num}">변경하기</button></div>
 						</div>
 						<div class="delivery text-center">
 							<div class="fw-bold">배송비</div>
@@ -46,6 +46,9 @@
 							<div class="fw-bold">총 가격</div>
 							<div>${cartDTO.perPrice}</div>
 						</div>
+						<input type="hidden" id="productPriceSelector${cartDTO.num}" value="${cartDTO.productDTO.price}">
+						<input type="hidden" id="freeDeliverySelector${cartDTO.num}" value="${cartDTO.productDTO.freeDelivery}">
+						<input type="hidden" id="deliveryFeeSelector${cartDTO.num}" value="${cartDTO.productDTO.deliveryFee}">
 					</div>
 				</div>
 			</div>
