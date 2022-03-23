@@ -65,10 +65,6 @@ deleteBtn.addEventListener("click", function(){
 // 장바구니 수정
 listResult.addEventListener("click", function(event){
     if(event.target.classList.contains('updateBtn')) {
-        if(!confirm("변경하시겠습니까?")){
-            return;
-        }
-         
         // 수정하는 장바구니 번호 구하기
         let num = event.target.getAttribute('data-num');
         
@@ -79,6 +75,23 @@ listResult.addEventListener("click", function(event){
         // 선택한 상품 수량 구하기
         const selectAmount = document.querySelector('#selectAmount'+num);
         let amount = selectAmount.value;
+
+        // 원래 옵션번호 구하기
+        let originalOptionNum = document.querySelector('#originalOptionNum'+num).value;
+        console.log(originalOptionNum);
+        
+        // 원래 수량 구하기
+        let originalAmount = document.querySelector('#originalAmount'+num).value;
+        console.log(originalAmount);
+
+        // 원래 옵션이랑 변경 옵션이랑 같은지 확인, 다르다면 변경할 것인지 확인
+
+        if(optionNum == originalOptionNum && amount == originalAmount) {
+            alert('옵션이나 수량을 변경하고 시도해주세요')
+            return;
+        } else if(!confirm("변경하시겠습니까?")){
+            return;
+        }
 
         // 총가격 구하기
 
@@ -128,6 +141,5 @@ listResult.addEventListener("click", function(event){
                 }
             }
         }
-
     }
 })

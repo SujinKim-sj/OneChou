@@ -46,6 +46,8 @@
 							<div class="fw-bold">총 가격</div>
 							<div>${cartDTO.perPrice}</div>
 						</div>
+						<input type="hidden" id="originalOptionNum${cartDTO.num}" value="${cartDTO.optionNum}">
+						<input type="hidden" id="originalAmount${cartDTO.num}" value="${cartDTO.amount}">
 						<input type="hidden" id="productPriceSelector${cartDTO.num}" value="${cartDTO.productDTO.price}">
 						<input type="hidden" id="freeDeliverySelector${cartDTO.num}" value="${cartDTO.productDTO.freeDelivery}">
 						<input type="hidden" id="deliveryFeeSelector${cartDTO.num}" value="${cartDTO.productDTO.deliveryFee}">
