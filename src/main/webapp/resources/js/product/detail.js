@@ -118,7 +118,7 @@ cartBtn.addEventListener("click", function(){
                 let result = this.response.trim();
                 if(result == '1') {
                     if(confirm('장바구니에 등록되었습니다.\n 장바구니로 이동하시겠습니까?')) {
-                        window.location.href="../cart/list";
+                        window.location.href="../cart/index";
                     }
                 } else {
                     alert('장바구니 등록에 실패했습니다. \n 다시 시도해 주세요.');

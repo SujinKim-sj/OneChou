@@ -18,6 +18,10 @@
 		<div id="listResult">
 		</div>
 
+		<div class="mt-5 mb-5">
+			<button class="btn btn-secondary" id="deleteBtn" type="button">삭제하기</button>
+		</div>
+
 	</div>
 
 	<script src="../resources/js/cart/index.js"></script>

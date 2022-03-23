@@ -20,4 +20,15 @@ public class CartService {
 	public List<CartDTO> list(MemberDTO memberDTO) throws Exception {
 		return cartDAO.list(memberDTO);
 	}
+	
+	public boolean delete(List<CartDTO> cartDTOs) throws Exception {
+		boolean check = true;
+		for(int i=0;i<cartDTOs.size();i++) {
+			int result = cartDAO.delete(cartDTOs.get(i));
+			if (result < 1) {
+				check = false;
+			}
+		}
+		return check;
+	}
 }

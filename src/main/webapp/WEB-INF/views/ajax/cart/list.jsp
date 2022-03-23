@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<c:forEach items="${cartDTOs}" var="cartDTO">
-			<div class="row border border-2 rounded mt-5">
+			<div class="row border border-2 rounded mt-5" id="listMain${cartDTO.num}">
 				<div class="col">
 					<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
 						<div class="check text-center">
-							<input type="checkbox" value="">
+							<input class="cartClick" type="checkbox" checked value="${cartDTO.num}">
 						</div>
 						<div class="productInfo d-flex align-items-center justify-content-center">
 							<div>

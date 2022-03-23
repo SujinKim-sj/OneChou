@@ -1,5 +1,6 @@
 package com.onechou.shop.cart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -48,4 +49,25 @@ public class CartController {
 		mv.setViewName("ajax/cart/list");
 		return mv;
 	}
+	
+	@PostMapping("delete")
+	public ModelAndView delete(String[] nums) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		List<CartDTO> cartDTOs = new ArrayList<CartDTO>();
+		for(int i=0;i<nums.length;i++) {
+			CartDTO cartDTO = new CartDTO();
+			System.out.println(nums[i]);
+			cartDTO.setNum(Long.parseLong(nums[i]));
+			cartDTOs.add(cartDTO);
+		}
+		
+		boolean result = cartService.delete(cartDTOs);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
+	}
+
 }

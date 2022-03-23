@@ -24,4 +24,8 @@ public class CartDAO {
 		return sqlSession.selectList(NAMESPACE+"list", memberDTO);
 	}
 	
+	public int delete(CartDTO cartDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"delete", cartDTO);
+	}
+	
 }
