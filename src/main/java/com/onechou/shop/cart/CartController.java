@@ -33,11 +33,19 @@ public class CartController {
 		return mv;
 	}
 	
+	@GetMapping
+	public void index() throws Exception {
+		
+	}
+	
 	@GetMapping("list")
-	public void list(HttpSession session, Model model) throws Exception {
+	public ModelAndView list(HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		List<CartDTO> cartDTOs = cartService.list(memberDTO);
 		
-		model.addAttribute("cartDTOs", cartDTOs);
+		mv.addObject("cartDTOs", cartDTOs);
+		mv.setViewName("ajax/cart/list");
+		return mv;
 	}
 }

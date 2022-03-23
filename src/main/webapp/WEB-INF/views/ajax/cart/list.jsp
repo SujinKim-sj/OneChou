@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-	<c:import url="../template/css_import.jsp"></c:import>
-	<link rel="stylesheet" href="../resources/css/cart/list.css">
-</head>
-<body>
-	<c:import url="../template/header.jsp"></c:import>
-	<div class="container mt-5">
-		<div class="text-center">
-			<h1>장바구니 페이지</h1>
-		</div>
-
 		<c:forEach items="${cartDTOs}" var="cartDTO">
 			<div class="row border border-2 rounded mt-5">
 				<div class="col">
@@ -53,7 +38,7 @@
 									<div>${cartDTO.productDTO.deliveryFee}</div>
 								</c:when>
 								<c:otherwise>
-									<div>0</div>
+									<div>무료배송</div>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -65,6 +50,3 @@
 				</div>
 			</div>
 		</c:forEach>
-	</div>
-</body>
-</html>
