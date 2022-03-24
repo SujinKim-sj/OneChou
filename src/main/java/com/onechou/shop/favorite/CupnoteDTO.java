@@ -24,4 +24,6 @@ public class CupnoteDTO {
 		this.favoriteNum = favoriteNum;
 	}
 	
+
+	
 }

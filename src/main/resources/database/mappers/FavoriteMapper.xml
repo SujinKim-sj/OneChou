@@ -2,17 +2,29 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   
+
 <mapper namespace="com.onechou.shop.favorite.FavoriteDAO">
-	<insert id="add" parameterType="FavoriteDTO">	
-		INSERT INTO FAVORITE 
-		VALUES(FAVORITE_SEQ.NEXTVAL, #{roastingPoint}, #{flavor}, #{memberId})
-	</insert>	
+	<resultMap type="FavoriteDTO" id="detailResult">
+		<id column="num" property="num" /><!-- PK -->
+		<result column="roastingPoint" property="roastingPoint" />
+		<result column="flavor" property="flavor" />
+		<result column="memberId" property="memberId" />
+		<collection property="cupnoteDTOs" javaType="List"
+			ofType="CupnoteDTO">
+			<id column="noteNum" property="noteNum" />
+			<result column="noteName" property="noteName" />
+		</collection>
+	</resultMap>
+	<insert id="add" parameterType="FavoriteDTO">
+		<selectKey order="BEFORE" keyProperty="num"
+			resultType="Long">
+			SELECT FAVORITE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FAVORITE
+		VALUES(#{num}, #{roastingPoint}, #{flavor}, #{memberId})
+	</insert>
 	<insert id="noteAdd" parameterType="CupnoteDTO">
 		INSERT INTO CUPNOTE
-		VALUES(CUPNOTE_SEQ.NEXTVAL,#{noteName},
-		(SELECT last_number 
-		FROM USER_SEQUENCES 
-		WHERE SEQUENCE_NAME = 'FAVORITE_SEQ'))
+		VALUES(CUPNOTE_SEQ.NEXTVAL,#{noteName},#{favoriteNum})
 	</insert>
 </mapper>

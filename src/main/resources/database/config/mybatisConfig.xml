@@ -11,6 +11,7 @@
   		<typeAlias type="com.onechou.shop.member.MemberDTO" alias="MemberDTO"/>
   		<typeAlias type="com.onechou.shop.favorite.FavoriteDTO" alias="FavoriteDTO"/>
   		<typeAlias type="com.onechou.shop.favorite.CupnoteDTO" alias="CupnoteDTO"/>
+  		<typeAlias type="com.onechou.shop.roastery.RoasteryDTO" alias="RoasteryDTO"/>
   	</typeAliases>
 
   </configuration> 

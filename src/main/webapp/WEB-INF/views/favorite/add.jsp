@@ -22,7 +22,7 @@
 		</div>
 		<br>
 		<form action="./add" method="post">
-			<input type="hidden" name="id" value="${member.id}">
+			<input type="hidden" name="memberId" value="${member.id}">
 			<ul class="list-group text-center">
 				<li class="list-group-item"> 어떤 컵노트를 즐기시나요? </li>
 				
@@ -95,11 +95,11 @@
 			<ul class="list-group text-center">
 				<li class="list-group-item"> 어떤 로스팅 포인트를 선호하세요? </li>
 				<li class="list-group-item">
-					<input type="radio" class="btn-check-roast" name="roastingPoint" value="1" id="light" autocomplete="off">
+					<input type="radio" class="btn-check" name="roastingPoint" value="1" id="light" autocomplete="off">
 					<label class="btn btn-outline-warning" for="light">라이트 로스트</label>			
-					<input type="radio" class="btn-check-roast" name="roastingPoint" value="2" id="medium" autocomplete="off">
+					<input type="radio" class="btn-check" name="roastingPoint" value="2" id="medium" autocomplete="off">
 					<label class="btn btn-outline-success" for="medium">미디엄 로스트</label>			
-					<input type="radio" class="btn-check-roast" name="roastingPoint" value="3" id="dark" autocomplete="off">
+					<input type="radio" class="btn-check" name="roastingPoint" value="3" id="dark" autocomplete="off">
 					<label class="btn btn-outline-secondary" for="dark">다크 로스트</label>			
 				</li>
 			</ul>
@@ -107,11 +107,11 @@
 			<ul class="list-group text-center">
 				<li class="list-group-item"> 어떤 맛을 주로 선호하세요? </li>
 				<li class="list-group-item">
-					<input type="radio" class="btn-check-flavor" name="flavor" value="1" id="acidity" autocomplete="off">
+					<input type="radio" class="btn-check" name="flavor" value="1" id="acidity" autocomplete="off">
 					<label class="btn btn-outline-warning" for="acidity">산미 위주의 상큼한 커피</label>			
-					<input type="radio" class="btn-check-flavor" name="flavor" value="2" id="nutty" autocomplete="off">
+					<input type="radio" class="btn-check" name="flavor" value="2" id="nutty" autocomplete="off">
 					<label class="btn btn-outline-success" for="nutty">고소하면서 부드러운 커피</label>			
-					<input type="radio" class="btn-check-flavor" name="flavor" value="3" id="sweet" autocomplete="off">
+					<input type="radio" class="btn-check" name="flavor" value="3" id="sweet" autocomplete="off">
 					<label class="btn btn-outline-secondary" for="sweet">묵직하면서 단맛이 잘 느껴지는 커피</label>					
 				</li>
 			</ul>

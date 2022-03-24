@@ -15,6 +15,9 @@ public class FavoriteService {
 
 		return result;
 	}
+	public int noteAdd(CupnoteDTO cupnoteDTO)throws Exception{
+		return favoriteDAO.noteAdd(cupnoteDTO);
+	}
 
 	
 }
