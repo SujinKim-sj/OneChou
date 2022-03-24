@@ -143,3 +143,33 @@ listResult.addEventListener("click", function(event){
         }
     }
 })
+
+// 결제내역 입력폼으로 이동
+
+const paymentBtn = document.querySelector('#paymentBtn');
+const paymentForm = document.querySelector('#paymentForm');
+
+paymentBtn.addEventListener("click", function(){
+    if(!confirm('결제하시겠습니까?')){
+        return;
+    }
+    const cartClick = document.querySelectorAll('.cartClick');
+    let nums = [];
+
+    for(cc of cartClick) {
+        if(cc.checked) {
+            nums.push(cc.getAttribute('value'));
+        }
+    }
+
+    for(let n of nums) {
+        const inputHidden = document.createElement('input');
+        inputHidden.setAttribute("type", "hidden");
+        inputHidden.setAttribute("name", "nums");
+        inputHidden.value=n
+        paymentForm.append(inputHidden);
+    }
+
+    paymentForm.submit();
+
+})

@@ -27,7 +27,6 @@ public class CartController {
 		ModelAndView mv = new ModelAndView();
 		
 		int result = cartService.add(cartDTO);
-		System.out.println(result);
 		mv.addObject("result", result);
 		mv.setViewName("common/ajaxResult");
 
@@ -57,7 +56,6 @@ public class CartController {
 		List<CartDTO> cartDTOs = new ArrayList<CartDTO>();
 		for(int i=0;i<nums.length;i++) {
 			CartDTO cartDTO = new CartDTO();
-			System.out.println(nums[i]);
 			cartDTO.setNum(Long.parseLong(nums[i]));
 			cartDTOs.add(cartDTO);
 		}

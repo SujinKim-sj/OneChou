@@ -20,7 +20,9 @@
 
 		<div class="d-flex justify-content-between mt-5 mb-5">
 			<button class="btn btn-secondary" id="deleteBtn" type="button">삭제하기</button>
-			<button class="btn btn-secondary" id="" type="button">결제하기</button>
+			<form id="paymentForm" action="../payment/add" method="post">
+			</form>
+			<button class="btn btn-secondary" id="paymentBtn" type="button">결제하기</button>
 		</div>
 
 	</div>
