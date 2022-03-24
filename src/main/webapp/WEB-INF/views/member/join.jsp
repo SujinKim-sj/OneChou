@@ -30,7 +30,7 @@
 		</fieldset>
 		<fieldset>
 			<legend>nickname</legend>
-			<input type="text" name="name" id="name">
+			<input type="text" name="nickname" id="nickname">
 		</fieldset>
 		<fieldset>
 			<legend>email</legend>
@@ -45,11 +45,10 @@
 			<input type="text" name="address" id="address">
 		</fieldset>
 		<input type="hidden" name="kind" value="${kind}">
-
 		
 		<button id="btn" type="button">회원가입</button>
 	</form>
 	
-	<script src="../resources/js/join.js"></script>
+	<script src="../resources/js/member/join.js"></script>
 </body>
 </html>

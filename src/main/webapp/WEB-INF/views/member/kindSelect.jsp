@@ -10,13 +10,14 @@
 	<h3>
 	회원유형
 	</h3>
-	<div>
+	<form action="./join" method="get" id="frm">
 	로스터리 회원
 	<input type="radio" name="kind" value="1">
 	일반 회원
 	<input type="radio" name="kind" value="2">
 	<button type="button" id="btn">선택</button>
-	</div>
-	<script src="../resources/js/kindSelect.js"></script>
+	</form>
+
+	<script src="../resources/js/member/kindSelect.js"></script>
 </body>
 </html>
