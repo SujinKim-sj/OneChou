@@ -11,6 +11,10 @@ public class PaidProductDTO {
 	private Long paymentNum;
 	private Long productNum;
 	private Long optionNum;
+	private Integer deliveryCompany;
+	private String shipmentNum;
+	private Integer shipmentStatus;
+	private Long roasteryNum;
 	
 	private ProductDTO productDTO;
 	private ProductOptionDTO productOptionDTO;
@@ -50,6 +54,30 @@ public class PaidProductDTO {
 	}
 	public void setOptionNum(Long optionNum) {
 		this.optionNum = optionNum;
+	}
+	public Integer getDeliveryCompany() {
+		return deliveryCompany;
+	}
+	public void setDeliveryCompany(Integer deliveryCompany) {
+		this.deliveryCompany = deliveryCompany;
+	}
+	public String getShipmentNum() {
+		return shipmentNum;
+	}
+	public void setShipmentNum(String shipmentNum) {
+		this.shipmentNum = shipmentNum;
+	}
+	public Integer getShipmentStatus() {
+		return shipmentStatus;
+	}
+	public void setShipmentStatus(Integer shipmentStatus) {
+		this.shipmentStatus = shipmentStatus;
+	}
+	public Long getRoasteryNum() {
+		return roasteryNum;
+	}
+	public void setRoasteryNum(Long roasteryNum) {
+		this.roasteryNum = roasteryNum;
 	}
 	public ProductDTO getProductDTO() {
 		return productDTO;
