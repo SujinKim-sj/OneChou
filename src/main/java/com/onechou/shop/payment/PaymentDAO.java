@@ -17,4 +17,24 @@ public class PaymentDAO {
 	public CartDTO getCartDetail(CartDTO cartDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getCartDetail", cartDTO);
 	}
+	
+	public int addPayment(PaymentDTO paymentDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addPayment", paymentDTO);
+	}
+	
+	public int addPaidProduct(PaidProductDTO paidProductDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addPaidProduct", paidProductDTO);
+	}
+	
+	public int addDelivery(DeliveryDTO deliveryDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addDelivery", deliveryDTO);
+	}
+	
+	public int deleteCart(CartDTO cartDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"deleteCart", cartDTO);
+	}
+	
+	public int updatePurchaseCount(PaidProductDTO paidProductDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"updatePurchaseCount", paidProductDTO);
+	}
 }

@@ -40,8 +40,34 @@
 			<result column="optionName" property="optionName"/>
 			<result column="addPrice" property="addPrice"/>
 		</association>
-	
 	</resultMap>
+	
+	<insert id="addPayment" parameterType="PaymentDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT PAYMENT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PAYMENT (NUM, ORDERDATE, TOTALPRICE, METHOD, MEMBERID)
+		VALUES (#{num}, SYSDATE, #{totalPrice}, #{method}, #{memberId})
+	</insert>
+	
+	<insert id="addPaidProduct" parameterType="PaidProductDTO">
+		INSERT INTO PAIDPRODUCT (NUM, PERPRICE, AMOUNT, PAYMENTNUM, PRODUCTNUM, OPTIONNUM)
+		VALUES (PAIDPRODUCT_SEQ.NEXTVAL, #{perPrice}, #{amount}, #{paymentNum}, #{productNum}, #{optionNum})
+	</insert>
+	
+	<insert id="addDelivery" parameterType="DeliveryDTO">
+		INSERT INTO DELIVERY (NUM, RECIPIENT, ADDRESS, RECIPIENTPHONE, MEMO, PAYMENTNUM)
+		VALUES (DELIVERY_SEQ.NEXTVAL, #{recipient}, #{address}, #{recipientPhone}, #{memo}, #{paymentNum})
+	</insert>
+	
+	<delete id="deleteCart" parameterType="CartDTO">
+		DELETE CART WHERE NUM = #{num}
+	</delete>
+	
+	<update id="updatePurchaseCount" parameterType="PaidProductDTO">
+		UPDATE PRODUCT SET PURCHASE = PURCHASE + 1
+		WHERE NUM = #{productNum}
+	</update>
 	
 	
 </mapper>

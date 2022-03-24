@@ -32,3 +32,61 @@ methodSelect.addEventListener("change", function(){
         methodCheck = true;
     }
 })
+
+// 배송지 정보 입력값 검증
+const recipient = document.querySelector('#recipient');
+const recipientPhone = document.querySelector('#recipientPhone');
+const address = document.querySelector('#address');
+const memo = document.querySelector('#memo');
+
+let recipientCheck = false;
+let recipientPhoneCheck = false;
+let addressCheck = false;
+
+recipient.addEventListener("blur", function(){
+    recipientCheck = true;
+    if(recipient.value == ""){
+        recipientCheck = false;
+    }
+})
+
+recipientPhone.addEventListener("blur", function(){
+    recipientPhoneCheck = true;
+    if(recipientPhone.value == ""){
+        recipientPhoneCheck = false;
+    }
+})
+
+address.addEventListener("blur", function(){
+    addressCheck = true;
+    if(address.value == ""){
+        addressCheck = false;
+    }
+})
+
+// 서버로 요청
+
+const paymentBtn = document.querySelector('#paymentBtn');
+const addForm = document.querySelector('#addForm');
+
+paymentBtn.addEventListener("click", function(){
+    if(!confirm("결제하시겠습니까?")){
+        return;
+    } else if(methodCheck && recipientCheck && recipientPhoneCheck && addressCheck) {
+        if(memo.value == "") {
+            memo.value = "배송메모 없음";
+        }
+        addForm.submit();
+    } else if(!methodCheck) {
+        alert("결제 방식을 확인해주세요")
+    } else if(!recipientCheck) {
+        alert("받는사람을 입력해주세요")
+    } else if(!recipientPhoneCheck) {
+        alert("받는사람 연락처를 입력해주세요")
+    } else {
+        alert("배송지 주소를 입력해주세요")
+    }
+})
+
+
+
