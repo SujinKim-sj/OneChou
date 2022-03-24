@@ -21,7 +21,7 @@
 		              <a class="nav-link" href="/shop/member/login">Login</a>
 		            </li>
 		            <li class="nav-item">
-		              <a class="nav-link" href="/shop/member/join">Join</a>
+		              <a class="nav-link" href="/shop/member/joinCheck">Join</a>
 		            </li>
 	            </c:when>
 	            <c:otherwise>

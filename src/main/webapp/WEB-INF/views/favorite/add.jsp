@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<%-- <c:import url="../template/css_import.jsp"></c:import> --%>
+	<c:import url="../template/css_import.jsp"></c:import>
 	<style type="text/css">
 		label {
 			margin: 10px;
@@ -15,7 +15,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- <c:import url="../template/header.jsp"></c:import> --%>
+	<c:import url="../template/header.jsp"></c:import>
 	<div class="container">
 		<div class="text-center">
 			<h1> Favorite Add Page </h1>
