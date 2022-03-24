@@ -1,10 +1,13 @@
 package com.onechou.shop.payment;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.onechou.shop.cart.CartDTO;
+import com.onechou.shop.member.MemberDTO;
 
 @Repository
 public class PaymentDAO {
@@ -36,5 +39,9 @@ public class PaymentDAO {
 	
 	public int updatePurchaseCount(PaidProductDTO paidProductDTO) throws Exception {
 		return sqlSession.update(NAMESPACE+"updatePurchaseCount", paidProductDTO);
+	}
+	
+	public List<PaymentDTO> list(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"list", memberDTO);
 	}
 }

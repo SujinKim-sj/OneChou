@@ -70,5 +70,47 @@
 		WHERE NUM = #{productNum}
 	</update>
 	
+	<select id="list" parameterType="MemberDTO" resultMap="listResult">
+		SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM,B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, E.FILENAME
+		FROM PAYMENT A
+		JOIN PAIDPRODUCT B
+		ON A.NUM = B.PAYMENTNUM
+		JOIN PRODUCTOPTION C
+		ON B.OPTIONNUM = C.NUM
+		JOIN PRODUCT D
+		ON B.PRODUCTNUM = D.NUM
+		JOIN PRODUCTFILE E
+		ON D.NUM = E.PRODUCTNUM
+		WHERE A.MEMBERID = 'cares'
+		ORDER BY A.NUM DESC, ORDERDATE DESC
+	</select>
+	
+	<resultMap type="PaymentDTO" id="listResult">
+		<id column="num" property="num"/>
+		<result column="orderDate" property="orderDate"/>
+		<result column="totalPrice" property="totalPrice"/>
+		
+		<collection property="paidProductDTOs" javaType="List" ofType="PaidProductDTO">
+			<result column="perPrice" property="perPrice"/>
+			<result column="amount" property="amount"/>
+			<result column="productNum" property="productNum"/>
+			<result column="deliveryCompany" property="deliveryCompany"/>
+			<result column="shipmentNum" property="shipmentNum"/>
+			<result column="shipmentStatus" property="shipmentStatus"/>
+			<association property="productOptionDTO" javaType="ProductOptionDTO">
+				<result column="optionName" property="optionName"/>
+				<result column="addPrice" property="addPrice"/>
+			</association>
+			<association property="productDTO" javaType="ProductDTO">
+				<result column="name" property="name"/>
+				<result column="roasteryName" property="roasteryName"/>
+				<result column="price" property="price"/>
+				<association property="productFileDTO" javaType="ProductFileDTO">
+					<result column="fileName" property="fileName"/>
+				</association>			
+			</association>
+		</collection>
+	</resultMap>
+	
 	
 </mapper>
