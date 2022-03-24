@@ -6,7 +6,7 @@
 <mapper namespace="com.onechou.shop.payment.PaymentDAO">
 
 	<select id="getCartDetail" parameterType="CartDTO" resultMap="cartDetailResult">
-		SELECT A.*, B.NAME, B.PRICE, B.ROASTERYNAME, B.DELIVERYFEE, B.FREEDELIVERY, C.FILENAME, D.OPTIONNAME, D.ADDPRICE 
+		SELECT A.*, B.NAME, B.PRICE, B.ROASTERYNUM, B.ROASTERYNAME, B.DELIVERYFEE, B.FREEDELIVERY, C.FILENAME, D.OPTIONNAME, D.ADDPRICE 
 		FROM CART A
 		JOIN PRODUCT B
 		ON A.PRODUCTNUM = B.NUM
@@ -28,6 +28,7 @@
 		<association property="productDTO" javaType="ProductDTO">
 			<result column="name" property="name"/>
 			<result column="price" property="price"/>
+			<result column="roasteryNum" property="roasteryNum"/>
 			<result column="roasteryName" property="roasteryName"/>
 			<result column="deliveryFee" property="deliveryFee"/>
 			<result column="freeDelivery" property="freeDelivery"/>
@@ -51,8 +52,8 @@
 	</insert>
 	
 	<insert id="addPaidProduct" parameterType="PaidProductDTO">
-		INSERT INTO PAIDPRODUCT (NUM, PERPRICE, AMOUNT, PAYMENTNUM, PRODUCTNUM, OPTIONNUM)
-		VALUES (PAIDPRODUCT_SEQ.NEXTVAL, #{perPrice}, #{amount}, #{paymentNum}, #{productNum}, #{optionNum})
+		INSERT INTO PAIDPRODUCT (NUM, PERPRICE, AMOUNT, PAYMENTNUM, PRODUCTNUM, OPTIONNUM, SHIPMENTSTATUS, ROASTERYNUM)
+		VALUES (PAIDPRODUCT_SEQ.NEXTVAL, #{perPrice}, #{amount}, #{paymentNum}, #{productNum}, #{optionNum}, 0, #{roasteryNum})
 	</insert>
 	
 	<insert id="addDelivery" parameterType="DeliveryDTO">

@@ -60,6 +60,7 @@
 									<input type="hidden" name="productNums" value="${cartDTO.productNum}">
 									<input type="hidden" name="optionNums" value="${cartDTO.optionNum}">
 									<input type="hidden" name="nums" value="${cartDTO.num}">
+									<input type="hidden" name="roasteryNums" value="${cartDTO.productDTO.roasteryNum}">
 								</tr>		
 							</c:forEach>
 						</tbody>
