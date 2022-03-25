@@ -79,7 +79,7 @@
 						</div>
 						<div class="input-group p-3">
 							<span class="input-group-text">받는사람 연락처</span>
-							<input type="number" name="recipientPhone" id="recipientPhone" class="form-control">
+							<input type="number" name="recipientPhone" id="recipientPhone" class="form-control" placeholder="-를 제외한 숫자만 입력해주세요.">
 						</div>
 						<div class="input-group p-3">
 							<span class="input-group-text">배송지 주소</span>

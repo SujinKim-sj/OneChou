@@ -8,6 +8,7 @@ const memberId = document.querySelector('#memberId');
 const productNum = document.querySelector('#productNum');
 const deliveryFee = document.querySelector('#deliveryFee');
 const freeDelivery = document.querySelector('#freeDelivery');
+const paymentBtn = document.querySelector('#paymentBtn');
 
 const showOption = document.querySelector('#showOption'); // 선택한 옵션을 보여주기 위함
 const showAmount = document.querySelector('#showAmount'); // 선택한 수량을 보여주기 위함
@@ -104,6 +105,16 @@ amount.addEventListener("change", function() {
 })
 
 cartBtn.addEventListener("click", function(){
+    if(memberId.value == "") {
+        if(!confirm('로그인이 필요합니다. \n로그인 하시겠습니까?')){
+            alert('회원만 장바구니에 추가가능합니다');
+            return;
+        } else {
+            location.href = "../member/login";
+            return;
+        }
+    }
+
     if(optionCheck && amountCheck) {
         const xhttp = new XMLHttpRequest();
 
@@ -116,7 +127,7 @@ cartBtn.addEventListener("click", function(){
         xhttp.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
                 let result = this.response.trim();
-                if(result == '1') {
+                if(result != '0') {
                     if(confirm('장바구니에 등록되었습니다.\n 장바구니로 이동하시겠습니까?')) {
                         window.location.href="../cart/index";
                     }
@@ -131,6 +142,53 @@ cartBtn.addEventListener("click", function(){
         showOption.innerHTML = "";
         showAmount.innerHTML = "";
         showPerPrice.innerHTML = "";
+
+    } else if(!optionCheck) {
+        alert("상품 옵션을 확인하세요.");
+        optionNum.focus();
+    } else {
+        alert("상품 수량을 확인하세요.");
+        amount.focus();
+    }
+})
+
+const cartNum = document.querySelector('#cartNum');
+const payForm = document.querySelector('#payForm');
+
+paymentBtn.addEventListener("click", function(){
+    if(memberId.value == "") {
+        if(!confirm('로그인이 필요합니다. \n로그인 하시겠습니까?')){
+            alert('회원만 구매 가능합니다');
+            return;
+        } else {
+            location.href = "../member/login";
+            return;
+        }
+    }
+
+    if(optionCheck && amountCheck) {
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "../cart/add");
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send("amount="+amount.value+"&perPrice="+perPrice.value+"&memberId="+memberId.value+"&productNum="+productNum.value+"&optionNum="+optionNum.value);
+
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let result = this.response.trim();
+                if(result != '0') {
+                    
+                    cartNum.value = result;
+                    payForm.submit();
+                
+                } else {
+                    alert('바로 결제에 실패했습니다. \n 다시 시도해 주세요.');
+                }
+            }
+        }
 
     } else if(!optionCheck) {
         alert("상품 옵션을 확인하세요.");

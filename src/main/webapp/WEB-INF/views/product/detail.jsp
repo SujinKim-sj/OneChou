@@ -143,7 +143,10 @@
 				</table>
 				<div class="d-flex justify-content-between mb-3">
 					<button class="btn btn-secondary" id="cartBtn" type="button">장바구니담기</button>
-					<button class="btn btn-secondary" type="button">바로구매하기</button>
+					<form action="../payment/add" method="post" id="payForm">
+						<input type="hidden" id="cartNum" name="nums">
+					</form>
+					<button class="btn btn-secondary" id="paymentBtn" type="button">바로구매하기</button>
 				</div>
 			</div>	
 		</div>

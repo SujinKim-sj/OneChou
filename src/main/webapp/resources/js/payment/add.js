@@ -82,7 +82,7 @@ paymentBtn.addEventListener("click", function(){
     } else if(!recipientCheck) {
         alert("받는사람을 입력해주세요")
     } else if(!recipientPhoneCheck) {
-        alert("받는사람 연락처를 입력해주세요")
+        alert("받는사람 연락처를 확인해주세요")
     } else {
         alert("배송지 주소를 입력해주세요")
     }

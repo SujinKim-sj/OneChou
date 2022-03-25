@@ -26,7 +26,7 @@ public class CartController {
 	public ModelAndView add(CartDTO cartDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
-		int result = cartService.add(cartDTO);
+		Long result = cartService.add(cartDTO);
 		mv.addObject("result", result);
 		mv.setViewName("common/ajaxResult");
 
