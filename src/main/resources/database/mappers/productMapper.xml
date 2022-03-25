@@ -68,6 +68,8 @@
 		<result column="name" property="name" />
 		<result column="price" property="price" />
 		<result column="roasteryName" property="roasteryName"/>
+		<result column="purchase" property="purchase"/>
+		<result column="regDate" property="regDate"/>
 		
 		<association property="productFileDTO" javaType="ProductFileDTO">
 			<id column="filenum" property="fileNum"/>
@@ -88,6 +90,18 @@
            	</otherwise>
         </choose> 
         LIKE '%' || #{search} || '%'
+	</select>
+	
+	<select id="myList" parameterType="MemberDTO" resultMap="listResult">
+		SELECT C.NUM, C.NAME, C.PRICE, C.PURCHASE, C.REGDATE, C.ROASTERYNAME, D.FILENAME
+		FROM MEMBER A
+		JOIN ROASTERY B
+		ON A.ID = B.MEMBERID
+		JOIN PRODUCT C
+		ON B.NUM = C.ROASTERYNUM
+		JOIN PRODUCTFILE D
+		ON C.NUM = D.PRODUCTNUM
+		WHERE A.ID = #{id}
 	</select>
 
 	<!-- 상품, 특성, 컵노트, 파일까지만 -->	
@@ -149,5 +163,6 @@
 	<select id="detailQna" parameterType="ProductDTO" resultType="QnaDTO">
 		SELECT * FROM QNA WHERE PRODUCTNUM = #{num} ORDER BY REF DESC, STEP ASC
 	</select>
+	
 	
 </mapper>

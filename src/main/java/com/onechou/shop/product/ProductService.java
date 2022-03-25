@@ -108,4 +108,8 @@ public class ProductService {
 	public List<QnaDTO> detailQna(ProductDTO productDTO) throws Exception {
 		return productDAO.detailQna(productDTO);
 	}
+	
+	public List<ProductDTO> myList(MemberDTO memberDTO) throws Exception {
+		return productDAO.myList(memberDTO);
+	}
 }

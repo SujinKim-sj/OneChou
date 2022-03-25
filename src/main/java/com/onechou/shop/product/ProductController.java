@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -107,6 +108,15 @@ public class ProductController {
 		// 조회한 정보 Attribute에 담아서 보내기
 		model.addAttribute("productDTO", productDTO);
 		model.addAttribute("reviewAvg", reviewAvg);
+	}
+	
+	@GetMapping("myList")
+	public void myList(HttpSession session, Model model) throws Exception {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		
+		List<ProductDTO> productDTOs = productService.myList(memberDTO);
+		
+		model.addAttribute("productDTOs", productDTOs);
 	}
 	
 }

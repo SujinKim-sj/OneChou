@@ -72,4 +72,8 @@ public class ProductDAO {
 		return sqlSession.selectList(NAMESPACE+"detailQna", productDTO);
 	}
 	
+	public List<ProductDTO> myList(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"myList", memberDTO);
+	}
+	
 }

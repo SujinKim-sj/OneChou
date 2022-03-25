@@ -147,5 +147,4 @@
 		WHERE A.NUM = #{num}
 	</select>
 	
-	
 </mapper>
