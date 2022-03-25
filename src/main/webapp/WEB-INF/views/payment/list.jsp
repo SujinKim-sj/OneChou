@@ -12,11 +12,11 @@
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container">
-		<div class="text-center mt-5 mb-5">
+		<div class="text-center mt-5">
 			<h3>결제내역 리스트 페이지</h3>
 		</div>
 		<c:forEach items="${paymentDTOs}" var="paymentDTO">
-		<div class="border border-2 rounded">
+		<div class="border border-2 rounded my-5">
 			<div class="d-flex justify-content-between m-3">
 				<div>
 					<div>주문번호 : ${paymentDTO.num}</div>
