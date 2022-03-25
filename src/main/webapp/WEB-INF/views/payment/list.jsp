@@ -22,7 +22,7 @@
 					<div>주문번호 : ${paymentDTO.num}</div>
 					<div>주문일자 : ${paymentDTO.orderDate}</div>
 				</div>
-				<div><a href="./detail?num=${paymentDTO.num}" class="">상세정보보기</a></div>
+				<div><a href="./detail?num=${paymentDTO.num}">상세정보보기</a></div>
 			</div>
 			
 			<c:forEach items="${paymentDTO.paidProductDTOs}" var="paidProductDTO">

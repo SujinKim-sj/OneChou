@@ -86,4 +86,8 @@ public class PaymentService {
 		return paymentDAO.list(map);
 	}
 	
+	public PaymentDTO detail(PaymentDTO paymentDTO) throws Exception {
+		return paymentDAO.detail(paymentDTO);
+	}
+	
 }

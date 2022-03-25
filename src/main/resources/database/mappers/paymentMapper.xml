@@ -70,7 +70,7 @@
 		WHERE NUM = #{productNum}
 	</update>
 	
-	<select id="list" parameterType="HashMap" resultMap="listResult">
+	<select id="list" parameterType="HashMap" resultMap="paymentResult">
 		SELECT * 
 		FROM (SELECT ROWNUM R, F.* 
 		      FROM (SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM, B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, E.FILENAME
@@ -88,10 +88,18 @@
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
-	<resultMap type="PaymentDTO" id="listResult">
+	<resultMap type="PaymentDTO" id="paymentResult">
 		<id column="num" property="num"/>
 		<result column="orderDate" property="orderDate"/>
 		<result column="totalPrice" property="totalPrice"/>
+		<result column="method" property="method"/>
+		
+		<association property="deliveryDTO" javaType="DeliveryDTO">
+			<result column="recipient" property="recipient"/>
+			<result column="address" property="address"/>
+			<result column="recipientPhone" property="recipientPhone"/>
+			<result column="memo" property="memo"/>
+		</association>
 		
 		<collection property="paidProductDTOs" javaType="List" ofType="PaidProductDTO">
 			<result column="perPrice" property="perPrice"/>
@@ -108,16 +116,35 @@
 				<result column="name" property="name"/>
 				<result column="roasteryName" property="roasteryName"/>
 				<result column="price" property="price"/>
+				<result column="deliveryFee" property="deliveryFee"/>
+				<result column="freeDelivery" property="freeDelivery"/>
 				<association property="productFileDTO" javaType="ProductFileDTO">
 					<result column="fileName" property="fileName"/>
 				</association>			
 			</association>
 		</collection>
+		
 	</resultMap>
 	
 	<select id="getTotal" parameterType="MemberDTO" resultType="Long">
 		SELECT COUNT(NUM) FROM PAYMENT
 		WHERE MEMBERID = #{id}
+	</select>
+	
+	<select id="detail" parameterType="PaymentDTO" resultMap="paymentResult">
+		SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, A.METHOD, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM, B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, D.DELIVERYFEE, D.FREEDELIVERY, E.FILENAME, F.RECIPIENT, F.ADDRESS, F.RECIPIENTPHONE, F.MEMO
+		FROM PAYMENT A
+		JOIN PAIDPRODUCT B
+		ON A.NUM = B.PAYMENTNUM
+		JOIN PRODUCTOPTION C
+		ON B.OPTIONNUM = C.NUM
+		JOIN PRODUCT D
+		ON B.PRODUCTNUM = D.NUM
+		JOIN PRODUCTFILE E
+		ON D.NUM = E.PRODUCTNUM
+		JOIN DELIVERY F
+		ON A.NUM = F.PAYMENTNUM
+		WHERE A.NUM = #{num}
 	</select>
 	
 	

@@ -79,16 +79,10 @@ public class PaymentController {
 				paymentService.updatePurchaseCount(paidProductDTOs.get(i));
 			}
 			
-			// 결제번호, 날짜 paymentDTO에 담아서 보내기
-			paymentDTO.setNum(result);
-			
-			Date date = new Date(System.currentTimeMillis());
-			paymentDTO.setOrderDate(date);
-			
-			mv.addObject("paymentDTO", paymentDTO);
-			mv.setViewName("payment/addResult");
-			
-			// 나중에 결제정보 디테일 페이지 완성 후 메서드 재사용!
+			// 결제완료 페이지로 보내기 (detail페이지의 connectionPath = 1로)
+
+			mv.setViewName("redirect:./detail?num="+result+"&connectionPath=1");
+
 				
 		} else {
 			mv.addObject("message", "결제에 실패했습니다.");
@@ -108,6 +102,15 @@ public class PaymentController {
 		
 		model.addAttribute("pager", pager);
 		model.addAttribute("paymentDTOs", paymentDTOs);
+		
+	}
+	
+	@GetMapping ("detail")
+	public void detail(PaymentDTO paymentDTO, Model model, String connectionPath) throws Exception {
+		paymentDTO = paymentService.detail(paymentDTO);
+		
+		model.addAttribute("connectionPath", connectionPath);
+		model.addAttribute("paymentDTO", paymentDTO);
 		
 	}
 	

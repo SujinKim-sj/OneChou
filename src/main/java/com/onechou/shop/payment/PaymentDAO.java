@@ -49,4 +49,8 @@ public class PaymentDAO {
 	public Long getTotal(MemberDTO memberDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getTotal", memberDTO);
 	}
+	
+	public PaymentDTO detail(PaymentDTO paymentDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"detail", paymentDTO);
+	}
 }
