@@ -1,5 +1,6 @@
 package com.onechou.shop.payment;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -41,7 +42,11 @@ public class PaymentDAO {
 		return sqlSession.update(NAMESPACE+"updatePurchaseCount", paidProductDTO);
 	}
 	
-	public List<PaymentDTO> list(MemberDTO memberDTO) throws Exception {
-		return sqlSession.selectList(NAMESPACE+"list", memberDTO);
+	public List<PaymentDTO> list(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"list", hashMap);
+	}
+	
+	public Long getTotal(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getTotal", memberDTO);
 	}
 }

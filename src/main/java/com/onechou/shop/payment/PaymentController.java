@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.onechou.shop.cart.CartDTO;
 import com.onechou.shop.member.MemberDTO;
+import com.onechou.shop.util.Pager;
 
 @Controller
 @RequestMapping(value = "/payment/**")
@@ -100,11 +101,12 @@ public class PaymentController {
 	}
 	
 	@GetMapping
-	public void list(HttpSession session, Model model) throws Exception {
+	public void list(HttpSession session, Model model, Pager pager) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
-		List<PaymentDTO> paymentDTOs = paymentService.list(memberDTO);
+		List<PaymentDTO> paymentDTOs = paymentService.list(memberDTO, pager);
 		
+		model.addAttribute("pager", pager);
 		model.addAttribute("paymentDTOs", paymentDTOs);
 		
 	}

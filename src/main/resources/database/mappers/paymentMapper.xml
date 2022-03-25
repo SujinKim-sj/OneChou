@@ -70,19 +70,22 @@
 		WHERE NUM = #{productNum}
 	</update>
 	
-	<select id="list" parameterType="MemberDTO" resultMap="listResult">
-		SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM,B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, E.FILENAME
-		FROM PAYMENT A
-		JOIN PAIDPRODUCT B
-		ON A.NUM = B.PAYMENTNUM
-		JOIN PRODUCTOPTION C
-		ON B.OPTIONNUM = C.NUM
-		JOIN PRODUCT D
-		ON B.PRODUCTNUM = D.NUM
-		JOIN PRODUCTFILE E
-		ON D.NUM = E.PRODUCTNUM
-		WHERE A.MEMBERID = 'cares'
-		ORDER BY A.NUM DESC, ORDERDATE DESC
+	<select id="list" parameterType="HashMap" resultMap="listResult">
+		SELECT * 
+		FROM (SELECT ROWNUM R, F.* 
+		      FROM (SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM, B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, E.FILENAME
+		            FROM PAYMENT A
+		            JOIN PAIDPRODUCT B
+		            ON A.NUM = B.PAYMENTNUM
+		            JOIN PRODUCTOPTION C
+		            ON B.OPTIONNUM = C.NUM
+		            JOIN PRODUCT D
+		            ON B.PRODUCTNUM = D.NUM
+		            JOIN PRODUCTFILE E
+		            ON D.NUM = E.PRODUCTNUM
+		            WHERE A.MEMBERID = #{id}
+		            ORDER BY A.NUM DESC, ORDERDATE DESC) F)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
 	<resultMap type="PaymentDTO" id="listResult">
@@ -111,6 +114,11 @@
 			</association>
 		</collection>
 	</resultMap>
+	
+	<select id="getTotal" parameterType="MemberDTO" resultType="Long">
+		SELECT COUNT(NUM) FROM PAYMENT
+		WHERE MEMBERID = #{id}
+	</select>
 	
 	
 </mapper>
