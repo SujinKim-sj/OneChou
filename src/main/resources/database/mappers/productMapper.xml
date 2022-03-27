@@ -92,20 +92,46 @@
         LIKE '%' || #{search} || '%'
 	</select>
 	
-	<select id="myList" parameterType="MemberDTO" resultMap="listResult">
-		SELECT C.NUM, C.NAME, C.PRICE, C.PURCHASE, C.REGDATE, C.ROASTERYNAME, D.FILENAME
-		FROM MEMBER A
+	<select id="myList" parameterType="HashMap" resultMap="listResult">
+		SELECT * 
+		FROM (SELECT ROWNUM R, E.*
+		      FROM (SELECT C.NUM, C.NAME, C.PRICE, C.PURCHASE, C.REGDATE, C.ROASTERYNAME, D.FILENAME
+		            FROM MEMBER A 
+		            JOIN ROASTERY B
+		            ON A.ID = B.MEMBERID
+		            JOIN PRODUCT C
+		            ON B.NUM = C.ROASTERYNUM
+		            JOIN PRODUCTFILE D
+		            ON C.NUM = D.PRODUCTNUM
+		            WHERE A.ID = #{id}
+		            AND C.NUM > 0
+		            AND C.NAME LIKE '%' || #{search} || '%'
+		            ORDER BY 
+		            <choose>
+		            	<when test="sorting == 'col2'">
+		            		C.PURCHASE
+		            	</when>
+		            	<otherwise>
+		            		C.REGDATE		            		
+		            	</otherwise>
+		            </choose>
+		            DESC) E)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<select id="getMyListTotal" parameterType="HashMap" resultType="Long">
+		SELECT COUNT(C.NUM) 
+		FROM MEMBER A 
 		JOIN ROASTERY B
 		ON A.ID = B.MEMBERID
 		JOIN PRODUCT C
 		ON B.NUM = C.ROASTERYNUM
-		JOIN PRODUCTFILE D
-		ON C.NUM = D.PRODUCTNUM
 		WHERE A.ID = #{id}
+		AND C.NAME LIKE '%' || #{search} || '%'
 	</select>
 
 	<!-- 상품, 특성, 컵노트, 파일까지만 -->	
-	<select id="detailBasic" parameterType="ProductDTO" resultMap="detailBasicResult">
+	<select id="detailBasic" parameterType="HashMap" resultMap="detailBasicResult">
 		SELECT A.*, B.FLAVOR, B.ROASTINGPOINT, C.NOTENAME, D.FILENAME, D.ORINAME
 		FROM PRODUCT A
 		JOIN PRODUCTFEATURE B

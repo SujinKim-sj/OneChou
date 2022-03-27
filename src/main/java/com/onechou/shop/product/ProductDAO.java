@@ -1,5 +1,6 @@
 package com.onechou.shop.product;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -72,8 +73,12 @@ public class ProductDAO {
 		return sqlSession.selectList(NAMESPACE+"detailQna", productDTO);
 	}
 	
-	public List<ProductDTO> myList(MemberDTO memberDTO) throws Exception {
-		return sqlSession.selectList(NAMESPACE+"myList", memberDTO);
+	public List<ProductDTO> myList(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"myList", hashMap);
+	}
+	
+	public Long getMyListTotal(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getMyListTotal", hashMap);
 	}
 	
 }

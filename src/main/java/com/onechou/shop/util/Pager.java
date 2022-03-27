@@ -91,8 +91,15 @@ public class Pager {
 		return search;
 	}
 	
+	// --정렬기능 관련
+	private String sorting;
 	
-	
+	public String getSorting() {
+		if(this.sorting == null) {
+			this.sorting = "col1";
+		}
+		return sorting;
+	}
 	
 	// getters and setters ...
 	public void setKind(String kind) {
@@ -142,6 +149,9 @@ public class Pager {
 	}
 	public void setNext(boolean next) {
 		this.next = next;
+	}
+	public void setSorting(String sorting) {
+		this.sorting = sorting;
 	}
 	
 }

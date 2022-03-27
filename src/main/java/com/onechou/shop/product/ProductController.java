@@ -111,11 +111,12 @@ public class ProductController {
 	}
 	
 	@GetMapping("myList")
-	public void myList(HttpSession session, Model model) throws Exception {
+	public void myList(HttpSession session, Model model, Pager pager) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
-		List<ProductDTO> productDTOs = productService.myList(memberDTO);
+		List<ProductDTO> productDTOs = productService.myList(memberDTO, pager);
 		
+		model.addAttribute("pager", pager);
 		model.addAttribute("productDTOs", productDTOs);
 	}
 	

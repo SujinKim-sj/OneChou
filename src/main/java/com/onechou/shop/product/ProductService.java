@@ -1,5 +1,6 @@
 package com.onechou.shop.product;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +110,20 @@ public class ProductService {
 		return productDAO.detailQna(productDTO);
 	}
 	
-	public List<ProductDTO> myList(MemberDTO memberDTO) throws Exception {
-		return productDAO.myList(memberDTO);
+	public List<ProductDTO> myList(MemberDTO memberDTO, Pager pager) throws Exception {
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		pager.setPerPage(5L);
+		pager.makeRow();
+		
+		hashMap.put("id", memberDTO.getId());
+		hashMap.put("search", pager.getSearch());
+		hashMap.put("startRow", pager.getStartRow());
+		hashMap.put("lastRow", pager.getLastRow());
+		hashMap.put("sorting", pager.getSorting());
+		
+		pager.makeNum(productDAO.getMyListTotal(hashMap));
+		
+		return productDAO.myList(hashMap);
 	}
 }
