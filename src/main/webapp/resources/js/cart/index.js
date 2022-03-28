@@ -78,11 +78,9 @@ listResult.addEventListener("click", function(event){
 
         // 원래 옵션번호 구하기
         let originalOptionNum = document.querySelector('#originalOptionNum'+num).value;
-        console.log(originalOptionNum);
         
         // 원래 수량 구하기
         let originalAmount = document.querySelector('#originalAmount'+num).value;
-        console.log(originalAmount);
 
         // 원래 옵션이랑 변경 옵션이랑 같은지 확인, 다르다면 변경할 것인지 확인
 
@@ -142,4 +140,34 @@ listResult.addEventListener("click", function(event){
             }
         }
     }
+})
+
+// 결제내역 입력폼으로 이동
+
+const paymentBtn = document.querySelector('#paymentBtn');
+const paymentForm = document.querySelector('#paymentForm');
+
+paymentBtn.addEventListener("click", function(){
+    if(!confirm('결제하시겠습니까?')){
+        return;
+    }
+    const cartClick = document.querySelectorAll('.cartClick');
+    let nums = [];
+
+    for(cc of cartClick) {
+        if(cc.checked) {
+            nums.push(cc.getAttribute('value'));
+        }
+    }
+
+    for(let n of nums) {
+        const inputHidden = document.createElement('input');
+        inputHidden.setAttribute("type", "hidden");
+        inputHidden.setAttribute("name", "nums");
+        inputHidden.value=n
+        paymentForm.append(inputHidden);
+    }
+
+    paymentForm.submit();
+
 })

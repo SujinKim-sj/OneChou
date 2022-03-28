@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.onechou.shop.payment.PaymentDAO">
+
+	<select id="getCartDetail" parameterType="CartDTO" resultMap="cartDetailResult">
+		SELECT A.*, B.NAME, B.PRICE, B.ROASTERYNUM, B.ROASTERYNAME, B.DELIVERYFEE, B.FREEDELIVERY, C.FILENAME, D.OPTIONNAME, D.ADDPRICE 
+		FROM CART A
+		JOIN PRODUCT B
+		ON A.PRODUCTNUM = B.NUM
+		JOIN PRODUCTFILE C
+		ON B.NUM = C. PRODUCTNUM
+		JOIN PRODUCTOPTION D
+		ON A.OPTIONNUM = D.NUM
+		WHERE A.NUM = #{num}
+	</select>
+	
+	<resultMap type="CartDTO" id="cartDetailResult">
+		<id column="num" property="num"/>
+		<result column="amount" property="amount"/>
+		<result column="perPrice" property="perPrice"/>
+		<result column="memberId" property="memberId"/>
+		<result column="productNum" property="productNum"/>
+		<result column="optionNum" property="optionNum"/>
+		
+		<association property="productDTO" javaType="ProductDTO">
+			<result column="name" property="name"/>
+			<result column="price" property="price"/>
+			<result column="roasteryNum" property="roasteryNum"/>
+			<result column="roasteryName" property="roasteryName"/>
+			<result column="deliveryFee" property="deliveryFee"/>
+			<result column="freeDelivery" property="freeDelivery"/>
+			<association property="productFileDTO" javaType="ProductFileDTO">
+				<result column="fileName" property="fileName"/>
+			</association>
+		</association>
+		
+		<association property="productOptionDTO" javaType="ProductOptionDTO">
+			<result column="optionName" property="optionName"/>
+			<result column="addPrice" property="addPrice"/>
+		</association>
+	</resultMap>
+	
+	<insert id="addPayment" parameterType="PaymentDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT PAYMENT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PAYMENT (NUM, ORDERDATE, TOTALPRICE, METHOD, MEMBERID)
+		VALUES (#{num}, SYSDATE, #{totalPrice}, #{method}, #{memberId})
+	</insert>
+	
+	<insert id="addPaidProduct" parameterType="PaidProductDTO">
+		INSERT INTO PAIDPRODUCT (NUM, PERPRICE, AMOUNT, PAYMENTNUM, PRODUCTNUM, OPTIONNUM, SHIPMENTSTATUS, ROASTERYNUM)
+		VALUES (PAIDPRODUCT_SEQ.NEXTVAL, #{perPrice}, #{amount}, #{paymentNum}, #{productNum}, #{optionNum}, 0, #{roasteryNum})
+	</insert>
+	
+	<insert id="addDelivery" parameterType="DeliveryDTO">
+		INSERT INTO DELIVERY (NUM, RECIPIENT, ADDRESS, RECIPIENTPHONE, MEMO, PAYMENTNUM)
+		VALUES (DELIVERY_SEQ.NEXTVAL, #{recipient}, #{address}, #{recipientPhone}, #{memo}, #{paymentNum})
+	</insert>
+	
+	<delete id="deleteCart" parameterType="CartDTO">
+		DELETE CART WHERE NUM = #{num}
+	</delete>
+	
+	<update id="updatePurchaseCount" parameterType="PaidProductDTO">
+		UPDATE PRODUCT SET PURCHASE = PURCHASE + 1
+		WHERE NUM = #{productNum}
+	</update>
+	
+	<select id="list" parameterType="HashMap" resultMap="paymentResult">
+		SELECT * 
+		FROM (SELECT ROWNUM R, F.* 
+		      FROM (SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM, B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, E.FILENAME
+		            FROM PAYMENT A
+		            JOIN PAIDPRODUCT B
+		            ON A.NUM = B.PAYMENTNUM
+		            JOIN PRODUCTOPTION C
+		            ON B.OPTIONNUM = C.NUM
+		            JOIN PRODUCT D
+		            ON B.PRODUCTNUM = D.NUM
+		            JOIN PRODUCTFILE E
+		            ON D.NUM = E.PRODUCTNUM
+		            WHERE A.MEMBERID = #{id}
+		            ORDER BY A.NUM DESC, ORDERDATE DESC) F)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<resultMap type="PaymentDTO" id="paymentResult">
+		<id column="num" property="num"/>
+		<result column="orderDate" property="orderDate"/>
+		<result column="totalPrice" property="totalPrice"/>
+		<result column="method" property="method"/>
+		
+		<association property="deliveryDTO" javaType="DeliveryDTO">
+			<result column="recipient" property="recipient"/>
+			<result column="address" property="address"/>
+			<result column="recipientPhone" property="recipientPhone"/>
+			<result column="memo" property="memo"/>
+		</association>
+		
+		<collection property="paidProductDTOs" javaType="List" ofType="PaidProductDTO">
+			<result column="perPrice" property="perPrice"/>
+			<result column="amount" property="amount"/>
+			<result column="productNum" property="productNum"/>
+			<result column="deliveryCompany" property="deliveryCompany"/>
+			<result column="shipmentNum" property="shipmentNum"/>
+			<result column="shipmentStatus" property="shipmentStatus"/>
+			<association property="productOptionDTO" javaType="ProductOptionDTO">
+				<result column="optionName" property="optionName"/>
+				<result column="addPrice" property="addPrice"/>
+			</association>
+			<association property="productDTO" javaType="ProductDTO">
+				<result column="name" property="name"/>
+				<result column="roasteryName" property="roasteryName"/>
+				<result column="price" property="price"/>
+				<result column="deliveryFee" property="deliveryFee"/>
+				<result column="freeDelivery" property="freeDelivery"/>
+				<association property="productFileDTO" javaType="ProductFileDTO">
+					<result column="fileName" property="fileName"/>
+				</association>			
+			</association>
+		</collection>
+		
+	</resultMap>
+	
+	<select id="getTotal" parameterType="MemberDTO" resultType="Long">
+		SELECT COUNT(NUM) FROM PAYMENT
+		WHERE MEMBERID = #{id}
+	</select>
+	
+	<select id="detail" parameterType="PaymentDTO" resultMap="paymentResult">
+		SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, A.METHOD, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM, B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, D.DELIVERYFEE, D.FREEDELIVERY, E.FILENAME, F.RECIPIENT, F.ADDRESS, F.RECIPIENTPHONE, F.MEMO
+		FROM PAYMENT A
+		JOIN PAIDPRODUCT B
+		ON A.NUM = B.PAYMENTNUM
+		JOIN PRODUCTOPTION C
+		ON B.OPTIONNUM = C.NUM
+		JOIN PRODUCT D
+		ON B.PRODUCTNUM = D.NUM
+		JOIN PRODUCTFILE E
+		ON D.NUM = E.PRODUCTNUM
+		JOIN DELIVERY F
+		ON A.NUM = F.PAYMENTNUM
+		WHERE A.NUM = #{num}
+	</select>
+	
+	
+</mapper>

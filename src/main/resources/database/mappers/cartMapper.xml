@@ -6,8 +6,11 @@
 <mapper namespace="com.onechou.shop.cart.CartDAO">
 
 	<insert id="add" parameterType="CartDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT CART_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO CART (NUM, AMOUNT, PERPRICE, MEMBERID, PRODUCTNUM, OPTIONNUM)
-		VALUES (CART_SEQ.NEXTVAL, #{amount}, #{perPrice}, #{memberId}, #{productNum}, #{optionNum})
+		VALUES (#{num}, #{amount}, #{perPrice}, #{memberId}, #{productNum}, #{optionNum})
 	</insert>
 
 	<select id="list" parameterType="MemberDTO" resultMap="listResult">

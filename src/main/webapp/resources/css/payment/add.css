@@ -1,0 +1,13 @@
+.table {
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.productImg {
+    width: 100px;
+    height: 100px;
+}
+
+.resultList {
+    width: 60%;
+}

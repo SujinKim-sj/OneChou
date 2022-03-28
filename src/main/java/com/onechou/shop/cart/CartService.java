@@ -13,8 +13,16 @@ public class CartService {
 	@Autowired
 	private CartDAO cartDAO;
 	
-	public int add(CartDTO cartDTO) throws Exception {
-		return cartDAO.add(cartDTO);
+	public Long add(CartDTO cartDTO) throws Exception {
+		int result = cartDAO.add(cartDTO);
+		
+		Long cartNum = 0L; 
+		
+		if(result > 0) {
+			cartNum = cartDTO.getNum();
+		}
+		
+		return cartNum;
 	}
 	
 	public List<CartDTO> list(MemberDTO memberDTO) throws Exception {
