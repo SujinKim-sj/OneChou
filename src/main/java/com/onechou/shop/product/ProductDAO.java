@@ -85,4 +85,8 @@ public class ProductDAO {
 		return sqlSession.delete(NAMESPACE+"delete", productDTO);
 	}
 	
+	public ProductDTO updateSearch(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"updateSearch", productDTO);
+	}
+	
 }

@@ -133,7 +133,7 @@ public class ProductController {
 		model.addAttribute("productDTOs", productDTOs);
 	}
 	
-	@PostMapping
+	@PostMapping("delete")
 	public ModelAndView delete(ProductDTO productDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 				
@@ -150,6 +150,14 @@ public class ProductController {
 		mv.setViewName("common/result");
 				
 		return mv;
+	}
+	
+	@PostMapping("update")
+	public void update(ProductDTO productDTO, Model model) throws Exception {
+		
+		productDTO = productService.updateSearch(productDTO);
+		
+		model.addAttribute("productDTO", productDTO);
 	}
 	
 }

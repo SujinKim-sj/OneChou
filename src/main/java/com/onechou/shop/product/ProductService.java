@@ -130,4 +130,8 @@ public class ProductService {
 	public int delete(ProductDTO productDTO) throws Exception {
 		return productDAO.delete(productDTO);
 	}
+	
+	public ProductDTO updateSearch(ProductDTO productDTO) throws Exception {
+		return productDAO.updateSearch(productDTO);
+	}
 }
