@@ -5,6 +5,12 @@
    
 <mapper namespace="com.onechou.shop.roastery.RoasteryDAO">
 	<insert id="add" parameterType="RoasteryDTO">
-		INSERT INTO ROASTERY VALUES(ROASTERY_SEQ.NEXTVAL,#{name},#{info},#{address},#{memberId})
+	<selectKey keyProperty="num" order="BEFORE" resultType="Long"> 
+		SELECT ROASTERYFILE_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+		INSERT INTO ROASTERY VALUES(#{num},#{name},#{info},#{address},#{memberId})
+	</insert>
+	<insert id="addFile" parameterType="RoasteryFileDTO">
+		INSERT INTO ROASTERYFILE VALUES (ROASTERYFILE_SEQ.NEXTVAL,#{fileName},#{oriName},#{roasteryNum})
 	</insert>
 </mapper>

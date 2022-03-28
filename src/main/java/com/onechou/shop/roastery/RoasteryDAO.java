@@ -15,6 +15,10 @@ public class RoasteryDAO {
 	public int add(RoasteryDTO roasteryDTO) throws Exception {
 		return sqlSession.insert(namespace+"add", roasteryDTO);
 	}
+	
+	public int addFile(RoasteryFileDTO roasteryFileDTO)throws Exception{
+		return sqlSession.insert(namespace+"addFile",roasteryFileDTO);
+	}
 
 	
 }

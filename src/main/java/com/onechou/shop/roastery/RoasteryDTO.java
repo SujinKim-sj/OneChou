@@ -5,9 +5,17 @@ public class RoasteryDTO {
 	private Long num;
 	private String name;
 	private String info;
-	private String adress;
+	private String address;
 	private String memberId;
+	private RoasteryFileDTO roasteryFileDTO;
 	
+
+	public RoasteryFileDTO getRoasteryFileDTO() {
+		return roasteryFileDTO;
+	}
+	public void setRoasteryFileDTO(RoasteryFileDTO roasteryFileDTO) {
+		this.roasteryFileDTO = roasteryFileDTO;
+	}
 	public Long getNum() {
 		return num;
 	}
@@ -26,11 +34,11 @@ public class RoasteryDTO {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getMemberId() {
 		return memberId;

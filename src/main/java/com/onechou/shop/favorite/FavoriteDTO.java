@@ -7,7 +7,6 @@ public class FavoriteDTO {
 	private Long roastingPoint;
 	private Long flavor;
 	private String memberId;
-	
 	private List<CupnoteDTO> cupnoteDTOs;
 	
 	public List<CupnoteDTO> getCupnoteDTOs() {

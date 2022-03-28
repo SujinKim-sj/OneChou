@@ -7,8 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping(value = "/roastery/**")
 public class RoasteryController {
@@ -22,9 +21,9 @@ public class RoasteryController {
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String add(RoasteryDTO roasteryDTO,Model model) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		int result = roasteryService.add(roasteryDTO);
+	public String add(RoasteryDTO roasteryDTO,MultipartFile file,Model model) throws Exception{		
+		int result = roasteryService.add(roasteryDTO,file);
+		
 		String message = "roastery fail";
 		String p = "redirect:./add";
 		if(result>0) {

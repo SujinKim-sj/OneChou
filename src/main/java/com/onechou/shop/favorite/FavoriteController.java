@@ -57,6 +57,44 @@ public class FavoriteController {
 		return path;
 	}
 	
+	@RequestMapping(value ="update",method = RequestMethod.GET)
+	public ModelAndView update(HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		mv.addObject("member", memberDTO);
+		return mv;
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST )
+	public String update(FavoriteDTO favoriteDTO , String [] noteNames ,Model model) throws Exception{
+		int result = favoriteService.update(favoriteDTO);
+		for(int i=0;i<noteNames.length;i++) {
+			CupnoteDTO cupnoteDTO = new CupnoteDTO();
+			cupnoteDTO.setFavoriteNum(favoriteDTO.getNum());
+			cupnoteDTO.setNoteName(noteNames[i]);
+			result = favoriteService.noteUpdate(cupnoteDTO);
+		}
+		
+		if(result>0) {
+			System.out.println("성공");
+		}else
+		{
+			System.out.println("실패");
+		}
+		
+		String message = "favorite update Fail";
+		String p = "./update";
+		if(result>0) {
+			message = "favorite update Success";
+			p = "../";
+		}
+		model.addAttribute("message", message);
+		model.addAttribute("path", p);
+		String path = "common/result";
+		return path;
+	}
+	
+	
 	
 }
 	

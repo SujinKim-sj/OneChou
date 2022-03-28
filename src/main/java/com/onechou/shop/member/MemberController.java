@@ -1,5 +1,7 @@
 package com.onechou.shop.member;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,10 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.onechou.shop.favorite.CupnoteDTO;
+import com.onechou.shop.favorite.FavoriteDTO;
+import com.onechou.shop.favorite.FavoriteService;
 
 
 @Controller
@@ -110,9 +116,100 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		memberDTO = memberService.mypage(memberDTO);
+		if(memberDTO.getKind()==2) {
+			FavoriteDTO favoriteDTO = memberService.normal(memberDTO);
+			List<CupnoteDTO> cupnoteDTOs = memberService.cupnote(favoriteDTO);
+			favoriteDTO.setCupnoteDTOs(cupnoteDTOs);
+			memberDTO.setFavoriteDTO(favoriteDTO);
+			
+		}
 		mv.setViewName("member/mypage");
 		mv.addObject("dto", memberDTO);
 		return mv;
 	} 
+	
+	@RequestMapping(value = "updateCheck", method = RequestMethod.GET)
+	public void updateCheck()throws Exception{
+	}
+	@RequestMapping(value = "updateCheck", method = RequestMethod.POST)
+	public String updateCheck(Model model,MemberDTO memberDTO,HttpSession session)throws Exception{
+		MemberDTO mem = (MemberDTO)session.getAttribute("member");
+		String message="Check fail";
+		String path="./updateCheck";
+		if(mem.getId().equals(memberDTO.getId())&&mem.getPw().equals(memberDTO.getPw())) {
+			message="Check Success";
+			path="./update";
+		}
+		model.addAttribute("message", message);
+		model.addAttribute("path", path);
+		return "common/result";
+	}
+	@RequestMapping(value = "update",method = RequestMethod.GET)
+	public void update(HttpSession session)throws Exception{
+		session.getAttribute("member");
+	}
+
+	@RequestMapping(value = "update",method = RequestMethod.POST)
+	public String update(Model model,MemberDTO memberDTO)throws Exception{
+		int result = memberService.update(memberDTO);
+		String message="Update fail";
+		String path="redirect:./update";
+		if(result>0) {
+			message = "Update success";
+			path = "../";
+		}
+		model.addAttribute("path", path);
+		model.addAttribute("message", message);
+		return "common/result";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	

@@ -5,17 +5,34 @@
    
 <mapper namespace="com.onechou.shop.member.MemberDAO">
 	<select id="login" parameterType="MemberDTO" resultType="MemberDTO">
-		SELECT ID, NICKNAME, KIND
+		SELECT *
 		FROM MEMBER 
 		WHERE ID = #{id} AND PW = #{pw}
 	</select>
 	<select id="mypage" parameterType="MemberDTO" resultType="MemberDTO">
 		SELECT *
 		FROM MEMBER
-		WHERE ID = #{id}
+		WHERE ID=#{id}
 	</select>
+
+	<select id="normal" parameterType="MemberDTO" resultType="FavoriteDTO">
+		SELECT *
+		FROM FAVORITE
+		WHERE MEMBERID=#{id}
+	</select>
+	<select id="cupnote" parameterType="FavoriteDTO" resultType="CupnoteDTO">
+		SELECT * 
+		FROM CUPNOTE
+		WHERE FAVORITENUM = #{num}
+	</select>
+	
 	<insert id="join" parameterType="MemberDTO">
 		INSERT INTO MEMBER VALUES
 		(#{id},#{pw},#{name},#{email},#{phone},#{nickname},#{address},#{kind})
 	</insert>
+	<update id="update" parameterType="MemberDTO">
+		UPDATE MEMBER 
+		SET PW=#{pw} ,NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickname}, ADDRESS=#{address}
+		WHERE ID=#{id}
+	</update>
 </mapper>

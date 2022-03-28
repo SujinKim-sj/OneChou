@@ -16,17 +16,15 @@
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-	<h3>
-	회원유형
-	</h3>
-	<form action="./join" method="get" id="frm">
-	로스터리 회원
-	<input type="radio" name="kind" value="1">
-	일반 회원
-	<input type="radio" name="kind" value="2">
-	<button type="button" id="btn">선택</button>
+	<h1>본인 확인</h1>
+	<form action="" id="frm" method="post">
+	<div>
+	<input type="text" name="id" id="id">
+	</div>
+	<div>
+	<input type="password" name="pw" id="pw">
+	</div>
+	<button type="submit" id="btn">확인</button>
 	</form>
-
-	<script src="../resources/js/member/kindSelect.js"></script>
 </body>
 </html>
