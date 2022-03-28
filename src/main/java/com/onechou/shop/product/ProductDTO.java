@@ -18,6 +18,7 @@ public class ProductDTO {
 	private String roasteryName;
 	private Integer deliveryFee;
 	private Integer freeDelivery;
+	private Integer sale;
 	
 	private ProductFileDTO productFileDTO;
 	private ProductFeatureDTO productFeatureDTO;
@@ -84,6 +85,12 @@ public class ProductDTO {
 	}
 	public void setFreeDelivery(Integer freeDelivery) {
 		this.freeDelivery = freeDelivery;
+	}
+	public Integer getSale() {
+		return sale;
+	}
+	public void setSale(Integer sale) {
+		this.sale = sale;
 	}
 	public ProductFileDTO getProductFileDTO() {
 		return productFileDTO;

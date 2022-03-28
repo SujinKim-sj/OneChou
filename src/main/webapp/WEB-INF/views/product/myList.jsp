@@ -57,7 +57,12 @@
 						</div>
 						<div class="col-3 text-center d-flex flex-column justify-content-center my-3">
 							<div><a href="./update?num=${productDTO.num}" class="btn btn-secondary my-2">상품수정하기</a></div>
-							<div><a href="./detail?num=${productDTO.num}" class="btn btn-secondary my-2">상품삭제하기</a></div>
+							<div>
+								<form action="./delete" method="post">
+									<input type="hidden" name="num" value="${productDTO.num}">
+									<button type="submit" class="btn btn-secondary">상품삭제하기</button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</c:forEach>

@@ -81,4 +81,8 @@ public class ProductDAO {
 		return sqlSession.selectOne(NAMESPACE+"getMyListTotal", hashMap);
 	}
 	
+	public int delete(ProductDTO productDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"delete", productDTO);
+	}
+	
 }

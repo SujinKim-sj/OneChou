@@ -126,4 +126,8 @@ public class ProductService {
 		
 		return productDAO.myList(hashMap);
 	}
+	
+	public int delete(ProductDTO productDTO) throws Exception {
+		return productDAO.delete(productDTO);
+	}
 }

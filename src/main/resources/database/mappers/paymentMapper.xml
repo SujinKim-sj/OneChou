@@ -71,7 +71,7 @@
 	</update>
 	
 	<select id="list" parameterType="HashMap" resultMap="paymentResult">
-		SELECT * 
+        SELECT * 
 		FROM (SELECT ROWNUM R, F.* 
 		      FROM (SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM, B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, E.FILENAME
 		            FROM PAYMENT A
@@ -86,6 +86,7 @@
 		            WHERE A.MEMBERID = #{id}
 		            ORDER BY A.NUM DESC, ORDERDATE DESC) F)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
+		
 	</select>
 	
 	<resultMap type="PaymentDTO" id="paymentResult">
@@ -94,7 +95,7 @@
 		<result column="totalPrice" property="totalPrice"/>
 		<result column="method" property="method"/>
 		
-		<association property="deliveryDTO" javaType="DeliveryDTO">
+ 		<association property="deliveryDTO" javaType="DeliveryDTO">
 			<result column="recipient" property="recipient"/>
 			<result column="address" property="address"/>
 			<result column="recipientPhone" property="recipientPhone"/>

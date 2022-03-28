@@ -13,8 +13,8 @@
 		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
 			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME, DELIVERYFEE, FREEDELIVERY)
-		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery})
+		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME, DELIVERYFEE, FREEDELIVERY, SALE)
+		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery}, 1)
 	</insert>
 	
 	<insert id="addFeature" parameterType="ProductFeatureDTO">
@@ -49,6 +49,7 @@
 		            JOIN PRODUCTFILE B
 		            ON A.NUM = B.PRODUCTNUM
 		            WHERE A.NUM > 0
+		            AND A.SALE = 1
 		            AND
 		            <choose>
 		            	<when test="kind=='col2'">
@@ -70,6 +71,7 @@
 		<result column="roasteryName" property="roasteryName"/>
 		<result column="purchase" property="purchase"/>
 		<result column="regDate" property="regDate"/>
+		<result column="sale" property="sale"/>
 		
 		<association property="productFileDTO" javaType="ProductFileDTO">
 			<id column="filenum" property="fileNum"/>
@@ -80,7 +82,8 @@
 	<select id="getTotal" parameterType="Pager" resultType="Long">
 		SELECT COUNT(NUM) FROM PRODUCT
 		WHERE NUM > 0
-		AND 		            
+		AND SALE = 1
+		AND		            
 		<choose>
 			<when test="kind=='col2'">
            		ROASTERYNAME
@@ -105,6 +108,7 @@
 		            ON C.NUM = D.PRODUCTNUM
 		            WHERE A.ID = #{id}
 		            AND C.NUM > 0
+		            AND C.SALE = 1
 		            AND C.NAME LIKE '%' || #{search} || '%'
 		            ORDER BY 
 		            <choose>
@@ -127,6 +131,8 @@
 		JOIN PRODUCT C
 		ON B.NUM = C.ROASTERYNUM
 		WHERE A.ID = #{id}
+		AND C.NUM > 0
+		AND C.SALE = 1
 		AND C.NAME LIKE '%' || #{search} || '%'
 	</select>
 
@@ -154,6 +160,7 @@
 		<result column="roasteryName" property="roasteryName"/>
 		<result column="deliveryFee" property="deliveryFee"/>
 		<result column="freeDelivery" property="freeDelivery"/>
+		<result column="sale" property="sale"/>
 		
 		<association property="productFeatureDTO" javaType="ProductFeatureDTO">
 			<result column="flavor" property="flavor"/>
@@ -189,6 +196,10 @@
 	<select id="detailQna" parameterType="ProductDTO" resultType="QnaDTO">
 		SELECT * FROM QNA WHERE PRODUCTNUM = #{num} ORDER BY REF DESC, STEP ASC
 	</select>
+	
+	<delete id="delete" parameterType="ProductDTO">
+		UPDATE PRODUCT SET SALE = 0 WHERE NUM = #{num}
+	</delete>
 	
 	
 </mapper>
