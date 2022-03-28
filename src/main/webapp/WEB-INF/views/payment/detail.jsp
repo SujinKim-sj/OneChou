@@ -169,7 +169,7 @@
 			</div>
 		</div>
 		<div class="my-5 text-center">
-			<button class="btn btn-secondary">결제내역 목록보기</button>
+			<a href="./list" class="btn btn-secondary">결제내역 목록보기</a>
 		</div>
 	</div>
 

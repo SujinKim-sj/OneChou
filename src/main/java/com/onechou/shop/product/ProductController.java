@@ -146,7 +146,7 @@ public class ProductController {
 		}
 		
 		mv.addObject("message", message);
-		mv.addObject("path", "./list");
+		mv.addObject("path", "./myList");
 		mv.setViewName("common/result");
 				
 		return mv;
