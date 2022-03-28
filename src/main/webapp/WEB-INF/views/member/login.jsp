@@ -20,6 +20,7 @@
 	
 	<div>
 		<form action="./login" method="post">
+
 			<fieldset>
 				<legend>ID</legend>
 				<input type="text" name="id" value="${cookie.remember.value}">	

@@ -27,4 +27,10 @@
 		INSERT INTO CUPNOTE
 		VALUES(CUPNOTE_SEQ.NEXTVAL,#{noteName},#{favoriteNum})
 	</insert>
+	<update id="update" parameterType="FavoriteDTO">
+		UPDATE FAVORITE 
+		SET ROASTINGPOINT = #{roastingPoint}, FLAVOR = #{flavor}
+		WHERE ID=#{id}
+	</update>
+	
 </mapper>

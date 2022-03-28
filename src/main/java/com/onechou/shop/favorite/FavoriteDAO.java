@@ -1,9 +1,13 @@
 package com.onechou.shop.favorite;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.onechou.shop.member.MemberDTO;
 
 @Repository
 public class FavoriteDAO {
@@ -18,4 +22,11 @@ public class FavoriteDAO {
 	public int noteAdd(CupnoteDTO cupnoteDTO)throws Exception{
 		return sqlSession.insert(namespace+"noteAdd", cupnoteDTO);
 	}
+	public int update(FavoriteDTO favoriteDTO)throws Exception{
+		return sqlSession.update(namespace+"update", favoriteDTO);
+	}
+	public int noteUpdate(CupnoteDTO cupnoteDTO)throws Exception{
+		return sqlSession.update(namespace+"noteUpdate", cupnoteDTO);
+	}
+
 }

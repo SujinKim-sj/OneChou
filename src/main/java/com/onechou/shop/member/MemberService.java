@@ -1,7 +1,12 @@
 package com.onechou.shop.member;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.onechou.shop.favorite.CupnoteDTO;
+import com.onechou.shop.favorite.FavoriteDTO;
 
 @Service
 public class MemberService {
@@ -21,6 +26,13 @@ public class MemberService {
 	public MemberDTO mypage(MemberDTO memberDTO) throws Exception{
 		return memberDAO.mypage(memberDTO);
 	}
+	public FavoriteDTO normal(MemberDTO memberDTO) throws Exception{
+		return memberDAO.normal(memberDTO);
+	}
 	
+	public List<CupnoteDTO> cupnote(FavoriteDTO favoriteDTO) throws Exception{
+		return memberDAO.cupnote(favoriteDTO);
+	}
+
 	
 }

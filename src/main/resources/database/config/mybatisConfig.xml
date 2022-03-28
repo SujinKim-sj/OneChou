@@ -14,7 +14,6 @@
   		<typeAlias type="com.onechou.shop.favorite.FavoriteDTO" alias="FavoriteDTO"/>
   		<typeAlias type="com.onechou.shop.favorite.CupnoteDTO" alias="CupnoteDTO"/>
   		<typeAlias type="com.onechou.shop.roastery.RoasteryDTO" alias="RoasteryDTO"/>
-  		<typeAlias type="com.onechou.shop.roastery.RoasteryDTO" alias="RoasteryDTO"/>
   		<typeAlias type="com.onechou.shop.roastery.RoasteryFileDTO" alias="RoasteryFileDTO"/>
 	
   		<typeAlias type="com.onechou.shop.product.ProductDTO" alias="ProductDTO"/>

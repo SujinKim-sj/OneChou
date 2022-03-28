@@ -1,5 +1,8 @@
 package com.onechou.shop.member;
 
+import com.onechou.shop.favorite.FavoriteDTO;
+import com.onechou.shop.roastery.RoasteryDTO;
+
 public class MemberDTO {
 
 	private String id;
@@ -10,7 +13,25 @@ public class MemberDTO {
 	private String nickname;
 	private String address;
 	private Long kind;
+	private FavoriteDTO favoriteDTO;
+	private RoasteryDTO roasteryDTO;
 	
+	public RoasteryDTO getRoasteryDTO() {
+		return roasteryDTO;
+	}
+
+	public void setRoasteryDTO(RoasteryDTO roasteryDTO) {
+		this.roasteryDTO = roasteryDTO;
+	}
+
+	public FavoriteDTO getFavoriteDTO() {
+		return favoriteDTO;
+	}
+
+	public void setFavoriteDTO(FavoriteDTO favoriteDTO) {
+		this.favoriteDTO = favoriteDTO;
+	}
+
 	public MemberDTO() {
 		// TODO Auto-generated constructor stub
 	}
