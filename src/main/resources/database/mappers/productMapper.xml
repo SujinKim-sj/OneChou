@@ -176,6 +176,7 @@
 		</association>
 		
 		<collection property="productOptionDTOs" javaType="List" ofType="ProductOptionDTO">
+			<id column="opNum" property="num"/>
 			<result column="optionName" property="optionName"/>
 			<result column="addPrice" property="addPrice"/>
 		</collection>
@@ -207,7 +208,7 @@
 	</delete>
 	
 	<select id="updateSearch" parameterType="ProductDTO" resultMap="detailBasicResult">
-		SELECT A.NUM, A.NAME, A.INFO, A.PRICE, A.PURCHASE, A.REGDATE, A.ROASTERYNUM, A.ROASTERYNAME, A.DELIVERYFEE, A.FREEDELIVERY, B.FILENAME, B.ORINAME, C.ROASTINGPOINT, C.FLAVOR, D.NOTENAME, E.OPTIONNAME, E.ADDPRICE
+		SELECT A.NUM, A.NAME, A.INFO, A.PRICE, A.PURCHASE, A.REGDATE, A.ROASTERYNUM, A.ROASTERYNAME, A.DELIVERYFEE, A.FREEDELIVERY, B.FILENAME, B.ORINAME, C.ROASTINGPOINT, C.FLAVOR, D.NOTENAME, E.NUM AS OPNUM, E.OPTIONNAME, E.ADDPRICE
 		FROM PRODUCT A
 		JOIN PRODUCTFILE B
 		ON A.NUM = B.PRODUCTNUM

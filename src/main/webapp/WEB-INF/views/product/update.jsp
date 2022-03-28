@@ -20,7 +20,7 @@
 	        <input type="hidden" name="regDate" value="${productDTO.regDate}">            
             <div class="border border-2 rounded">
                 <div class="border-bottom border-2 text-center pt-3 pb-3">
-                    <h3>상품 기본정보 입력</h3>
+                    <h3>상품 기본정보 수정</h3>
                 </div>
                 <div class="row">
                     <div class="col form-floating m-3">
@@ -48,12 +48,14 @@
                 </div>
                 <!-- 변경버튼 누르면 input태그들 사라짐, file선택하는 input태그 생성 -->
                 <div id="productImageDiv">
-                    <div id="originalImage" class="m-3">
+                    <div id="originalImage" class="d-flex justify-content-between align-items-end m-3">
                         <input type="hidden" name="fileName" value="${productDTO.productFileDTO.fileName}">
                         <input type="hidden" name="oriName" value="${productDTO.productFileDTO.oriName}">                	
-                        <img class="productImg" src="../resources/upload/product/${productDTO.productFileDTO.fileName}">	
-                        <span>${productDTO.productFileDTO.oriName}</span>
-                        <span><button type="button" id="changeImageBtn">상품이미지 변경하기</button></span>                
+                        <div class="d-flex align-items-end">
+	                        <img class="productImg" src="../resources/upload/product/${productDTO.productFileDTO.fileName}">
+	                        <span class="mb-3">${productDTO.productFileDTO.oriName}</span>
+                        </div>                
+                        <span class="mb-2"><button type="button" class="btn btn-secondary" id="changeImageBtn">상품이미지 변경하기</button></span>
                     </div>
                     <!-- 변경버튼을 누르면 위 코드가 삭제되고 아래 코드가 생성됨 
                         <div class="input-group p-3">
@@ -63,35 +65,41 @@
                 </div>
             </div>
             <div class="border border-2 rounded mt-5">
-				<c:forEach items="${productDTO.productOptionDTOs}" var="productOptionDTO">
-					<div class="row mx-3" id="del0">
-						<div class="col form-floating mt-3 mb-3">
-							<input class="form-control optionName" type="text" name="optionNames" placeholder="옵션명입력" value="${productOptionDTO.optionName}">
-							<label>&nbsp;&nbsp;옵션명입력</label>
-						</div>
-						<div class="col form-floating mt-3 mb-3">
-							<input class="form-control optionPrice" type="number" name="addPrices" placeholder="옵션가격입력" value="${productOptionDTO.addPrice}">
-							<label>&nbsp;&nbsp;옵션가격입력</label>
-						</div>
-						<div class="col col-2 d-flex align-items-center justify-content-center">
-							<button type="button" data-num="del0" class="btn btn-secondary del">옵션지우기</button>
-						</div>
-					</div>
-				</c:forEach>
                 <div class="text-center pt-3 pb-3 border-bottom border-2">
-                    <h3>상품 옵션 추가</h3>
+                    <h3>상품 옵션 수정</h3>
                 </div>
-                <div class="m-3" id="options">
-                    <input type="hidden" name="optionNames" value="기본옵션">
-                	<input type="hidden" name="addPrices" value="0">
-                </div>
+                <div id="optionsDiv">
+				<c:forEach items="${productDTO.productOptionDTOs}" var="productOptionDTO">
+					<c:choose>
+						<c:when test="${productOptionDTO.optionName == '기본옵션'}">
+							<input type="hidden" name="optionNames" value="기본옵션">
+							<input type="hidden" name="addPrices" value="0">							
+						</c:when>
+						<c:otherwise>
+							<div class="row mx-3" id="originalOption${productOptionDTO.num}">
+								<div class="col form-floating mt-3 mb-3">
+									<input class="form-control optionName" type="text" name="optionNames" placeholder="옵션명입력" value="${productOptionDTO.optionName}">
+									<label>&nbsp;&nbsp;옵션명입력</label>
+								</div>
+								<div class="col form-floating mt-3 mb-3">
+									<input class="form-control optionPrice" type="number" name="addPrices" placeholder="옵션가격입력" value="${productOptionDTO.addPrice}">
+									<label>&nbsp;&nbsp;옵션가격입력</label>
+								</div>
+								<div class="col col-2 d-flex align-items-center justify-content-center">
+									<button type="button" data-num="${productOptionDTO.num}" class="btn btn-secondary originalDel">옵션지우기</button>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				</div>
                 <div class="text-center mb-3">
                     <button type="button" id="addBtn" class="btn btn-secondary">추가하기</button>
                 </div>
             </div>
             <div class="border border-2 rounded mt-5">
                 <div class="border-bottom border-2 pt-3 pb-3 text-center">
-                    <h3>상품 특성 선택</h3>
+                    <h3>상품 특성 수정</h3>
                 </div>
                 <ul class="list-group text-center m-5">
                     <li class="list-group-item"> <h5>해당 상품의 컵노트를 골라주세요</h5></li>
@@ -158,7 +166,7 @@
                 </ul>
             </div>
             <div class="mt-5 mb-5 text-center">
-                <button type="button" id="regBtn" class="btn btn-secondary">수정하기</button>
+                <button type="button" id="updateBtn" class="btn btn-secondary">수정하기</button>
             </div>
         </form>
     </div>
