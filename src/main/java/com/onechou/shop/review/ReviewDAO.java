@@ -23,4 +23,8 @@ public class ReviewDAO {
 	public ProductDTO searchProduct(ProductDTO productDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"searchProduct", productDTO);
 	}
+	
+	public int add(ReviewDTO reviewDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"add", reviewDTO);
+	}
 }

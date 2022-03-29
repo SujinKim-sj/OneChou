@@ -52,7 +52,21 @@ public class ReviewController {
 	}
 	
 	@PostMapping("addResult")
-	public void addResult(ReviewDTO reviewDTO) throws Exception {
-		System.out.println(reviewDTO.getRating());
+	public ModelAndView addResult(ReviewDTO reviewDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = reviewService.add(reviewDTO);
+		
+		String message = "리뷰 등록에 성공했습니다.";
+		
+		if(result < 1) {
+			message = "리뷰 등록에 실패했습니다.";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "../payment/list");
+		mv.setViewName("common/result");
+		
+		return mv;
 	}
 }

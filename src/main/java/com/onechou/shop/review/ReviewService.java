@@ -27,5 +27,9 @@ public class ReviewService {
 	public ProductDTO searchProduct(ProductDTO productDTO) throws Exception {
 		return reviewDAO.searchProduct(productDTO);
 	}
+	
+	public int add(ReviewDTO reviewDTO) throws Exception {
+		return reviewDAO.add(reviewDTO);
+	}
 
 }

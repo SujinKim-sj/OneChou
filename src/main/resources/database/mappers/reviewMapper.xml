@@ -30,5 +30,10 @@
 			<result column="fileName" property="fileName"/>
 		</association>
 	</resultMap>
+	
+	<insert id="add" parameterType="ReviewDTO">
+		INSERT INTO REVIEW (NUM, CONTENTS, REGDATE, RATING, WRITER, MEMBERID, PRODUCTNUM)
+		VALUES (REVIEW_SEQ.NEXTVAL, #{contents}, SYSDATE, #{rating}, #{writer}, #{memberId}, #{productNum})
+	</insert>
 
 </mapper>
