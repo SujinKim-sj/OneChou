@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
+	<link rel="stylesheet" type="text/css" href="../resources/css/product/detail.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -76,12 +77,13 @@
 							</c:when>
 							<c:otherwise>
 								<td colspan="3">
+								<!-- 나중에 구현할 수 있으면 할 것 -->
+<!-- 								<span>⭐</span>
 								<span>⭐</span>
 								<span>⭐</span>
 								<span>⭐</span>
-								<span>⭐</span>
-								<span>⭐</span>								
-								<span>(${reviewAvg}점)</span>
+								<span>⭐</span>		 -->						
+								<span>${reviewAvg}점</span>
 								</td>
 							</c:otherwise>
 						</c:choose>

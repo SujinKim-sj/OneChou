@@ -81,4 +81,16 @@ public class ReviewController {
 		
 		model.addAttribute("reviewDTOs", reviewDTOs);
 	}
+	
+	@PostMapping
+	public ModelAndView delete(ReviewDTO reviewDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = reviewService.delete(reviewDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
+	}
 }

@@ -218,5 +218,33 @@ function getReviewList() {
 
 }
 
-// 리뷰 평균 별점 채우기
-const reviewAvg = document.querySelector('#reviewAvg');
+reviewSection.addEventListener("click", function(event){
+    if(event.target.getAttribute("id") == 'reviewDeleteBtn') {
+        if(!confirm('삭제하시겠습니까?')) {
+            return;
+        }
+
+        const reviewNum = event.target.getAttribute("data-num");
+        
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "../review/delete");
+    
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send("num="+reviewNum);
+    
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                let result = this.responseText.trim();
+
+                if(result == 1) {
+                    alert('리뷰 삭제에 성공했습니다.');
+                    getReviewList();
+                } else {
+                    alert('리뷰 삭제에 실패했습니다.\n다시 시도해주세요.')
+                }
+            }
+        }
+    }
+})

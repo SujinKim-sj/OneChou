@@ -36,5 +36,9 @@ public class ReviewService {
 	public List<ReviewDTO> list(ReviewDTO reviewDTO) throws Exception {
 		return reviewDAO.list(reviewDTO);
 	}
+	
+	public int delete(ReviewDTO reviewDTO) throws Exception {
+		return reviewDAO.delete(reviewDTO);
+	}
 
 }

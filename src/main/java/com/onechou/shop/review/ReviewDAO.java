@@ -32,4 +32,8 @@ public class ReviewDAO {
 	public List<ReviewDTO> list(ReviewDTO reviewDTO) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"list", reviewDTO);
 	}
+	
+	public int delete(ReviewDTO reviewDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"delete", reviewDTO);
+	}
 }

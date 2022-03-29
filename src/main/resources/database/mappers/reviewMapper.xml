@@ -39,5 +39,9 @@
 	<select id="list" parameterType="ReviewDTO" resultType="ReviewDTO">
 		SELECT * FROM REVIEW WHERE PRODUCTNUM = #{productNum}
 	</select>
+	
+	<delete id="delete" parameterType="ReviewDTO">
+		DELETE REVIEW WHERE NUM = #{num}
+	</delete>
 
 </mapper>
