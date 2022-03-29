@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.onechou.shop.qna.QnaDTO;
 import com.onechou.shop.review.ReviewDTO;
+import com.onechou.shop.roastery.RoasteryDTO;
 
 public class ProductDTO {
 	
@@ -18,7 +19,9 @@ public class ProductDTO {
 	private String roasteryName;
 	private Integer deliveryFee;
 	private Integer freeDelivery;
+	private Integer sale;
 	
+	private RoasteryDTO roasteryDTO;
 	private ProductFileDTO productFileDTO;
 	private ProductFeatureDTO productFeatureDTO;
 	private List<ProductOptionDTO> productOptionDTOs;
@@ -84,6 +87,18 @@ public class ProductDTO {
 	}
 	public void setFreeDelivery(Integer freeDelivery) {
 		this.freeDelivery = freeDelivery;
+	}
+	public Integer getSale() {
+		return sale;
+	}
+	public void setSale(Integer sale) {
+		this.sale = sale;
+	}
+	public RoasteryDTO getRoasteryDTO() {
+		return roasteryDTO;
+	}
+	public void setRoasteryDTO(RoasteryDTO roasteryDTO) {
+		this.roasteryDTO = roasteryDTO;
 	}
 	public ProductFileDTO getProductFileDTO() {
 		return productFileDTO;

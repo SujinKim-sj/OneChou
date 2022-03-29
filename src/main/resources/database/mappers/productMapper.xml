@@ -13,8 +13,8 @@
 		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
 			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME, DELIVERYFEE, FREEDELIVERY)
-		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery})
+		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME, DELIVERYFEE, FREEDELIVERY, SALE)
+		VALUES (#{num}, #{name}, #{info}, #{price}, 0, SYSDATE, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery}, 1)
 	</insert>
 	
 	<insert id="addFeature" parameterType="ProductFeatureDTO">
@@ -40,6 +40,14 @@
 		VALUES (PRODUCTOPTION_SEQ.NEXTVAL, #{optionName}, #{addPrice}, #{productNum})
 	</insert>
 	
+	<insert id="updateAdd" parameterType="ProductDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME, DELIVERYFEE, FREEDELIVERY, SALE)
+		VALUES (#{num}, #{name}, #{info}, #{price}, #{purchase}, #{regDate}, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery}, 1)
+	</insert>
+	
 	<!-- 아직 검색조건은 넣지 않음 -->
 	<select id="list" parameterType="Pager" resultMap="listResult">
 		SELECT * 
@@ -49,6 +57,7 @@
 		            JOIN PRODUCTFILE B
 		            ON A.NUM = B.PRODUCTNUM
 		            WHERE A.NUM > 0
+		            AND A.SALE = 1
 		            AND
 		            <choose>
 		            	<when test="kind=='col2'">
@@ -68,6 +77,9 @@
 		<result column="name" property="name" />
 		<result column="price" property="price" />
 		<result column="roasteryName" property="roasteryName"/>
+		<result column="purchase" property="purchase"/>
+		<result column="regDate" property="regDate"/>
+		<result column="sale" property="sale"/>
 		
 		<association property="productFileDTO" javaType="ProductFileDTO">
 			<id column="filenum" property="fileNum"/>
@@ -78,7 +90,8 @@
 	<select id="getTotal" parameterType="Pager" resultType="Long">
 		SELECT COUNT(NUM) FROM PRODUCT
 		WHERE NUM > 0
-		AND 		            
+		AND SALE = 1
+		AND		            
 		<choose>
 			<when test="kind=='col2'">
            		ROASTERYNAME
@@ -89,9 +102,50 @@
         </choose> 
         LIKE '%' || #{search} || '%'
 	</select>
+	
+	<select id="myList" parameterType="HashMap" resultMap="listResult">
+		SELECT * 
+		FROM (SELECT ROWNUM R, E.*
+		      FROM (SELECT C.NUM, C.NAME, C.PRICE, C.PURCHASE, C.REGDATE, C.ROASTERYNAME, D.FILENAME
+		            FROM MEMBER A 
+		            JOIN ROASTERY B
+		            ON A.ID = B.MEMBERID
+		            JOIN PRODUCT C
+		            ON B.NUM = C.ROASTERYNUM
+		            JOIN PRODUCTFILE D
+		            ON C.NUM = D.PRODUCTNUM
+		            WHERE A.ID = #{id}
+		            AND C.NUM > 0
+		            AND C.SALE = 1
+		            AND C.NAME LIKE '%' || #{search} || '%'
+		            ORDER BY 
+		            <choose>
+		            	<when test="sorting == 'col2'">
+		            		C.PURCHASE
+		            	</when>
+		            	<otherwise>
+		            		C.REGDATE		            		
+		            	</otherwise>
+		            </choose>
+		            DESC) E)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<select id="getMyListTotal" parameterType="HashMap" resultType="Long">
+		SELECT COUNT(C.NUM) 
+		FROM MEMBER A 
+		JOIN ROASTERY B
+		ON A.ID = B.MEMBERID
+		JOIN PRODUCT C
+		ON B.NUM = C.ROASTERYNUM
+		WHERE A.ID = #{id}
+		AND C.NUM > 0
+		AND C.SALE = 1
+		AND C.NAME LIKE '%' || #{search} || '%'
+	</select>
 
 	<!-- 상품, 특성, 컵노트, 파일까지만 -->	
-	<select id="detailBasic" parameterType="ProductDTO" resultMap="detailBasicResult">
+	<select id="detailBasic" parameterType="HashMap" resultMap="detailBasicResult">
 		SELECT A.*, B.FLAVOR, B.ROASTINGPOINT, C.NOTENAME, D.FILENAME, D.ORINAME
 		FROM PRODUCT A
 		JOIN PRODUCTFEATURE B
@@ -114,6 +168,7 @@
 		<result column="roasteryName" property="roasteryName"/>
 		<result column="deliveryFee" property="deliveryFee"/>
 		<result column="freeDelivery" property="freeDelivery"/>
+		<result column="sale" property="sale"/>
 		
 		<association property="productFeatureDTO" javaType="ProductFeatureDTO">
 			<result column="flavor" property="flavor"/>
@@ -127,6 +182,12 @@
 			<result column="fileName" property="fileName"/>
 			<result column="oriName" property="oriName"/>
 		</association>
+		
+		<collection property="productOptionDTOs" javaType="List" ofType="ProductOptionDTO">
+			<id column="opNum" property="num"/>
+			<result column="optionName" property="optionName"/>
+			<result column="addPrice" property="addPrice"/>
+		</collection>
 	</resultMap>
 	
 	<!-- 상품 옵션 가져오기 -->
@@ -149,5 +210,25 @@
 	<select id="detailQna" parameterType="ProductDTO" resultType="QnaDTO">
 		SELECT * FROM QNA WHERE PRODUCTNUM = #{num} ORDER BY REF DESC, STEP ASC
 	</select>
+	
+	<update id="delete" parameterType="ProductDTO">
+		UPDATE PRODUCT SET SALE = 0 WHERE NUM = #{num}
+	</update>
+	
+	<select id="updateSearch" parameterType="ProductDTO" resultMap="detailBasicResult">
+		SELECT A.NUM, A.NAME, A.INFO, A.PRICE, A.PURCHASE, A.REGDATE, A.ROASTERYNUM, A.ROASTERYNAME, A.DELIVERYFEE, A.FREEDELIVERY, B.FILENAME, B.ORINAME, C.ROASTINGPOINT, C.FLAVOR, D.NOTENAME, E.NUM AS OPNUM, E.OPTIONNAME, E.ADDPRICE
+		FROM PRODUCT A
+		JOIN PRODUCTFILE B
+		ON A.NUM = B.PRODUCTNUM
+		JOIN PRODUCTFEATURE C
+		ON A.NUM = C.PRODUCTNUM
+		JOIN PRODUCTCUPNOTE D
+		ON C.NUM = D.FEATURENUM
+		JOIN PRODUCTOPTION E
+		ON A.NUM = E.PRODUCTNUM
+		WHERE A.NUM = #{num}
+		ORDER BY E.NUM ASC
+	</select>
+	
 	
 </mapper>

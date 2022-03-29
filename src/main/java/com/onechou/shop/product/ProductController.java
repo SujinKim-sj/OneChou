@@ -3,14 +3,19 @@ package com.onechou.shop.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.review.ReviewDTO;
@@ -87,7 +92,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public void detail(ProductDTO productDTO, Model model) throws Exception {
+	public ModelAndView detail(ProductDTO productDTO, ModelAndView mv, HttpServletRequest request) throws Exception {
 		
 		// 해당 상품의 기본 특징들 조회해오기 (상품정보, 특징, 이미지 등)
 		productDTO = productService.detailBasic(productDTO);
@@ -104,9 +109,94 @@ public class ProductController {
 		// 해당 상품의 질문들 조회해오기
 		productDTO.setQnaDTOs(productService.detailQna(productDTO));
 		
-		// 조회한 정보 Attribute에 담아서 보내기
+		if(productDTO.getSale() == 0) {
+			String path = request.getHeader("Referer"); // 이전페이지 경로 가져오기
+			mv.addObject("message", "삭제되거나 수정된 상품입니다.");
+			mv.addObject("path", path);
+			mv.setViewName("common/result");
+		} else {
+			// 조회한 정보 Attribute에 담아서 보내기
+			mv.addObject("productDTO", productDTO);
+			mv.addObject("reviewAvg", reviewAvg);
+		}
+
+		return mv;
+	}
+	
+	@GetMapping("myList")
+	public void myList(HttpSession session, Model model, Pager pager) throws Exception {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		
+		List<ProductDTO> productDTOs = productService.myList(memberDTO, pager);
+		
+		model.addAttribute("pager", pager);
+		model.addAttribute("productDTOs", productDTOs);
+	}
+	
+	@PostMapping("delete")
+	public ModelAndView delete(ProductDTO productDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+				
+		int result = productService.delete(productDTO);
+		
+		String message = "상품삭제에 성공했습니다.";
+		
+		if(result < 1) {
+			message = "상품 삭제에 실패했습니다. \n다시 시도해주세요.";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "./myList");
+		mv.setViewName("common/result");
+				
+		return mv;
+	}
+	
+	@PostMapping("update")
+	public void update(ProductDTO productDTO, Model model) throws Exception {
+		
+		productDTO = productService.updateSearch(productDTO);
+		
 		model.addAttribute("productDTO", productDTO);
-		model.addAttribute("reviewAvg", reviewAvg);
+	}
+	
+	@PostMapping("updateResult")
+	public ModelAndView updateResult(ProductDTO productDTO, ProductFeatureDTO productFeatureDTO, MultipartFile file, ProductFileDTO productFileDTO, String[] optionNames, String[] addPrices, String[] noteNames) throws Exception {
+		
+		List<ProductOptionDTO> productOptionDTOs = new ArrayList<ProductOptionDTO>();
+		for(int i=0;i<optionNames.length;i++) {
+			ProductOptionDTO productOptionDTO = new ProductOptionDTO();
+			productOptionDTO.setOptionName(optionNames[i]);
+			productOptionDTO.setAddPrice(Integer.parseInt(addPrices[i]));
+			productOptionDTOs.add(productOptionDTO);
+		}
+		
+		List<ProductCupnoteDTO> productCupnoteDTOs = new ArrayList<ProductCupnoteDTO>();
+		for(int i=0;i<noteNames.length;i++) {
+			ProductCupnoteDTO productCupnoteDTO = new ProductCupnoteDTO();
+			productCupnoteDTO.setNoteName(noteNames[i]);
+			productCupnoteDTOs.add(productCupnoteDTO);
+		}
+		
+		productFeatureDTO.setProductCupnoteDTOs(productCupnoteDTOs);
+		productDTO.setProductOptionDTOs(productOptionDTOs);
+		productDTO.setProductFeatureDTO(productFeatureDTO);
+		productDTO.setProductFileDTO(productFileDTO);
+		
+		boolean result = productService.updateResult(productDTO, file);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		String message = "상품수정에 성공했습니다.";
+		
+		if(!result) {
+			message = "상품수정에 실패했습니다. \n다시 시도해주세요.";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "./myList");
+		mv.setViewName("common/result");
+		return mv;
 	}
 	
 }

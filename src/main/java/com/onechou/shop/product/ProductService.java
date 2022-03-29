@@ -1,5 +1,7 @@
 package com.onechou.shop.product;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,5 +109,95 @@ public class ProductService {
 	
 	public List<QnaDTO> detailQna(ProductDTO productDTO) throws Exception {
 		return productDAO.detailQna(productDTO);
+	}
+	
+	public List<ProductDTO> myList(MemberDTO memberDTO, Pager pager) throws Exception {
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		pager.setPerPage(5L);
+		pager.makeRow();
+		
+		hashMap.put("id", memberDTO.getId());
+		hashMap.put("search", pager.getSearch());
+		hashMap.put("startRow", pager.getStartRow());
+		hashMap.put("lastRow", pager.getLastRow());
+		hashMap.put("sorting", pager.getSorting());
+		
+		pager.makeNum(productDAO.getMyListTotal(hashMap));
+		
+		return productDAO.myList(hashMap);
+	}
+	
+	public int delete(ProductDTO productDTO) throws Exception {
+		return productDAO.delete(productDTO);
+	}
+	
+	public ProductDTO updateSearch(ProductDTO productDTO) throws Exception {
+		return productDAO.updateSearch(productDTO);
+	}
+	
+	public boolean updateResult(ProductDTO productDTO, MultipartFile file) throws Exception {
+		boolean check = true;
+		
+		// 기존 상품 삭제 처리 (판매여부 = 0으로 수정)
+		if(productDAO.delete(productDTO) < 1) {
+			check = false;
+			return check;
+		}
+		
+		// 상품 테이블에 데이터 삽입
+		if(productDAO.updateAdd(productDTO) < 1) {
+			check = false;
+		}
+		
+		// 상품 특성 테이블에 데이터 삽입 (add시 사용했던 쿼리문, 메서드 재사용)
+		ProductFeatureDTO productFeatureDTO = productDTO.getProductFeatureDTO();
+		productFeatureDTO.setProductNum(productDTO.getNum());
+		if(productDAO.addFeature(productFeatureDTO) < 1) {
+			check = false;
+		}
+		
+		// 상품 컵노트 테이블에 데이터 삽입 (add시 사용했던 쿼리문, 메서드 재사용)
+		List<ProductCupnoteDTO> productCupnoteDTOs = productFeatureDTO.getProductCupnoteDTOs();
+		for(int i=0;i<productCupnoteDTOs.size();i++) {
+			ProductCupnoteDTO productCupnoteDTO = productCupnoteDTOs.get(i);
+			productCupnoteDTO.setFeatureNum(productFeatureDTO.getNum());
+			if(productDAO.addCupnote(productCupnoteDTO) < 1) {
+				check = false;
+			}
+		}
+		
+		// 상품 옵션 테이블에 데이터 삽입 (add시 사용했던 쿼리문, 메서드 재사용)
+		List<ProductOptionDTO> productOptionDTOs = productDTO.getProductOptionDTOs();
+		for(int i=0;i<productOptionDTOs.size();i++) {
+			ProductOptionDTO productOptionDTO = productOptionDTOs.get(i);
+			productOptionDTO.setProductNum(productDTO.getNum());
+			if(productDAO.addOption(productOptionDTO) < 1) {
+				check = false;
+			}
+		}
+		
+		// 상품 파일 테이블에 데이터 삽입
+		// productFileDTO 는 파라미터로 fileName, oriName을 넘겨주지 않더라도 null이 아님, 
+		// file은 file이 넘어오지 않으면 null, 넘어오면 null이 아님
+		// 즉, file을 가지고 상품 이미지를 수정했는지 안했는지를 판단해야 함
+		if(file == null) { // 수정하지 않은 경우
+			ProductFileDTO productFileDTO = productDTO.getProductFileDTO();
+			productFileDTO.setProductNum(productDTO.getNum());
+			if(productDAO.addFile(productFileDTO) < 1) {
+				check = false;
+			}
+		} else { // 수정한 경우
+			String fileName = fileManager.save(file, "resources/upload/product/");
+			ProductFileDTO productFileDTO = new ProductFileDTO();
+			productFileDTO.setFileName(fileName);
+			productFileDTO.setOriName(file.getOriginalFilename());
+			productFileDTO.setProductNum(productDTO.getNum());
+			if(productDAO.addFile(productFileDTO) < 1) {
+				check = false;
+			}
+		}
+			
+		return check;
 	}
 }
