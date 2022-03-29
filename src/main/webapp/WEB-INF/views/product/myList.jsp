@@ -57,9 +57,9 @@
 						</div>
 						<div class="col-3 text-center d-flex flex-column justify-content-center my-3">
 							<div class="mb-3">
-								<form action="./update?num=${productDTO.num}" method="post">
+								<form action="./update?num=${productDTO.num}" id="updateForm" method="post">
 									<input type="hidden" name="num" value="${productDTO.num}">
-									<button type="submit" class="btn btn-secondary">상품수정하기</button>
+									<button type="button" class="btn btn-secondary" id="updateBtn">상품수정하기</button>
 								</form>
 							</div>
 							<div>

@@ -64,7 +64,10 @@
 							</c:otherwise>
 						</c:choose>						
 						<div class="my-2">
-							<a class="btn btn-secondary" href="../review/add?productNum=${paidProductDTO.productNum}">리뷰작성하기</a>
+							<form action="../review/add" method="post">
+								<input type="hidden" name="num" value="${paidProductDTO.productNum}">
+								<button class="btn btn-secondary" type="submit">리뷰작성하기</button>
+							</form>
 						</div>
 					</div>
 				</div>
