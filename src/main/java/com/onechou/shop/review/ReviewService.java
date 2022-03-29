@@ -1,6 +1,7 @@
 package com.onechou.shop.review;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class ReviewService {
 	
 	public int add(ReviewDTO reviewDTO) throws Exception {
 		return reviewDAO.add(reviewDTO);
+	}
+	
+	public List<ReviewDTO> list(ReviewDTO reviewDTO) throws Exception {
+		return reviewDAO.list(reviewDTO);
 	}
 
 }

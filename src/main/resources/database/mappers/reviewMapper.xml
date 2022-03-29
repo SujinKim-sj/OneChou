@@ -35,5 +35,9 @@
 		INSERT INTO REVIEW (NUM, CONTENTS, REGDATE, RATING, WRITER, MEMBERID, PRODUCTNUM)
 		VALUES (REVIEW_SEQ.NEXTVAL, #{contents}, SYSDATE, #{rating}, #{writer}, #{memberId}, #{productNum})
 	</insert>
+	
+	<select id="list" parameterType="ReviewDTO" resultType="ReviewDTO">
+		SELECT * FROM REVIEW WHERE PRODUCTNUM = #{productNum}
+	</select>
 
 </mapper>

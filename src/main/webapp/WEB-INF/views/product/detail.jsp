@@ -18,6 +18,13 @@
 				<img class="img-fluid" src="../resources/upload/product/${productDTO.productFileDTO.fileName}">
 			</div>
 			<div class="col col-7">
+				<input type="hidden" name="productNum" id="productNum" value="${productDTO.num}">
+				<input type="hidden" name="memberId" id="memberId" value="${member.id}">
+				<input type="hidden" disabled id="deliveryFee" value="${productDTO.deliveryFee}">
+				<input type="hidden" disabled id="price" value="${productDTO.price}">
+				<input type="hidden" disabled id="freeDelivery" value="${productDTO.freeDelivery}">
+				<input type="hidden" name="perPrice" id="perPrice">
+				<input type="hidden" id="reviewAvg" value="${reviewAvg}">
 				<table class="table">
 					<tr>
 						<td>원두명</td>
@@ -62,13 +69,20 @@
 						</c:choose>
 					</tr>
 					<tr>
-						<td>리뷰별점</td>
+						<td>리뷰평균</td>
 						<c:choose>
 							<c:when test="${empty productDTO.reviewDTOs}">
 								<td colspan="3">리뷰정보없음</td>
 							</c:when>
 							<c:otherwise>
-								<td colspan="3">${reviewAvg}</td>
+								<td colspan="3">
+								<span>⭐</span>
+								<span>⭐</span>
+								<span>⭐</span>
+								<span>⭐</span>
+								<span>⭐</span>								
+								<span>(${reviewAvg}점)</span>
+								</td>
 							</c:otherwise>
 						</c:choose>
 					</tr>
@@ -76,43 +90,35 @@
 						<td>로스터리</td>
 						<td colspan="3"><a class="link-secondary" href="../roastery/detail?num=${productDTO.roasteryNum}">${productDTO.roasteryName}</a></td>
 					</tr>
-					<form action="../cart/add" id="cartFrm" method="post">
-						<input type="hidden" name="productNum" id="productNum" value="${productDTO.num}">
-						<input type="hidden" name="memberId" id="memberId" value="${member.id}">
-						<input type="hidden" desabled id="deliveryFee" value="${productDTO.deliveryFee}">
-						<input type="hidden" disabled id="price" value="${productDTO.price}">
-						<input type="hidden" disabled id="freeDelivery" value="${productDTO.freeDelivery}">
-						<input type="hidden" name="perPrice" id="perPrice">
-						<tr>
-							<td>상품옵션</td>
-							<td colspan="3">
-								<select class="form-select" name="optionNum" id="optionNum">
-									<option value="no" selected>상품 옵션을 골라주세요</option>
-										<c:forEach items="${productDTO.productOptionDTOs}" var="productOption">
-											<option class="options" value="${productOption.num}">옵션명 : ${productOption.optionName}&nbsp;옵션가격 : ${productOption.addPrice}</option>									
-										</c:forEach>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>상품수량</td>
-							<td colspan="3">
-								<select class="form-select" name="amount" id="amount">
-									<option value="no" selected>상품 수량을 골라주세요</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
-								</select>
-							</td>
-						</tr>
-					</form>
+					<tr>
+						<td>상품옵션</td>
+						<td colspan="3">
+							<select class="form-select" name="optionNum" id="optionNum">
+								<option value="no" selected>상품 옵션을 골라주세요</option>
+									<c:forEach items="${productDTO.productOptionDTOs}" var="productOption">
+										<option class="options" value="${productOption.num}">옵션명 : ${productOption.optionName}&nbsp;옵션가격 : ${productOption.addPrice}</option>									
+									</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>상품수량</td>
+						<td colspan="3">
+							<select class="form-select" name="amount" id="amount">
+								<option value="no" selected>상품 수량을 골라주세요</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</td>
+					</tr>
 					<tr>
 						<td>배송비</td>
 						<c:choose>
@@ -164,34 +170,8 @@
 			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
 				<p class="text-center fs-2">원두리뷰</p>
 			</div>
-			<div class="mt-3 mb-3">
-				<c:choose>
-					<c:when test="${empty productDTO.reviewDTOs}">
-						<h5 class="text-center">아직 이 상품에는 아무런 리뷰도 없어요</h5>
-					</c:when>
-					<c:otherwise>
-						<table class="table table-striped">
-							<thead>
-							  <tr>
-								<th scope="col">별점</th>
-								<th scope="col">작성자</th>
-								<th colspan="5" scope="col" style="width:50%">리뷰내용</th>
-								<th scope="col">작성일</th>
-							  </tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${productDTO.reviewDTOs}" var="review">
-								  <tr>
-									<th scope="row">${review.rating}</th>
-									<td>${review.writer}</td>
-									<td class="text-wrap" colspan="5" style="width:50%">${review.contents}</td>
-									<td>${review.regDate}</td>
-								  </tr>
-								  </c:forEach>
-							</tbody>
-						</table>
-					</c:otherwise>
-				</c:choose>
+			<div class="mt-3 mb-3" id="reviewSection">
+
 			</div>
 		</div>
 

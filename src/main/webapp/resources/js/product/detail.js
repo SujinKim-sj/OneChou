@@ -198,3 +198,25 @@ paymentBtn.addEventListener("click", function(){
         amount.focus();
     }
 })
+
+// --- 리뷰 비동기 방식 처리 ---
+const reviewSection = document.querySelector('#reviewSection');
+getReviewList();
+
+function getReviewList() {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", "../review/list?productNum="+productNum.value)
+
+    xhttp.send();
+
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            reviewSection.innerHTML = this.responseText.trim();
+        }
+    }
+
+}
+
+// 리뷰 평균 별점 채우기
+const reviewAvg = document.querySelector('#reviewAvg');

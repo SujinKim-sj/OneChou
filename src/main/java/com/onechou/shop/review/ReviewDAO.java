@@ -1,6 +1,7 @@
 package com.onechou.shop.review;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,9 @@ public class ReviewDAO {
 	
 	public int add(ReviewDTO reviewDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"add", reviewDTO);
+	}
+	
+	public List<ReviewDTO> list(ReviewDTO reviewDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"list", reviewDTO);
 	}
 }
