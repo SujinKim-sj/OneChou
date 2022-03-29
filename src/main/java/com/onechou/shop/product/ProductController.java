@@ -160,4 +160,43 @@ public class ProductController {
 		model.addAttribute("productDTO", productDTO);
 	}
 	
+	@PostMapping("updateResult")
+	public ModelAndView updateResult(ProductDTO productDTO, ProductFeatureDTO productFeatureDTO, MultipartFile file, ProductFileDTO productFileDTO, String[] optionNames, String[] addPrices, String[] noteNames) throws Exception {
+		
+		List<ProductOptionDTO> productOptionDTOs = new ArrayList<ProductOptionDTO>();
+		for(int i=0;i<optionNames.length;i++) {
+			ProductOptionDTO productOptionDTO = new ProductOptionDTO();
+			productOptionDTO.setOptionName(optionNames[i]);
+			productOptionDTO.setAddPrice(Integer.parseInt(addPrices[i]));
+			productOptionDTOs.add(productOptionDTO);
+		}
+		
+		List<ProductCupnoteDTO> productCupnoteDTOs = new ArrayList<ProductCupnoteDTO>();
+		for(int i=0;i<noteNames.length;i++) {
+			ProductCupnoteDTO productCupnoteDTO = new ProductCupnoteDTO();
+			productCupnoteDTO.setNoteName(noteNames[i]);
+			productCupnoteDTOs.add(productCupnoteDTO);
+		}
+		
+		productFeatureDTO.setProductCupnoteDTOs(productCupnoteDTOs);
+		productDTO.setProductOptionDTOs(productOptionDTOs);
+		productDTO.setProductFeatureDTO(productFeatureDTO);
+		productDTO.setProductFileDTO(productFileDTO);
+		
+		boolean result = productService.updateResult(productDTO, file);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		String message = "상품수정에 성공했습니다.";
+		
+		if(!result) {
+			message = "상품수정에 실패했습니다. \n다시 시도해주세요.";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "./myList");
+		mv.setViewName("common/result");
+		return mv;
+	}
+	
 }

@@ -82,11 +82,15 @@ public class ProductDAO {
 	}
 	
 	public int delete(ProductDTO productDTO) throws Exception {
-		return sqlSession.delete(NAMESPACE+"delete", productDTO);
+		return sqlSession.update(NAMESPACE+"delete", productDTO);
 	}
 	
 	public ProductDTO updateSearch(ProductDTO productDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"updateSearch", productDTO);
+	}
+	
+	public int updateAdd(ProductDTO productDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"updateAdd", productDTO);
 	}
 	
 }

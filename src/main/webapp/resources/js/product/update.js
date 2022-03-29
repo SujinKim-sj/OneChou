@@ -77,9 +77,6 @@ optionsDiv.addEventListener("click", function(event){
                 optionPriceCheck = false;
             }
         }
-
-        console.log(optionPriceCheck);
-        console.log(optionNameCheck);
     }
 
     // 버튼으로 추가된 옵션 삭제시 처리
@@ -103,8 +100,6 @@ optionsDiv.addEventListener("click", function(event){
                 optionPriceCheck = false;
             }
         }
-        console.log(optionPriceCheck);
-        console.log(optionNameCheck);
     }
 })
 
@@ -138,9 +133,6 @@ optionsDiv.addEventListener("focusout", function(event){
             }
         }
     }
-
-    console.log(optionPriceCheck);
-    console.log(optionNameCheck);
 })
 
 addBtn.addEventListener("click", function(){
@@ -211,9 +203,6 @@ addBtn.addEventListener("click", function(){
     // 추가버튼을 누르면 옵션값을 검증하게끔
     optionNameCheck = false;
     optionPriceCheck = false;
-
-    console.log(optionPriceCheck);
-    console.log(optionNameCheck);
 })
 
 // 값 검증
@@ -321,8 +310,7 @@ updateBtn.addEventListener("click", function(){
     }
 
     if(nameCheck && priceCheck && deliveryFeeCheck && infoCheck && fileCheck && optionNameCheck && optionPriceCheck && cupnote1Check && cupnote2Check && cupnote3Check && cupnoteSameCheck) {
-        console.log("합격입니다");
-        //frm.submit();
+        frm.submit();
     } else if(!nameCheck) {
         alert("상품명을 입력하세요.");
         name.focus();

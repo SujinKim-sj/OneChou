@@ -40,6 +40,14 @@
 		VALUES (PRODUCTOPTION_SEQ.NEXTVAL, #{optionName}, #{addPrice}, #{productNum})
 	</insert>
 	
+	<insert id="updateAdd" parameterType="ProductDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCT (NUM, NAME, INFO, PRICE, PURCHASE, REGDATE, ROASTERYNUM, ROASTERYNAME, DELIVERYFEE, FREEDELIVERY, SALE)
+		VALUES (#{num}, #{name}, #{info}, #{price}, #{purchase}, #{regDate}, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery}, 1)
+	</insert>
+	
 	<!-- 아직 검색조건은 넣지 않음 -->
 	<select id="list" parameterType="Pager" resultMap="listResult">
 		SELECT * 
@@ -203,9 +211,9 @@
 		SELECT * FROM QNA WHERE PRODUCTNUM = #{num} ORDER BY REF DESC, STEP ASC
 	</select>
 	
-	<delete id="delete" parameterType="ProductDTO">
+	<update id="delete" parameterType="ProductDTO">
 		UPDATE PRODUCT SET SALE = 0 WHERE NUM = #{num}
-	</delete>
+	</update>
 	
 	<select id="updateSearch" parameterType="ProductDTO" resultMap="detailBasicResult">
 		SELECT A.NUM, A.NAME, A.INFO, A.PRICE, A.PURCHASE, A.REGDATE, A.ROASTERYNUM, A.ROASTERYNAME, A.DELIVERYFEE, A.FREEDELIVERY, B.FILENAME, B.ORINAME, C.ROASTINGPOINT, C.FLAVOR, D.NOTENAME, E.NUM AS OPNUM, E.OPTIONNAME, E.ADDPRICE

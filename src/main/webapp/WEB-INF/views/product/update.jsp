@@ -13,11 +13,12 @@
 	<c:import url="../template/header.jsp"></c:import>
 	
 	<div class="container mt-5">
-        <form action="./add" id="frm" enctype="multipart/form-data" method="post">
+        <form action="./updateResult" id="frm" enctype="multipart/form-data" method="post">
 	        <input type="hidden" name="roasteryName" value="${productDTO.roasteryName}">
 	        <input type="hidden" name="roasteryNum" value="${productDTO.roasteryNum}">
 	        <input type="hidden" name="purchase" value="${productDTO.purchase}">            
-	        <input type="hidden" name="regDate" value="${productDTO.regDate}">            
+	        <input type="hidden" name="regDate" value="${productDTO.regDate}">
+	        <input type="hidden" name="num" value="${productDTO.num}">            
             <div class="border border-2 rounded">
                 <div class="border-bottom border-2 text-center pt-3 pb-3">
                     <h3>상품 기본정보 수정</h3>
