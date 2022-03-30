@@ -60,7 +60,10 @@
 											 총 ${paidProductDTO.perPrice}원
 										</div>
 										<div class="text-end">
-											<a href="../review/add?productNum=${paidProductDTO.productNum}">리뷰작성하기</a>
+											<form action="../review/add" method="post">
+												<input type="hidden" name="num" value="${paidProductDTO.productNum}">
+												<button type="submit" class="btn btn-outline-secondary">리뷰작성하기</button>
+											</form>
 										</div>
 									</div>
 								</td>

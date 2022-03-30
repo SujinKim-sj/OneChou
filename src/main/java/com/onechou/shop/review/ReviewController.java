@@ -2,6 +2,7 @@ package com.onechou.shop.review;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,11 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	@PostMapping("add")
-	public ModelAndView add(HttpSession session, ProductDTO productDTO) throws Exception {
+	public ModelAndView add(HttpServletRequest request, ProductDTO productDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		String referer = request.getHeader("Referer");
 		
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
@@ -33,7 +37,7 @@ public class ReviewController {
 		
 		if(result != null) { // 중복 있음
 			mv.addObject("message", "이미 작성한 리뷰가 있습니다.");
-			mv.addObject("path", "../payment/list");
+			mv.addObject("path", referer);
 			mv.setViewName("common/result");
 			return mv;
 		}
@@ -44,7 +48,7 @@ public class ReviewController {
 		// 상품이 판매중지되었는지 확인
 		if(productDTO.getSale() == 0) {
 			mv.addObject("message", "판매가 중지되었거나 수정된 상품입니다.");
-			mv.addObject("path", "../payment/list");
+			mv.addObject("path", referer);
 			mv.setViewName("common/result");
 			return mv;
 		}
