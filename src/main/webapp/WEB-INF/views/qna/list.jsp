@@ -23,7 +23,7 @@
 								<c:forEach items="${qnaDTOs}" var="qnaDTO">
 								  <tr>
 									<td>${qnaDTO.writer}</td>
-									<td class="text-wrap" colspan="5" style="width:45%">
+									<td class="text-wrap" id="qnaContents${qnaDTO.num}" colspan="5" style="width:45%">
 									<c:forEach begin="1" end="${qnaDTO.depth}">└───</c:forEach>
 									${qnaDTO.contents}</td>
 									<td>${qnaDTO.regDate}</td>
@@ -40,7 +40,15 @@
 									</td>
 									<td class="text-center">
 										<c:if test="${qnaDTO.memberId == member.id}">
-											<button class="btn btn-secondary qnaUpdateBtn" type="button" data-num="${qnaDTO.num}">수정하기</button>
+											<!-- 부모글이냐 답글이냐에 따라 data-reply 속성의 값을 다르게 함 -->
+											<c:choose>
+												<c:when test="${qnaDTO.step == 0}">
+													<button class="btn btn-secondary qnaUpdateBtn" type="button" data-reply="0" data-num="${qnaDTO.num}">수정하기</button>
+												</c:when>
+												<c:otherwise>
+													<button class="btn btn-secondary qnaUpdateBtn" type="button" data-reply="1" data-num="${qnaDTO.num}">수정하기</button>
+												</c:otherwise>
+											</c:choose>
 										</c:if>
 									</td>
 									<td class="text-center">

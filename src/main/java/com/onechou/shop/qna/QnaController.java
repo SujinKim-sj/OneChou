@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -98,5 +99,17 @@ public class QnaController {
 		
 		model.addAttribute("qnaDTOs", qnaDTOs);
 		model.addAttribute("check", duplicateCheck);
+	}
+	
+	@PostMapping("update")
+	public ModelAndView update(QnaDTO qnaDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = qnaService.update(qnaDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		
+		return mv;
 	}
 }

@@ -495,5 +495,74 @@ qnaSection.addEventListener("click", function(event){
         }
     }
 
+    // 질문 수정
+    if(event.target.classList.contains('qnaUpdateBtn')) {
+        
+        const qnaNum = event.target.getAttribute('data-num');
+        const isReply = event.target.getAttribute('data-reply'); // 1이면 답글, 0이면 부모글임
+
+        const qnaContentsTd = document.querySelector('#qnaContents'+qnaNum);
+        let originalQna = "";
+        if(isReply == 1) { // 답글 표시인 └─── 를 없애야 함
+            originalQna = qnaContentsTd.innerHTML.trim().substring(4).trim();
+            // └─── 가 4칸이라 4칸 뒤부터 끝까지를 추출, 한번 더 공백 제거한 값이 실제 원본글 데이터임
+        } else {
+            originalQna = qnaContentsTd.innerHTML.trim(); // 부모글이라면 그냥 공백제거만 하면 원본글 데이터임
+        }
+        
+        console.log(originalQna);
+        qnaContentsTd.innerHTML = "";
+
+        const inputGroupDiv = document.createElement('div');
+        inputGroupDiv.classList.add('input-group');
+        
+        const inputGroupText = document.createElement('span');
+        inputGroupText.classList.add('input-group-text');
+        inputGroupText.innerHTML = "질문내용수정"
+        
+        const inputTextArea = document.createElement('textarea');
+        inputTextArea.classList.add('form-control');
+        inputTextArea.setAttribute('id', 'qnaTextArea'+qnaNum);
+        
+        inputTextArea.value = originalQna;
+
+        inputGroupDiv.append(inputGroupText);
+        inputGroupDiv.append(inputTextArea);
+        qnaContentsTd.append(inputGroupDiv);
+
+        // 입력 폼에서 blur 이벤트가 발생 시 수정 요청을 보냄
+        const qnaTextArea = document.querySelector('#qnaTextArea'+qnaNum);
+        qnaTextArea.addEventListener("blur", function(){
+            if(qnaTextArea.value == ''){
+                alert('질문 내용을 입력해주세요.');
+                return;
+            }
+            
+            if(!confirm('수정하시겠습니까?')){
+                return
+            }
+    
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.open("POST", "../qna/update");
+            
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhttp.send('num='+qnaNum+"&contents="+qnaTextArea.value);
+
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200) {
+                    let result = this.responseText.trim();
+                    if(result > 0) {
+                        alert('질문 수정에 성공했습니다.');
+                        getQnaList();
+                    } else {
+                        alert('질문 수정에 실패했습니다.\n다시 시도해주세요.');
+                    }
+                }
+            }
+        })
+    }
+
 })
 

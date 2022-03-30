@@ -62,4 +62,8 @@ public class QnaService {
 		
 		return qnaDAO.verifyDuplicated(hashMap);
 	}
+	
+	public int update(QnaDTO qnaDTO) throws Exception {
+		return qnaDAO.update(qnaDTO);
+	}
 }

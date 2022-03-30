@@ -44,4 +44,9 @@
 		AND MEMBERID = #{memberId}
 		AND STEP = 0
 	</select>
+	
+	<update id="update" parameterType="QnaDTO">
+		UPDATE QNA SET CONTENTS = #{contents}
+		WHERE NUM = #{num}
+	</update>
 </mapper>

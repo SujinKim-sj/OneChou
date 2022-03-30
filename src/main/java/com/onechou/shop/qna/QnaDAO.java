@@ -48,4 +48,8 @@ public class QnaDAO {
 	public Long verifyDuplicated(HashMap<String, Object> hashMap) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"verifyDuplicated", hashMap);
 	}
+	
+	public int update(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"update", qnaDTO);
+	}
 }
