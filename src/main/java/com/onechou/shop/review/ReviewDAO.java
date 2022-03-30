@@ -36,4 +36,8 @@ public class ReviewDAO {
 	public int delete(ReviewDTO reviewDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE+"delete", reviewDTO);
 	}
+	
+	public int update(ReviewDTO reviewDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"update", reviewDTO);
+	}
 }

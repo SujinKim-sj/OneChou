@@ -43,5 +43,10 @@
 	<delete id="delete" parameterType="ReviewDTO">
 		DELETE REVIEW WHERE NUM = #{num}
 	</delete>
+	
+	<update id="update" parameterType="ReviewDTO">
+		UPDATE REVIEW SET CONTENTS = #{contents}, RATING = #{rating}
+		WHERE NUM = #{num}
+	</update>
 
 </mapper>

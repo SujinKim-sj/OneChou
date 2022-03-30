@@ -168,7 +168,7 @@
 			</div>
 		</div>
 
-		<div class="row mt-5 mb-5 border border-2 rounded">
+		<div class="row mt-5 mb-5 border border-2 rounded" id="reviewSection2">
 			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
 				<p class="text-center fs-2">원두리뷰</p>
 			</div>

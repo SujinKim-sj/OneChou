@@ -74,7 +74,7 @@ public class ReviewController {
 		return mv;
 	}
 	
-	@GetMapping
+	@GetMapping("list")
 	public void list(ReviewDTO reviewDTO, Model model) throws Exception {
 		
 		List<ReviewDTO> reviewDTOs = reviewService.list(reviewDTO);
@@ -82,7 +82,7 @@ public class ReviewController {
 		model.addAttribute("reviewDTOs", reviewDTOs);
 	}
 	
-	@PostMapping
+	@PostMapping("delete")
 	public ModelAndView delete(ReviewDTO reviewDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
@@ -91,6 +91,17 @@ public class ReviewController {
 		mv.addObject("result", result);
 		mv.setViewName("common/ajaxResult");
 		
+		return mv;
+	}
+	
+	@PostMapping("update")
+	public ModelAndView update(ReviewDTO reviewDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = reviewService.update(reviewDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
 		return mv;
 	}
 }

@@ -40,5 +40,9 @@ public class ReviewService {
 	public int delete(ReviewDTO reviewDTO) throws Exception {
 		return reviewDAO.delete(reviewDTO);
 	}
+	
+	public int update(ReviewDTO reviewDTO) throws Exception {
+		return reviewDAO.update(reviewDTO);
+	}
 
 }

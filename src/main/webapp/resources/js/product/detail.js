@@ -218,8 +218,13 @@ function getReviewList() {
 
 }
 
+let ratingCheck = false;
+let contentsCheck = true;
+let ratingValue = 0;
+
 reviewSection.addEventListener("click", function(event){
-    if(event.target.getAttribute("id") == 'reviewDeleteBtn') {
+    //리뷰 삭제
+    if(event.target.classList.contains('reviewDeleteBtn')) {
         if(!confirm('삭제하시겠습니까?')) {
             return;
         }
@@ -247,4 +252,165 @@ reviewSection.addEventListener("click", function(event){
             }
         }
     }
+
+    // 별점 검증 라디오 박스라 클릭이벤트가 일어나기만 해도 값이 입력된 것임
+    if(event.target.classList.contains('rating')){
+        ratingValue = event.target.value;
+        ratingCheck = true;
+    }
+
+    // 리뷰 수정 확인 - 코드 순서가 리뷰 수정버튼을 누르는 것 보다 위에 있어야 함
+    if(event.target.classList.contains('reviewConfirmBtn')) {
+        if(!confirm('수정하시겠습니까?')){
+            return;
+        }
+
+        const reviewNum = event.target.getAttribute('data-num');
+        const updateReviewContents = document.querySelector('#reviewTextArea'+reviewNum).value;
+        if (updateReviewContents == '') {
+            contentsCheck = false;
+        } else {
+            contentsCheck = true;
+        }
+
+        if(ratingCheck && contentsCheck) {
+            const xhttp = new XMLHttpRequest();
+            
+            xhttp.open('POST', "../review/update");
+
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhttp.send('num='+reviewNum+'&contents='+updateReviewContents+'&rating='+ratingValue);
+
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200) {
+                    let result = this.responseText.trim();
+    
+                    if(result == 1) {
+                        alert('리뷰 수정에 성공했습니다.');
+                        getReviewList();
+                        ratingCheck = false;
+                    } else {
+                        alert('리뷰 수정에 실패했습니다.\n다시 시도해주세요.')
+                        ratingCheck = false;
+                    }
+                }
+            }
+        }
+    }
+
+    // 리뷰 수정
+    if(event.target.classList.contains('reviewUpdateBtn')){
+
+
+        const reviewUpdateBtn = event.target;
+        const reviewNum = reviewUpdateBtn.getAttribute("data-num");
+
+        
+        // --- 내용 입력폼 생성 후 대입 ---
+        const inputGroupDiv = document.createElement('div');
+        inputGroupDiv.classList.add('input-group');
+        
+        const inputGroupText = document.createElement('span');
+        inputGroupText.classList.add('input-group-text');
+        inputGroupText.innerHTML = "리뷰내용수정"
+        
+        const inputTextArea = document.createElement('textarea');
+        inputTextArea.classList.add('form-control');
+        inputTextArea.setAttribute('id', 'reviewTextArea'+reviewNum);
+        
+        
+        const contentsTd = document.querySelector('#contents'+reviewNum);
+        
+        let originalReview = contentsTd.innerHTML;
+        contentsTd.innerHTML = "";
+        inputTextArea.value = originalReview;
+
+        inputGroupDiv.append(inputGroupText);
+        inputGroupDiv.append(inputTextArea);
+        contentsTd.append(inputGroupDiv);
+
+        // --- 별점 입력폼 생성 ---
+
+        const ratingDiv = document.createElement('div');
+        ratingDiv.setAttribute('id', 'myform');
+
+        const ratingText = document.createElement('div');
+        ratingText.classList.add('text-center');
+        ratingText.innerHTML = "별점수정";
+
+        const radio1 = document.createElement('input');
+        radio1.classList.add('rating');
+        radio1.setAttribute('type', 'radio');
+        radio1.setAttribute('value', '5');
+        radio1.setAttribute('id', 'rate1');
+        
+        const radio2 = document.createElement('input');
+        radio2.classList.add('rating');
+        radio2.setAttribute('type', 'radio');
+        radio2.setAttribute('value', '4');
+        radio2.setAttribute('id', 'rate2');
+        
+        const radio3 = document.createElement('input');
+        radio3.classList.add('rating');
+        radio3.setAttribute('type', 'radio');
+        radio3.setAttribute('value', '3');
+        radio3.setAttribute('id', 'rate3');
+        
+        const radio4 = document.createElement('input');
+        radio4.classList.add('rating');
+        radio4.setAttribute('type', 'radio');
+        radio4.setAttribute('value', '2');
+        radio4.setAttribute('id', 'rate4');
+        
+        const radio5 = document.createElement('input');
+        radio5.classList.add('rating');
+        radio5.setAttribute('type', 'radio');
+        radio5.setAttribute('value', '1');
+        radio5.setAttribute('id', 'rate5');
+
+        const label1 = document.createElement('label');
+        label1.setAttribute('for', 'rate1');
+        label1.innerHTML = "⭐";
+
+        const label2 = document.createElement('label');
+        label2.setAttribute('for', 'rate2');
+        label2.innerHTML = "⭐";
+
+        const label3 = document.createElement('label');
+        label3.setAttribute('for', 'rate3');
+        label3.innerHTML = "⭐";
+
+        const label4 = document.createElement('label');
+        label4.setAttribute('for', 'rate4');
+        label4.innerHTML = "⭐";
+
+        const label5 = document.createElement('label');
+        label5.setAttribute('for', 'rate5');
+        label5.innerHTML = "⭐";
+
+
+        ratingDiv.append(ratingText);
+        ratingDiv.append(radio1);
+        ratingDiv.append(label1);
+        ratingDiv.append(radio2);
+        ratingDiv.append(label2);
+        ratingDiv.append(radio3);
+        ratingDiv.append(label3);
+        ratingDiv.append(radio4);
+        ratingDiv.append(label4);
+        ratingDiv.append(radio5);
+        ratingDiv.append(label5);
+
+        const ratingTd = document.querySelector('#rating'+reviewNum);
+        ratingTd.innerHTML = "";
+        ratingTd.append(ratingDiv);
+
+        reviewUpdateBtn.innerHTML = "수정하기";    
+
+        reviewUpdateBtn.classList.replace('reviewUpdateBtn', 'reviewConfirmBtn');
+    }
+
 })
+
+
