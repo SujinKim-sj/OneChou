@@ -15,16 +15,27 @@
 		WHERE ID=#{id}
 	</select>
 
-	<select id="normal" parameterType="MemberDTO" resultType="FavoriteDTO">
+	<select id="favoriteDetail" parameterType="MemberDTO" resultType="FavoriteDTO">
 		SELECT *
 		FROM FAVORITE
 		WHERE MEMBERID=#{id}
 	</select>
-	<select id="cupnote" parameterType="FavoriteDTO" resultType="CupnoteDTO">
+	<select id="noteDetail" parameterType="FavoriteDTO" resultType="CupnoteDTO">
 		SELECT * 
 		FROM CUPNOTE
 		WHERE FAVORITENUM = #{num}
 	</select>
+	<select id="roasteryDetail" parameterType="MemberDTO" resultType="RoasteryDTO">
+		SELECT *
+		FROM ROASTERY
+		WHERE MEMBERID=#{id}
+	</select>
+	<select id="roasteryFile" parameterType="RoasteryDTO" resultType="RoasteryFileDTO">
+		SELECT *
+		FROM ROASTERYFILE
+		WHERE ROASTERYNUM=#{num}
+	</select>
+
 	
 	<insert id="join" parameterType="MemberDTO">
 		INSERT INTO MEMBER VALUES
