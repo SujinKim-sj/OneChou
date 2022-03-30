@@ -20,9 +20,8 @@
 	</update>
 	
 	<insert id="reply">
-	<!-- 나중에 회원 아이디, 닉네임 넣는작업 해야됨!! -->
 		INSERT INTO QNA (NUM, CONTENTS, REGDATE, REF, STEP, DEPTH, MEMBERID, WRITER, PRODUCTNUM)
-		VALUES (QNA_SEQ.NEXTVAL, #{contents}, SYSDATE, #{ref}, #{step}, #{depth}, 'id1', 'nickname1', #{productNum})
+		VALUES (QNA_SEQ.NEXTVAL, #{contents}, SYSDATE, #{ref}, #{step}, #{depth}, #{memberId}, #{writer}, #{productNum})
 	</insert>
 	
 	<delete id="deleteAll" parameterType="QnaDTO">
@@ -36,11 +35,13 @@
 	<select id="list" parameterType="ProductDTO" resultType="QnaDTO">
 		SELECT * FROM QNA
 		WHERE PRODUCTNUM = #{num} 
+		ORDER BY REF DESC, STEP ASC
 	</select>
 	
 	<select id="verifyDuplicated" parameterType="HashMap" resultType="Long">
 		SELECT NUM FROM QNA
 		WHERE PRODUCTNUM = #{num}
 		AND MEMBERID = #{memberId}
+		AND STEP = 0
 	</select>
 </mapper>
