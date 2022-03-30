@@ -100,14 +100,8 @@ public class ProductController {
 		// 해당 상품의 옵션들 조회해오기
 		productDTO.setProductOptionDTOs(productService.detailOption(productDTO));
 		
-		// 해당 상품의 리뷰들 조회해오기
-		productDTO.setReviewDTOs(productService.detailReview(productDTO));
-		
 		// 리뷰 평균 DB에서 조회하기
 		Double reviewAvg = productService.getReviewAvg(productDTO);
-		
-		// 해당 상품의 질문들 조회해오기
-		productDTO.setQnaDTOs(productService.detailQna(productDTO));
 		
 		if(productDTO.getSale() == 0) {
 			String path = request.getHeader("Referer"); // 이전페이지 경로 가져오기

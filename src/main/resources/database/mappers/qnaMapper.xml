@@ -6,7 +6,6 @@
 <mapper namespace="com.onechou.shop.qna.QnaDAO">
 	
 	<insert id="add" parameterType="QnaDTO">
-	<!-- 나중에 회원 아이디, 닉네임 넣는작업 해야됨!! -->
 		INSERT INTO QNA (NUM, CONTENTS, REGDATE, REF, STEP, DEPTH, MEMBERID, WRITER, PRODUCTNUM)
 		VALUES (QNA_SEQ.NEXTVAL, #{contents}, SYSDATE, QNA_SEQ.CURRVAL, 0, 0, #{memberId}, #{writer}, #{productNum})
 	</insert>
@@ -34,4 +33,14 @@
 		DELETE QNA WHERE NUM = #{num}
 	</delete>
 	
+	<select id="list" parameterType="ProductDTO" resultType="QnaDTO">
+		SELECT * FROM QNA
+		WHERE PRODUCTNUM = #{num} 
+	</select>
+	
+	<select id="verifyDuplicated" parameterType="HashMap" resultType="Long">
+		SELECT NUM FROM QNA
+		WHERE PRODUCTNUM = #{num}
+		AND MEMBERID = #{memberId}
+	</select>
 </mapper>

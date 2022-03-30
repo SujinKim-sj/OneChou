@@ -1,7 +1,13 @@
 package com.onechou.shop.qna;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.onechou.shop.member.MemberDTO;
+import com.onechou.shop.product.ProductDTO;
 
 @Service
 public class QnaService {
@@ -42,5 +48,18 @@ public class QnaService {
 		}
 		
 		return result;
+	}
+	
+	public List<QnaDTO> list(ProductDTO productDTO) throws Exception {
+		return qnaDAO.list(productDTO);
+	}
+	
+	public Long verifyDuplicated(ProductDTO productDTO, MemberDTO memberDTO) throws Exception {
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		hashMap.put("num", productDTO.getNum());
+		hashMap.put("memberId", memberDTO.getId());
+		
+		return qnaDAO.verifyDuplicated(hashMap);
 	}
 }

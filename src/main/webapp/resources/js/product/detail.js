@@ -414,3 +414,56 @@ reviewSection.addEventListener("click", function(event){
 })
 
 
+// --- 질문 비동기 방식 처리 ---
+const qnaSection = document.querySelector('#qnaSection');
+
+getQnaList();
+
+function getQnaList() {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", "../qna/list?num="+productNum.value)
+
+    xhttp.send();
+
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            qnaSection.innerHTML = this.responseText.trim();
+        }
+    }
+
+}
+
+// 질문 등록
+qnaSection.addEventListener("click", function(event){
+    if(event.target.classList.contains('qnaAddBtn')) {
+        const qnaContents = document.querySelector('#qnaContents');
+        const memberNickname = document.querySelector('#memberNickname');
+
+        let qnaContentsCheck = false;
+        if(qnaContents.value != '') {
+            qnaContentsCheck = true;
+        }
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "../qna/add")
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send("contents="+qnaContents.value+"&memberId="+memberId.value+"&writer="+memberNickname.value+"&productNum="+productNum.value);
+
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                let result = this.responseText.trim();
+                if(result > 0) {
+                    alert('질문 등록에 성공했습니다.');
+                    getQnaList();
+                } else {
+                    alert('질문 등록에 실패했습니다.\n다시 시도해주세요.');
+                }
+            }
+        }
+
+    }
+})

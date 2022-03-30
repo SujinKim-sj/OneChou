@@ -196,19 +196,9 @@
 		ORDER BY NUM ASC
 	</select>
 	
-	<!-- 상품 리뷰 가져오기 -->
-	<select id="detailReview" parameterType="ProductDTO" resultType="ReviewDTO">
-		SELECT * FROM REVIEW WHERE PRODUCTNUM = #{num}
-	</select>
-	
 	<!-- 리뷰 별점 평균 구하기 -->
 	<select id="getReviewAvg" parameterType="productDTO" resultType="Double">
 		SELECT AVG(RATING) FROM REVIEW WHERE PRODUCTNUM = #{num}
-	</select>
-	
-	<!-- 상품 qna 가져오기 -->
-	<select id="detailQna" parameterType="ProductDTO" resultType="QnaDTO">
-		SELECT * FROM QNA WHERE PRODUCTNUM = #{num} ORDER BY REF DESC, STEP ASC
 	</select>
 	
 	<update id="delete" parameterType="ProductDTO">

@@ -26,6 +26,7 @@
 				<input type="hidden" disabled id="freeDelivery" value="${productDTO.freeDelivery}">
 				<input type="hidden" name="perPrice" id="perPrice">
 				<input type="hidden" id="reviewAvg" value="${reviewAvg}">
+				<input type="hidden" id="memberNickname" value="${member.nickname}">
 				<table class="table">
 					<tr>
 						<td>원두명</td>
@@ -178,60 +179,11 @@
 		</div>
 
 		<div class="row mt-5 mb-5 border border-2 rounded">
-			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
-				<p class="text-center fs-2">원두질문</p>
+			<div class="pt-3 pb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
+				<p class="text-center fs-2 mb-0">원두질문</p>
 			</div>
-			<div class="mt-3 mb-3">
-				<c:choose>
-					<c:when test="${empty productDTO.qnaDTOs}">
-						<h5 class="text-center">아직 이 상품에는 아무런 질문도 없어요</h5>
-					</c:when>
-					<c:otherwise>
-						<table class="table table-striped">
-							<thead>
-							  <tr>
-								<th scope="col">작성자</th>
-								<th colspan="5" style="width:50%" scope="col">질문 내용</th>
-								<th scope="col">작성일</th>
-								<th scope="col"></th>
-								<th scope="col"></th>
-							  </tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${productDTO.qnaDTOs}" var="qna">
-								  <tr>
-									<th>${qna.writer}</th>
-									<td class="text-wrap" colspan="5" style="width:50%">
-									<c:forEach begin="1" end="${qna.depth}">└───</c:forEach>
-									${qna.contents}</td>
-									<td>${qna.regDate}</td>
-									<c:choose> 
-										<c:when test="${qna.step==0}"> <!-- 답변에 답글은 못달게 함 -->
-										<!-- 나중에 로그인 한 사람만 보이도록 -->
-											<td><a class="btn btn-secondary" href="../qna/reply?num=${qna.num}">답글달기</a></td>
-										</c:when>
-										<c:otherwise>
-											<td></td>
-										</c:otherwise>
-									</c:choose>
-									<!-- 나중에 작성자랑 로그인한 사람의 닉네임이랑 같다면 삭제버튼이 보이도록 -->
-									<td><a class="btn btn-secondary" href="../qna/delete?num=${qna.num}&productNum=${qna.productNum}">삭제하기</a></td>
-								  </tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</c:otherwise>
-				</c:choose>
-				<form action="../qna/add" method="post">
-					<input type="hidden" name="memberId" value="${member.id}">
-					<input type="hidden" name="writer" value="${member.nickname}">
-					<input type="hidden" name="productNum" value="${productDTO.num}">
-					<div class="input-group mt-5">
-					  <span class="input-group-text">질문이 있으신가요?</span>
-					  <textarea class="form-control" name="contents"></textarea>
-					  <button class="btn btn-outline-secondary" type="submit">질문등록</button>
-					</div>
-				</form>
+			<div id="qnaSection">
+
 			</div>
 		</div>
 
