@@ -434,8 +434,8 @@ function getQnaList() {
 
 }
 
-// 질문 등록
 qnaSection.addEventListener("click", function(event){
+    // 질문 등록
     if(event.target.classList.contains('qnaAddBtn')) {
         const qnaContents = document.querySelector('#qnaContents');
         const memberNickname = document.querySelector('#memberNickname');
@@ -464,6 +464,36 @@ qnaSection.addEventListener("click", function(event){
                 }
             }
         }
-
     }
+
+    // 질문 삭제
+    if(event.target.classList.contains('qnaDeleteBtn')) {
+        if(!confirm('삭제하시겠습니까?')){
+            return;
+        }
+        
+        const qnaNum = event.target.getAttribute('data-num');
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "../qna/delete");
+        
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send('num='+qnaNum);
+
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                let result = this.responseText.trim();
+                if(result > 0) {
+                    alert('질문 삭제에 성공했습니다.');
+                    getQnaList();
+                } else {
+                    alert('질문 삭제에 실패했습니다.\n다시 시도해주세요.');
+                }
+            }
+        }
+    }
+
 })
+
