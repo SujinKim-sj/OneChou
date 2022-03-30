@@ -36,8 +36,13 @@ label {
 	</c:if>
 	<c:if test="${member.kind eq 1}">
 		회원 유형 : 로스터리 회원입니다. 
-		<img
-			src="../resources/upload/roastery/${dto.roasteryDTO.roasteryFileDTO.oriName}">
+		<div>
+		<img src="../resources/upload/roastery/${dto.roasteryDTO.roasteryFileDTO.fileName}">
+		</div>
+		<input type="text" readonly name="roasteryName" value="${dto.roasteryDTO.name}">
+		<button type="button" onclick="roasteryUpdate()" >로스터리 정보 보기</button>
+		
+	
 	</c:if>
 	<c:if test="${member.kind eq 2}">
 		<a href="/shop/product/recomend">추천원두</a>
@@ -80,7 +85,10 @@ label {
 			location.href = "./updateCheck";
 		}
 		function beanUpdate() {
-			location.href = "../favorite/Update";
+			location.href = "../favorite/update";
+		}
+		function roasteryUpdate(){
+			location.href = "../roastery/detail";
 		}
 	</script>
 </body>

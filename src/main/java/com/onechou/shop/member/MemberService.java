@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.onechou.shop.favorite.CupnoteDTO;
 import com.onechou.shop.favorite.FavoriteDTO;
+import com.onechou.shop.roastery.RoasteryDTO;
+import com.onechou.shop.roastery.RoasteryFileDTO;
 
 @Service
 public class MemberService {
@@ -26,12 +28,17 @@ public class MemberService {
 	public MemberDTO mypage(MemberDTO memberDTO) throws Exception{
 		return memberDAO.mypage(memberDTO);
 	}
-	public FavoriteDTO normal(MemberDTO memberDTO) throws Exception{
-		return memberDAO.normal(memberDTO);
+	public FavoriteDTO favoriteDetail(MemberDTO memberDTO) throws Exception{
+		return memberDAO.favoriteDetail(memberDTO);
 	}
-	
-	public List<CupnoteDTO> cupnote(FavoriteDTO favoriteDTO) throws Exception{
-		return memberDAO.cupnote(favoriteDTO);
+	public List<CupnoteDTO> noteDetail(FavoriteDTO favoriteDTO) throws Exception{
+		return memberDAO.noteDetail(favoriteDTO);
+	}
+	public RoasteryDTO roasteryDetail(MemberDTO memberDTO) throws Exception{
+		return memberDAO.roasteryDetail(memberDTO);
+	}
+	public RoasteryFileDTO roasteryFile(RoasteryDTO roasteryDTO) throws Exception{
+		return memberDAO.roasteryFile(roasteryDTO);
 	}
 
 	

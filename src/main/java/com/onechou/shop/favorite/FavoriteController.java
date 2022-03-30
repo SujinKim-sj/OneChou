@@ -93,8 +93,7 @@ public class FavoriteController {
 		String path = "common/result";
 		return path;
 	}
-	
-	
+
 	
 }
 	

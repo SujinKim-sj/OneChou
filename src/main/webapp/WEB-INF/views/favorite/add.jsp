@@ -44,7 +44,7 @@
 					<input type="checkbox" class="btn-check" name="noteNames" value="coconut" id="coconut" autocomplete="off">
 					<label class="btn btn-outline-warning" for="coconut">코코넛</label>
 					<input type="checkbox" class="btn-check" name="noteNames" value="cherry" id="cherry" autocomplete="off">
-					<label class="btn btn-outline-info" for="cherr">체리</label>
+					<label class="btn btn-outline-info" for="cherry">체리</label>
 					<input type="checkbox" class="btn-check" name="noteNames" value="pomegranate" id="pomegranate" autocomplete="off">
 					<label class="btn btn-outline-warning" for="pomegranate">석류</label>
 					<input type="checkbox" class="btn-check" name="noteNames" value="pineapple" id="pineapple" autocomplete="off">

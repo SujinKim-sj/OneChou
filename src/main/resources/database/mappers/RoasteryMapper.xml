@@ -13,4 +13,16 @@
 	<insert id="addFile" parameterType="RoasteryFileDTO">
 		INSERT INTO ROASTERYFILE VALUES (ROASTERYFILE_SEQ.NEXTVAL,#{fileName},#{oriName},#{roasteryNum})
 	</insert>
+	<update id="update" parameterType="RoasteryDTO">
+		UPDATE ROASTERY SET NAME=#{name}, ADDRESS=#{address}, INFO=#{info} WHERE MEMBERID=#{memberId}
+	</update>
+	<update id="updateFile" parameterType="RoasteryFileDTO">
+		UPDATE ROASTERYFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} WHERE ROASTERYNUM=#{roasteryNum}
+	</update>
+	<select id="file" parameterType="RoasteryDTO" resultType="RoasteryFileDTO">
+		SELECT * FROM ROASTERYFILE WHERE ROASTERYNUM=#{num}
+	</select>
+	<select id="detail" parameterType="MemberDTO" resultType="RoasteryDTO">
+		SELECT * FROM ROASTERY WHERE MEMBERID = #{id}
+	</select>
 </mapper>

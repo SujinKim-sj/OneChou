@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.onechou.shop.favorite.CupnoteDTO;
 import com.onechou.shop.favorite.FavoriteDTO;
+import com.onechou.shop.roastery.RoasteryDTO;
+import com.onechou.shop.roastery.RoasteryFileDTO;
 
 
 @Repository
@@ -32,11 +34,18 @@ public class MemberDAO {
 	public int update(MemberDTO memberDTO) throws Exception{
 		return sqlSession.update(NAMESPACE+"update", memberDTO);
 	}
-	public FavoriteDTO normal(MemberDTO memberDTO)throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"normal", memberDTO);
+	public FavoriteDTO favoriteDetail(MemberDTO memberDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"favoriteDetail", memberDTO);
 	}
-	public List<CupnoteDTO> cupnote(FavoriteDTO favoriteDTO) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"cupnote",favoriteDTO);
+	public List<CupnoteDTO> noteDetail(FavoriteDTO favoriteDTO) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"noteDetail",favoriteDTO);
+	}
+	public RoasteryDTO roasteryDetail(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"roasteryDetail", memberDTO);
+	}
+	public RoasteryFileDTO roasteryFile(RoasteryDTO roasteryDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"roasteryFile", roasteryDTO);
+		
 	}
 
 }

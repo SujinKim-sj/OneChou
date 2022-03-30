@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.onechou.shop.favorite.CupnoteDTO;
 import com.onechou.shop.favorite.FavoriteDTO;
 import com.onechou.shop.favorite.FavoriteService;
+import com.onechou.shop.roastery.RoasteryDTO;
+import com.onechou.shop.roastery.RoasteryFileDTO;
 
 
 @Controller
@@ -117,11 +119,16 @@ public class MemberController {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		memberDTO = memberService.mypage(memberDTO);
 		if(memberDTO.getKind()==2) {
-			FavoriteDTO favoriteDTO = memberService.normal(memberDTO);
-			List<CupnoteDTO> cupnoteDTOs = memberService.cupnote(favoriteDTO);
+			FavoriteDTO favoriteDTO = memberService.favoriteDetail(memberDTO);
+			List<CupnoteDTO> cupnoteDTOs = memberService.noteDetail(favoriteDTO);
 			favoriteDTO.setCupnoteDTOs(cupnoteDTOs);
 			memberDTO.setFavoriteDTO(favoriteDTO);
-			
+		}
+		else if (memberDTO.getKind()==1) {
+			RoasteryDTO roasteryDTO = memberService.roasteryDetail(memberDTO);
+			RoasteryFileDTO roasteryFileDTO = memberService.roasteryFile(roasteryDTO);
+			roasteryDTO.setRoasteryFileDTO(roasteryFileDTO);
+			memberDTO.setRoasteryDTO(roasteryDTO);
 		}
 		mv.setViewName("member/mypage");
 		mv.addObject("dto", memberDTO);
@@ -131,6 +138,7 @@ public class MemberController {
 	@RequestMapping(value = "updateCheck", method = RequestMethod.GET)
 	public void updateCheck()throws Exception{
 	}
+	
 	@RequestMapping(value = "updateCheck", method = RequestMethod.POST)
 	public String updateCheck(Model model,MemberDTO memberDTO,HttpSession session)throws Exception{
 		MemberDTO mem = (MemberDTO)session.getAttribute("member");
@@ -144,6 +152,8 @@ public class MemberController {
 		model.addAttribute("path", path);
 		return "common/result";
 	}
+	
+	
 	@RequestMapping(value = "update",method = RequestMethod.GET)
 	public void update(HttpSession session)throws Exception{
 		session.getAttribute("member");
@@ -181,34 +191,6 @@ public class MemberController {
 
 
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

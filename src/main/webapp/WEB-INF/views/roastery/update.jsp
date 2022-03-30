@@ -16,28 +16,28 @@ label {
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
+	<form action="" class="frm" method="post" id="frm"
+		enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${roastery.num}">
 		<input type="hidden" name="memberId" value="${member.id}">
 		<fieldset>
-			<img src="../resources/upload/roastery/${roastery.roasteryFileDTO.fileName}">
-		</fieldset>
-		<fieldset>
 			<legend>로스터리 이름</legend>
-			<input type="text" class="roastery" readonly="readonly" name="name" id="name" value="${roastery.name}">
+			<input type="text" class="roastery" name="name" id="name" value="${roastery.name}">
 		</fieldset>
 		<fieldset>
 			<legend>주소</legend>
-			<input type="text" class="roastery" readonly="readonly" name="address" id="address" value="${roastery.address}">
+			<input type="text" class="roastery" name="address" id="address" value="${roastery.address}">
 		</fieldset>
 		<fieldset>
 			<legend>설명</legend>
-			<textarea rows="15" cols="80" name="info" class="roastery" readonly="readonly" id="info">${roastery.name}</textarea>
+			<textarea rows="15" cols="80" name="info" class="roastery" id="info">${roastery.name}</textarea>
 		</fieldset>
-		<button type="button" onclick="roasteryUpdate()" >로스터리 정보 수정</button>
-		<script type="text/javascript">
-			function roasteryUpdate() {
-				location.href="./update";
-			}
-		</script>
+		<fieldset>
+			<input type="file" id="file" name="file">
+		</fieldset>
+		<button type="button" id="btn">수정완료</button>
+	</form>
+
+	<script type="text/javascript" src="../resources/js/roastery/add.js"></script>
 </body>
 </html>
