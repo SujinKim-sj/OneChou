@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.product.ProductDTO;
+import com.onechou.shop.util.Pager;
 
 @Service
 public class ReviewService {
@@ -33,8 +34,18 @@ public class ReviewService {
 		return reviewDAO.add(reviewDTO);
 	}
 	
-	public List<ReviewDTO> list(ReviewDTO reviewDTO) throws Exception {
-		return reviewDAO.list(reviewDTO);
+	public List<ReviewDTO> list(ReviewDTO reviewDTO, Pager pager) throws Exception {
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		pager.setPerPage(10L);
+		pager.makeRow();
+		pager.makeNum(reviewDAO.getTotal(reviewDTO));
+		
+		hashMap.put("productNum", reviewDTO.getProductNum());
+		hashMap.put("startRow", pager.getStartRow());
+		hashMap.put("lastRow", pager.getLastRow());
+		
+		return reviewDAO.list(hashMap);
 	}
 	
 	public int delete(ReviewDTO reviewDTO) throws Exception {

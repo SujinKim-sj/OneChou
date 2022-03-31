@@ -201,12 +201,14 @@ paymentBtn.addEventListener("click", function(){
 
 // --- 리뷰 비동기 방식 처리 ---
 const reviewSection = document.querySelector('#reviewSection');
-getReviewList();
+let reviewPage = 1;
 
-function getReviewList() {
+getReviewList(reviewPage);
+
+function getReviewList(reviewPage) {
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open("GET", "../review/list?productNum="+productNum.value)
+    xhttp.open("GET", "../review/list?productNum="+productNum.value+"&page="+reviewPage)
 
     xhttp.send();
 
@@ -245,7 +247,7 @@ reviewSection.addEventListener("click", function(event){
 
                 if(result == 1) {
                     alert('리뷰 삭제에 성공했습니다.');
-                    getReviewList();
+                    getReviewList(reviewPage);
                 } else {
                     alert('리뷰 삭제에 실패했습니다.\n다시 시도해주세요.')
                 }
@@ -288,7 +290,7 @@ reviewSection.addEventListener("click", function(event){
     
                     if(result == 1) {
                         alert('리뷰 수정에 성공했습니다.');
-                        getReviewList();
+                        getReviewList(reviewPage);
                         ratingCheck = false;
                     } else {
                         alert('리뷰 수정에 실패했습니다.\n다시 시도해주세요.')
@@ -409,6 +411,13 @@ reviewSection.addEventListener("click", function(event){
         reviewUpdateBtn.innerHTML = "수정하기";    
 
         reviewUpdateBtn.classList.replace('reviewUpdateBtn', 'reviewConfirmBtn');
+    }
+
+    // 페이징 처리
+    if(event.target.classList.contains('page-link')){
+        reviewPage = event.target.getAttribute('data-page'); // page 전역변수에 page값을 넣어놓음
+        // 나중에 리뷰 삭제, 리뷰 수정을 하더라도 요청을 보낼 때 해당 전역변수를 인자값으로 주면 page가 유지됨
+        getReviewList(reviewPage);
     }
 
 })
@@ -563,6 +572,5 @@ qnaSection.addEventListener("click", function(event){
             }
         })
     }
-
 })
 

@@ -36,8 +36,17 @@
 		VALUES (REVIEW_SEQ.NEXTVAL, #{contents}, SYSDATE, #{rating}, #{writer}, #{memberId}, #{productNum})
 	</insert>
 	
-	<select id="list" parameterType="ReviewDTO" resultType="ReviewDTO">
-		SELECT * FROM REVIEW WHERE PRODUCTNUM = #{productNum}
+	<select id="list" parameterType="HashMap" resultType="ReviewDTO">
+		SELECT *
+		FROM(SELECT ROWNUM R, A.*
+		     FROM(SELECT * FROM REVIEW 
+		          WHERE PRODUCTNUM = #{productNum} 
+		          ORDER BY NUM DESC) A)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<select id="getTotal" parameterType="ReviewDTO" resultType="Long">
+		SELECT COUNT(NUM) FROM REVIEW WHERE PRODUCTNUM = #{productNum}
 	</select>
 	
 	<delete id="delete" parameterType="ReviewDTO">

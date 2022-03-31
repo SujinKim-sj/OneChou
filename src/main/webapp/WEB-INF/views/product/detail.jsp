@@ -73,7 +73,7 @@
 					<tr>
 						<td>리뷰평균</td>
 						<c:choose>
-							<c:when test="${empty productDTO.reviewDTOs}">
+							<c:when test="${reviewAvg =='n'}">
 								<td colspan="3">리뷰정보없음</td>
 							</c:when>
 							<c:otherwise>
