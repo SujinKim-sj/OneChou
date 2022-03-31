@@ -28,6 +28,12 @@ public class FavoriteService {
 	public int noteUpdate(CupnoteDTO cupnoteDTO) throws Exception{
 		return favoriteDAO.noteUpdate(cupnoteDTO);
 	}
+	public FavoriteDTO detail (FavoriteDTO favoriteDTO) throws Exception{
+		return favoriteDAO.detail(favoriteDTO);
+	}
+	public List<CupnoteDTO> noteList(FavoriteDTO favoriteDTO) throws Exception{
+		return favoriteDAO.noteList(favoriteDTO);
+	}
 
 
 }

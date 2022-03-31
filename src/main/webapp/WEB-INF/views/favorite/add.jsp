@@ -91,6 +91,7 @@
 					<label class="btn btn-outline-info" for="honey">꿀</label>
 				</li>
 			</ul>
+			<input type="hidden">
 			<br>
 			<ul class="list-group text-center">
 				<li class="list-group-item"> 어떤 로스팅 포인트를 선호하세요? </li>

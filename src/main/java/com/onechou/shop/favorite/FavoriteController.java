@@ -1,6 +1,8 @@
 package com.onechou.shop.favorite;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +70,13 @@ public class FavoriteController {
 	@RequestMapping(value = "update", method = RequestMethod.POST )
 	public String update(FavoriteDTO favoriteDTO , String [] noteNames ,Model model) throws Exception{
 		int result = favoriteService.update(favoriteDTO);
-		for(int i=0;i<noteNames.length;i++) {
+		FavoriteDTO favoriteDTO2 = favoriteService.detail(favoriteDTO);
+		List<CupnoteDTO> ar = favoriteService.noteList(favoriteDTO2);
+		for(int i=0;i<ar.size();i++) {
 			CupnoteDTO cupnoteDTO = new CupnoteDTO();
-			cupnoteDTO.setFavoriteNum(favoriteDTO.getNum());
+			cupnoteDTO.setFavoriteNum(favoriteDTO2.getNum());
 			cupnoteDTO.setNoteName(noteNames[i]);
+			cupnoteDTO.setNum(ar.get(i).getNum());
 			result = favoriteService.noteUpdate(cupnoteDTO);
 		}
 		
