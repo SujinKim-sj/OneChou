@@ -6,7 +6,6 @@
 <mapper namespace="com.onechou.shop.qna.QnaDAO">
 	
 	<insert id="add" parameterType="QnaDTO">
-	<!-- 나중에 회원 아이디, 닉네임 넣는작업 해야됨!! -->
 		INSERT INTO QNA (NUM, CONTENTS, REGDATE, REF, STEP, DEPTH, MEMBERID, WRITER, PRODUCTNUM)
 		VALUES (QNA_SEQ.NEXTVAL, #{contents}, SYSDATE, QNA_SEQ.CURRVAL, 0, 0, #{memberId}, #{writer}, #{productNum})
 	</insert>
@@ -21,9 +20,8 @@
 	</update>
 	
 	<insert id="reply">
-	<!-- 나중에 회원 아이디, 닉네임 넣는작업 해야됨!! -->
 		INSERT INTO QNA (NUM, CONTENTS, REGDATE, REF, STEP, DEPTH, MEMBERID, WRITER, PRODUCTNUM)
-		VALUES (QNA_SEQ.NEXTVAL, #{contents}, SYSDATE, #{ref}, #{step}, #{depth}, 'id1', 'nickname1', #{productNum})
+		VALUES (QNA_SEQ.NEXTVAL, #{contents}, SYSDATE, #{ref}, #{step}, #{depth}, #{memberId}, #{writer}, #{productNum})
 	</insert>
 	
 	<delete id="deleteAll" parameterType="QnaDTO">
@@ -34,4 +32,36 @@
 		DELETE QNA WHERE NUM = #{num}
 	</delete>
 	
+	<select id="list" parameterType="HashMap" resultType="QnaDTO">
+		SELECT *
+		FROM(SELECT ROWNUM R, A.*
+		     FROM(SELECT * FROM QNA
+		          WHERE PRODUCTNUM = #{num}
+		          AND STEP = 0 
+		          ORDER BY NUM DESC) A)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<select id="getTotal" parameterType="ProductDTO" resultType="Long">
+		SELECT COUNT(NUM) FROM QNA
+		WHERE PRODUCTNUM = #{num}
+	</select>
+	
+	<select id="verifyDuplicated" parameterType="HashMap" resultType="Long">
+		SELECT NUM FROM QNA
+		WHERE PRODUCTNUM = #{num}
+		AND MEMBERID = #{memberId}
+		AND STEP = 0
+	</select>
+	
+	<update id="update" parameterType="QnaDTO">
+		UPDATE QNA SET CONTENTS = #{contents}
+		WHERE NUM = #{num}
+	</update>
+	
+	<select id="replyList" parameterType="QnaDTO" resultType="QnaDTO">
+		SELECT * FROM QNA
+		WHERE REF = #{num}
+		AND STEP > 0
+	</select>
 </mapper>

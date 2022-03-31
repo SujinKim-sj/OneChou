@@ -1,8 +1,13 @@
 package com.onechou.shop.qna;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.onechou.shop.product.ProductDTO;
 
 @Repository
 public class QnaDAO {
@@ -34,5 +39,25 @@ public class QnaDAO {
 	
 	public int deleteReply(QnaDTO qnaDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE+"deleteReply", qnaDTO);
+	}
+	
+	public List<QnaDTO> list(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"list", hashMap);
+	}
+	
+	public Long getTotal(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getTotal", productDTO);
+	}
+	
+	public Long verifyDuplicated(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"verifyDuplicated", hashMap);
+	}
+	
+	public int update(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"update", qnaDTO);
+	}
+	
+	public List<QnaDTO> replyList(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"replyList", qnaDTO);
 	}
 }

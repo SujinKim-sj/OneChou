@@ -29,8 +29,12 @@ public class ReviewDAO {
 		return sqlSession.insert(NAMESPACE+"add", reviewDTO);
 	}
 	
-	public List<ReviewDTO> list(ReviewDTO reviewDTO) throws Exception {
-		return sqlSession.selectList(NAMESPACE+"list", reviewDTO);
+	public List<ReviewDTO> list(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"list", hashMap);
+	}
+
+	public Long getTotal(ReviewDTO reviewDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getTotal", reviewDTO);
 	}
 	
 	public int delete(ReviewDTO reviewDTO) throws Exception {

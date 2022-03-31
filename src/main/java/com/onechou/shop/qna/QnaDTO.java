@@ -1,37 +1,13 @@
 package com.onechou.shop.qna;
 
-import java.sql.Date;
+import com.onechou.shop.writing.WritingDTO;
 
-public class QnaDTO {
+public class QnaDTO extends WritingDTO {
 
-	private Long num;
-	private String contents;
-	private Date regDate;
 	private Long ref;
 	private Long step;
 	private Long depth;
-	private String memberId;
-	private String writer;
-	private Long productNum;
 	
-	public Long getNum() {
-		return num;
-	}
-	public void setNum(Long num) {
-		this.num = num;
-	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
 	public Long getRef() {
 		return ref;
 	}
@@ -50,23 +26,5 @@ public class QnaDTO {
 	public void setDepth(Long depth) {
 		this.depth = depth;
 	}
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-	public Long getProductNum() {
-		return productNum;
-	}
-	public void setProductNum(Long productNum) {
-		this.productNum = productNum;
-	}
-	
+
 }

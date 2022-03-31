@@ -37,8 +37,8 @@
 									<form action="./reply" method="post">
 										<input type="hidden" name="productNum" value="${qnaDTO.productNum}">
 										<input type="hidden" name="num" value="${qnaDTO.num}">
-										<!-- 나중에 로그인 기능 되면 <input type="hidden" name="writer" value="${member.nickname}">
-										<input type="hidden" name="memberId" value="${member.id}"> -->
+										<input type="hidden" name="writer" value="${member.nickname}">
+										<input type="hidden" name="memberId" value="${member.id}">
 										<div class="input-group">
 											<span class="input-group-text">답변 입력</span>
 											<textarea class="form-control" name="contents"></textarea>

@@ -23,3 +23,16 @@
 #myform input[type=radio]:checked ~ label{
     text-shadow: 0 0 0 #a00; /* 마우스 클릭 체크 */
 }
+
+#qnaSection tbody {
+    border-top: 1px solid black;
+}
+
+#firstTbody {
+    border-top: 2px solid black !important;
+}
+
+/* .replyListTbody {
+    border-top: 1px solid black !important;
+    border-bottom: 1px solid black !important;
+} */

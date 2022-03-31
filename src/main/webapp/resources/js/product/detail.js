@@ -201,12 +201,14 @@ paymentBtn.addEventListener("click", function(){
 
 // --- 리뷰 비동기 방식 처리 ---
 const reviewSection = document.querySelector('#reviewSection');
-getReviewList();
+let reviewPage = 1;
 
-function getReviewList() {
+getReviewList(reviewPage);
+
+function getReviewList(reviewPage) {
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open("GET", "../review/list?productNum="+productNum.value)
+    xhttp.open("GET", "../review/list?productNum="+productNum.value+"&page="+reviewPage)
 
     xhttp.send();
 
@@ -215,7 +217,6 @@ function getReviewList() {
             reviewSection.innerHTML = this.responseText.trim();
         }
     }
-
 }
 
 let ratingCheck = false;
@@ -245,7 +246,7 @@ reviewSection.addEventListener("click", function(event){
 
                 if(result == 1) {
                     alert('리뷰 삭제에 성공했습니다.');
-                    getReviewList();
+                    getReviewList(reviewPage);
                 } else {
                     alert('리뷰 삭제에 실패했습니다.\n다시 시도해주세요.')
                 }
@@ -288,7 +289,7 @@ reviewSection.addEventListener("click", function(event){
     
                     if(result == 1) {
                         alert('리뷰 수정에 성공했습니다.');
-                        getReviewList();
+                        getReviewList(reviewPage);
                         ratingCheck = false;
                     } else {
                         alert('리뷰 수정에 실패했습니다.\n다시 시도해주세요.')
@@ -411,6 +412,212 @@ reviewSection.addEventListener("click", function(event){
         reviewUpdateBtn.classList.replace('reviewUpdateBtn', 'reviewConfirmBtn');
     }
 
+    // 페이징 처리
+    if(event.target.classList.contains('page-link')){
+        reviewPage = event.target.getAttribute('data-page'); // page 전역변수에 page값을 넣어놓음
+        // 나중에 리뷰 삭제, 리뷰 수정을 하더라도 요청을 보낼 때 해당 전역변수를 인자값으로 주면 page가 유지됨
+        getReviewList(reviewPage);
+    }
+
 })
 
 
+// --- 질문 비동기 방식 처리 ---
+const qnaSection = document.querySelector('#qnaSection');
+let qnaPage = 1;
+
+getQnaList(qnaPage);
+
+function getQnaList(qnaPage) {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open("GET", "../qna/list?num="+productNum.value+"&page="+qnaPage);
+
+    xhttp.send();
+
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            qnaSection.innerHTML = this.responseText.trim();
+        }
+    }
+
+}
+
+qnaSection.addEventListener("click", function(event){
+    // 질문 등록
+    if(event.target.classList.contains('qnaAddBtn')) {
+        const qnaContents = document.querySelector('#qnaContents');
+        const memberNickname = document.querySelector('#memberNickname');
+
+        let qnaContentsCheck = false;
+        if(qnaContents.value != '') {
+            qnaContentsCheck = true;
+        }
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "../qna/add")
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send("contents="+qnaContents.value+"&memberId="+memberId.value+"&writer="+memberNickname.value+"&productNum="+productNum.value);
+
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                let result = this.responseText.trim();
+                if(result > 0) {
+                    alert('질문 등록에 성공했습니다.');
+                    getQnaList(qnaPage);
+                } else {
+                    alert('질문 등록에 실패했습니다.\n다시 시도해주세요.');
+                }
+            }
+        }
+    }
+
+    // 질문 삭제
+    if(event.target.classList.contains('qnaDeleteBtn')) {
+        if(!confirm('삭제하시겠습니까?')){
+            return;
+        }
+        
+        const qnaNum = event.target.getAttribute('data-num');
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "../qna/delete");
+        
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send('num='+qnaNum);
+
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                let result = this.responseText.trim();
+                if(result > 0) {
+                    alert('질문 삭제에 성공했습니다.');
+                    getQnaList(qnaPage);
+                } else {
+                    alert('질문 삭제에 실패했습니다.\n다시 시도해주세요.');
+                }
+            }
+        }
+    }
+
+    // 질문 수정
+    if(event.target.classList.contains('qnaUpdateBtn')) {
+        
+        const qnaNum = event.target.getAttribute('data-num');
+        const isReply = event.target.getAttribute('data-reply'); // 1이면 답글, 0이면 부모글임
+
+        const qnaContentsTd = document.querySelector('#qnaContents'+qnaNum);
+        let originalQna = "";
+        if(isReply == 1) { // 답글 표시인 └─── 를 없애야 함
+            originalQna = qnaContentsTd.innerHTML.trim().substring(4).trim();
+            // └─── 가 4칸이라 4칸 뒤부터 끝까지를 추출, 한번 더 공백 제거한 값이 실제 원본글 데이터임
+        } else {
+            originalQna = qnaContentsTd.innerHTML.trim(); // 부모글이라면 그냥 공백제거만 하면 원본글 데이터임
+        }
+        
+        console.log(originalQna);
+        qnaContentsTd.innerHTML = "";
+
+        const inputGroupDiv = document.createElement('div');
+        inputGroupDiv.classList.add('input-group');
+        
+        const inputGroupText = document.createElement('span');
+        inputGroupText.classList.add('input-group-text');
+        inputGroupText.innerHTML = "질문내용수정"
+        
+        const inputTextArea = document.createElement('textarea');
+        inputTextArea.classList.add('form-control');
+        inputTextArea.setAttribute('id', 'qnaTextArea'+qnaNum);
+        
+        inputTextArea.value = originalQna;
+
+        inputGroupDiv.append(inputGroupText);
+        inputGroupDiv.append(inputTextArea);
+        qnaContentsTd.append(inputGroupDiv);
+
+        // 입력 폼에서 blur 이벤트가 발생 시 수정 요청을 보냄
+        const qnaTextArea = document.querySelector('#qnaTextArea'+qnaNum);
+        qnaTextArea.addEventListener("blur", function(){
+            if(qnaTextArea.value == ''){
+                alert('질문 내용을 입력해주세요.');
+                return;
+            }
+            
+            if(!confirm('수정하시겠습니까?')){
+                return
+            }
+    
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.open("POST", "../qna/update");
+            
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhttp.send('num='+qnaNum+"&contents="+qnaTextArea.value);
+
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200) {
+                    let result = this.responseText.trim();
+                    if(result > 0) {
+                        alert('질문 수정에 성공했습니다.');
+                        getQnaList(qnaPage);
+                    } else {
+                        alert('질문 수정에 실패했습니다.\n다시 시도해주세요.');
+                    }
+                }
+            }
+        })
+    }
+
+    // 페이징 처리
+    if(event.target.classList.contains('page-link')){
+        qnaPage = event.target.getAttribute('data-page');
+        getQnaList(qnaPage);
+    }
+
+    // 답글 숨김처리 (코드 순서가 답글 요청보다 위에 있어야 함)
+    if(event.target.classList.contains('replyHideBtn')){
+        let parentQnaNum = event.target.getAttribute('data-num');
+        const replyListSection = document.querySelector('#replyListSection'+parentQnaNum);
+
+        replyListSection.innerHTML="";
+    }
+
+    // 답글 요청
+    if(event.target.classList.contains('replyBtn')){
+        let parentQnaNum = event.target.getAttribute('data-num');
+        const replyListSection = document.querySelector('#replyListSection'+parentQnaNum);
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("GET", "../qna/replyList?num="+parentQnaNum);
+    
+        xhttp.send();
+    
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                let result = this.responseText.trim();
+
+                if(result == '0') {
+                    alert('답글이 없습니다!');
+                } else {
+                    replyListSection.innerHTML = result;
+                    event.target.classList.replace('replyBtn', 'replyHideBtn'); 
+                    event.target.innerHTML = "답글닫기";
+                }
+            }
+        }
+    }
+
+    // 숨김 처리 이후 버튼 클래스명 변경하기 
+    // 답글 숨김처리하는 부분에 같이 하면 답글을 닫자마자 다시 답글 보기버튼 클릭이벤트가 발생
+    // 코드의 순서가 이렇게 되어야 함
+    if(event.target.classList.contains('replyHideBtn')){
+        event.target.classList.replace('replyHideBtn', 'replyBtn'); 
+        event.target.innerHTML = "답글보기";
+    }
+})

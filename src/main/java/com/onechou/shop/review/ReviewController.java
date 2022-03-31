@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.product.ProductDTO;
+import com.onechou.shop.util.Pager;
 
 @Controller
 @RequestMapping(value = "/review/**")
@@ -79,10 +80,11 @@ public class ReviewController {
 	}
 	
 	@GetMapping("list")
-	public void list(ReviewDTO reviewDTO, Model model) throws Exception {
+	public void list(ReviewDTO reviewDTO, Model model, Pager pager) throws Exception {
 		
-		List<ReviewDTO> reviewDTOs = reviewService.list(reviewDTO);
+		List<ReviewDTO> reviewDTOs = reviewService.list(reviewDTO, pager);
 		
+		model.addAttribute("pager", pager);
 		model.addAttribute("reviewDTOs", reviewDTOs);
 	}
 	

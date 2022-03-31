@@ -48,5 +48,31 @@
 								  </c:forEach>
 							</tbody>
 						</table>
+						<div class="d-flex justify-content-center align-items-center">
+							<nav>
+								<ul class="pagination">
+								
+								<c:if test="${pager.pre}">
+									<li class="page-item">
+										<button class="page-link" type="button" data-page="${pager.startNum-1}" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+										</button>
+									</li>
+								</c:if>
+								
+								<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+									<li class="page-item"><button class="page-link" data-page="${i}" type="button">${i}</button></li>
+								</c:forEach>
+								
+								<c:if test="${pager.next}">
+									<li class="page-item">
+										<button class="page-link" type="button" data-page="${pager.lastNum+1}" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+										</button>
+									</li>
+								</c:if>
+								</ul>
+							</nav>
+						</div>
 					</c:otherwise>
 				</c:choose>
