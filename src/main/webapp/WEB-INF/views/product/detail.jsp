@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<c:import url="../template/css_import.jsp"></c:import>
-	<link rel="stylesheet" type="text/css" href="../resources/css/product/detail.css">
+<c:import url="../template/css_import.jsp"></c:import>
+<link rel="stylesheet" type="text/css" href="../resources/css/product/detail.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -84,7 +84,7 @@
 								<span>⭐</span>
 								<span>⭐</span>
 								<span>⭐</span>		 -->						
-								<span>${reviewAvg}점</span>
+								<span>${reviewAvg}점/5.0점</span>
 								</td>
 							</c:otherwise>
 						</c:choose>

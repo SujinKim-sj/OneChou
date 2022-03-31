@@ -58,4 +58,10 @@
 		UPDATE QNA SET CONTENTS = #{contents}
 		WHERE NUM = #{num}
 	</update>
+	
+	<select id="replyList" parameterType="QnaDTO" resultType="QnaDTO">
+		SELECT * FROM QNA
+		WHERE REF = #{num}
+		AND STEP > 0
+	</select>
 </mapper>

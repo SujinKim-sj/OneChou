@@ -579,9 +579,45 @@ qnaSection.addEventListener("click", function(event){
         getQnaList(qnaPage);
     }
 
-    // 답변 보이게 처리
+    // 답글 숨김처리 (코드 순서가 답글 요청보다 위에 있어야 함)
+    if(event.target.classList.contains('replyHideBtn')){
+        let parentQnaNum = event.target.getAttribute('data-num');
+        const replyListSection = document.querySelector('#replyListSection'+parentQnaNum);
+
+        replyListSection.innerHTML="";
+    }
+
+    // 답글 요청
     if(event.target.classList.contains('replyBtn')){
-        console.log('click');
+        let parentQnaNum = event.target.getAttribute('data-num');
+        const replyListSection = document.querySelector('#replyListSection'+parentQnaNum);
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.open("GET", "../qna/replyList?num="+parentQnaNum);
+    
+        xhttp.send();
+    
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                let result = this.responseText.trim();
+
+                if(result == '0') {
+                    alert('답글이 없습니다!');
+                } else {
+                    replyListSection.innerHTML = result;
+                    event.target.classList.replace('replyBtn', 'replyHideBtn'); 
+                    event.target.innerHTML = "답글닫기";
+                }
+            }
+        }
+    }
+
+    // 숨김 처리 이후 버튼 클래스명 변경하기 
+    // 답글 숨김처리하는 부분에 같이 하면 답글을 닫자마자 다시 답글 보기버튼 클릭이벤트가 발생
+    // 코드의 순서가 이렇게 되어야 함
+    if(event.target.classList.contains('replyHideBtn')){
+        event.target.classList.replace('replyHideBtn', 'replyBtn'); 
+        event.target.innerHTML = "답글보기";
     }
 })
-

@@ -77,4 +77,8 @@ public class QnaService {
 	public int update(QnaDTO qnaDTO) throws Exception {
 		return qnaDAO.update(qnaDTO);
 	}
+	
+	public List<QnaDTO> replyList(QnaDTO qnaDTO) throws Exception {
+		return qnaDAO.replyList(qnaDTO);
+	}
 }

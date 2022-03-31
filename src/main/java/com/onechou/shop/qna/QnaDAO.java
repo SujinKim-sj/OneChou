@@ -56,4 +56,8 @@ public class QnaDAO {
 	public int update(QnaDTO qnaDTO) throws Exception {
 		return sqlSession.update(NAMESPACE+"update", qnaDTO);
 	}
+	
+	public List<QnaDTO> replyList(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"replyList", qnaDTO);
+	}
 }

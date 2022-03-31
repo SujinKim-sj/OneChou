@@ -19,24 +19,22 @@
 								<th scope="col"></th>
 							  </tr>
 							</thead>
-							<tbody>
+							<tbody id="firstTbody">
 								<c:forEach items="${qnaDTOs}" var="qnaDTO">
 								  <tr>
-									<td>${qnaDTO.writer}</td>
-									<td class="text-wrap" id="qnaContents${qnaDTO.num}" colspan="5" style="width:45%">
-										<c:forEach begin="1" end="${qnaDTO.depth}">└───</c:forEach>
-										<button class="replyBtn" type="button">${qnaDTO.contents}</button>
+									<td class="align-middle">${qnaDTO.writer}</td>
+									<td id="qnaContents${qnaDTO.num}" colspan="5" style="width:45%">
+										<div class="d-flex justify-content-between align-items-center">
+											${qnaDTO.contents}
+											<span class="text-end">
+												<button class="replyBtn btn btn-outline-secondary" data-num="${qnaDTO.num}" type="button">답글보기</button>
+											</span>
+										</div>
 									</td>
-									<td>${qnaDTO.regDate}</td>
+									<td class="align-middle">${qnaDTO.regDate}</td>
 									<td class="text-center">
 										<c:if test="${not empty member}">
-											<c:choose> 
-												<c:when test="${qnaDTO.step==0}"> <!-- 답변에 답글은 못달게 함 -->
-													<a class="btn btn-secondary" href="../qna/reply?num=${qnaDTO.num}">답글달기</a>
-												</c:when>
-												<c:otherwise>
-												</c:otherwise>
-											</c:choose>
+											<a class="btn btn-secondary" href="../qna/reply?num=${qnaDTO.num}">답글달기</a>
 										</c:if>
 									</td>
 									<td class="text-center">
@@ -58,6 +56,9 @@
 										</c:if>
 									</td>
 								  </tr>
+								  <tbody class="replyListTbody" id="replyListSection${qnaDTO.num}">
+
+								  </tbody>
 								</c:forEach>
 							</tbody>
 						</table>

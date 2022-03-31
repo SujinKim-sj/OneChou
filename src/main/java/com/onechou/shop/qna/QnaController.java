@@ -114,4 +114,22 @@ public class QnaController {
 		
 		return mv;
 	}
+	
+	@GetMapping("replyList")
+	public ModelAndView replyList(QnaDTO qnaDTO, ModelAndView mv) throws Exception {
+		
+		List<QnaDTO> qnaDTOs = qnaService.replyList(qnaDTO);
+		int replyCount = qnaDTOs.size();
+			
+		if(replyCount == 0) {
+			mv.addObject("result", replyCount);
+			mv.setViewName("common/ajaxResult");
+			return mv;
+		}
+		
+		mv.addObject("replyCount", replyCount);
+		mv.addObject("qnaDTOs", qnaDTOs);
+		mv.setViewName("qna/replyList");
+		return mv;
+	}
 }
