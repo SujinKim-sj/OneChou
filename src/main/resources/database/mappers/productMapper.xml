@@ -220,5 +220,38 @@
 		ORDER BY E.NUM ASC
 	</select>
 	
+	<select id="getMemberFavorite" parameterType="MemberDTO" resultMap="memberFavoriteResult">
+		SELECT A.ROASTINGPOINT, A.FLAVOR, B.NOTENAME
+		FROM FAVORITE A
+		JOIN CUPNOTE B
+		ON A.NUM = B.FAVORITENUM
+		WHERE A.MEMBERID = #{id}
+	</select>
+	
+	<resultMap type="FavoriteDTO" id="memberFavoriteResult">
+		<result column="roastingPoint" property="roastingPoint"/>
+		<result column="flavor" property="flavor"/>
+		
+		<collection property="cupnoteDTOs" javaType="List" ofType="CupnoteDTO">
+			<result column="noteName" property="noteName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="recommendedList" parameterType="HashMap" resultMap="detailBasicResult">
+		SELECT A.NUM, A.NAME, A.PRICE, A.ROASTERYNAME, B.FILENAME, C.ROASTINGPOINT, C.FLAVOR, D.NOTENAME
+		FROM PRODUCT A
+		JOIN PRODUCTFILE B
+		ON A.NUM = B.PRODUCTNUM
+		JOIN PRODUCTFEATURE C
+		ON A.NUM = C.PRODUCTNUM
+		JOIN PRODUCTCUPNOTE D
+		ON C.NUM = D.FEATURENUM
+		WHERE C.FLAVOR = #{flavor} AND C.ROASTINGPOINT = #{roastingPoint}
+		AND 
+		<foreach collection="cupnoteDTOs" item="cupnoteDTO" open="(" close=")" separator="OR">
+			D.NOTENAME = #{cupnoteDTO.noteName}
+		</foreach>
+		AND A.SALE = 1
+	</select>
 	
 </mapper>

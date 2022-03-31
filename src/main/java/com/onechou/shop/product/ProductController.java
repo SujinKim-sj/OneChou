@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onechou.shop.favorite.FavoriteDTO;
 import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.review.ReviewDTO;
 import com.onechou.shop.roastery.RoasteryDTO;
@@ -191,6 +192,21 @@ public class ProductController {
 		mv.addObject("path", "./myList");
 		mv.setViewName("common/result");
 		return mv;
+	}
+	
+	@GetMapping("recommendedList")
+	public void recommendedList(HttpSession session, Model model) throws Exception {
+		
+		// 회원의 관심사 조회
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		FavoriteDTO favoriteDTO = productService.getMemberFavorite(memberDTO);
+		
+		// 관심사를 토대로 맞는 상품 조회
+		List<ProductDTO> productDTOs = productService.recommendedList(favoriteDTO);
+		
+		model.addAttribute("favoriteDTO", favoriteDTO);
+		model.addAttribute("productDTOs", productDTOs);
+		
 	}
 	
 }
