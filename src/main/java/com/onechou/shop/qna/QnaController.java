@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.product.ProductDTO;
+import com.onechou.shop.util.Pager;
 
 @Controller
 @RequestMapping(value = "/qna/**")
@@ -76,7 +77,7 @@ public class QnaController {
 	}
 	
 	@GetMapping("list")
-	public void list(HttpSession session, ProductDTO productDTO, Model model) throws Exception {
+	public void list(HttpSession session, ProductDTO productDTO, Model model, Pager pager) throws Exception {
 		
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
@@ -95,8 +96,9 @@ public class QnaController {
 		// 즉, duplicateCheck가 0인 경우에만 질문을 입력할 수 있는 입력 폼이 나와야 함
 		
 		
-		List<QnaDTO> qnaDTOs = qnaService.list(productDTO);
+		List<QnaDTO> qnaDTOs = qnaService.list(productDTO, pager);
 		
+		model.addAttribute("pager", pager);
 		model.addAttribute("qnaDTOs", qnaDTOs);
 		model.addAttribute("check", duplicateCheck);
 	}

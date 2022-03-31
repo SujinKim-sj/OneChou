@@ -56,7 +56,7 @@
 									<li class="page-item">
 										<button class="page-link" type="button" data-page="${pager.startNum-1}" aria-label="Previous">
 										<span aria-hidden="true">&laquo;</span>
-										</a>
+										</button>
 									</li>
 								</c:if>
 								
@@ -68,7 +68,7 @@
 									<li class="page-item">
 										<button class="page-link" type="button" data-page="${pager.lastNum+1}" aria-label="Next">
 										<span aria-hidden="true">&raquo;</span>
-										</a>
+										</button>
 									</li>
 								</c:if>
 								</ul>

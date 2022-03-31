@@ -41,8 +41,12 @@ public class QnaDAO {
 		return sqlSession.delete(NAMESPACE+"deleteReply", qnaDTO);
 	}
 	
-	public List<QnaDTO> list(ProductDTO productDTO) throws Exception {
-		return sqlSession.selectList(NAMESPACE+"list", productDTO);
+	public List<QnaDTO> list(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"list", hashMap);
+	}
+	
+	public Long getTotal(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getTotal", productDTO);
 	}
 	
 	public Long verifyDuplicated(HashMap<String, Object> hashMap) throws Exception {

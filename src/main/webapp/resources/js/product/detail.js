@@ -217,7 +217,6 @@ function getReviewList(reviewPage) {
             reviewSection.innerHTML = this.responseText.trim();
         }
     }
-
 }
 
 let ratingCheck = false;
@@ -425,13 +424,14 @@ reviewSection.addEventListener("click", function(event){
 
 // --- 질문 비동기 방식 처리 ---
 const qnaSection = document.querySelector('#qnaSection');
+let qnaPage = 1;
 
-getQnaList();
+getQnaList(qnaPage);
 
-function getQnaList() {
+function getQnaList(qnaPage) {
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open("GET", "../qna/list?num="+productNum.value)
+    xhttp.open("GET", "../qna/list?num="+productNum.value+"&page="+qnaPage);
 
     xhttp.send();
 
@@ -467,7 +467,7 @@ qnaSection.addEventListener("click", function(event){
                 let result = this.responseText.trim();
                 if(result > 0) {
                     alert('질문 등록에 성공했습니다.');
-                    getQnaList();
+                    getQnaList(qnaPage);
                 } else {
                     alert('질문 등록에 실패했습니다.\n다시 시도해주세요.');
                 }
@@ -496,7 +496,7 @@ qnaSection.addEventListener("click", function(event){
                 let result = this.responseText.trim();
                 if(result > 0) {
                     alert('질문 삭제에 성공했습니다.');
-                    getQnaList();
+                    getQnaList(qnaPage);
                 } else {
                     alert('질문 삭제에 실패했습니다.\n다시 시도해주세요.');
                 }
@@ -564,13 +564,24 @@ qnaSection.addEventListener("click", function(event){
                     let result = this.responseText.trim();
                     if(result > 0) {
                         alert('질문 수정에 성공했습니다.');
-                        getQnaList();
+                        getQnaList(qnaPage);
                     } else {
                         alert('질문 수정에 실패했습니다.\n다시 시도해주세요.');
                     }
                 }
             }
         })
+    }
+
+    // 페이징 처리
+    if(event.target.classList.contains('page-link')){
+        qnaPage = event.target.getAttribute('data-page');
+        getQnaList(qnaPage);
+    }
+
+    // 답변 보이게 처리
+    if(event.target.classList.contains('replyBtn')){
+        console.log('click');
     }
 })
 

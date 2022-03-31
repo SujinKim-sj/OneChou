@@ -23,3 +23,9 @@
 #myform input[type=radio]:checked ~ label{
     text-shadow: 0 0 0 #a00; /* 마우스 클릭 체크 */
 }
+
+.replyBtn {
+    background-color: white;
+    border: 0;
+    outline: 0;
+}

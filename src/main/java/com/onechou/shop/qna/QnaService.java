@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.product.ProductDTO;
+import com.onechou.shop.util.Pager;
 
 @Service
 public class QnaService {
@@ -50,8 +51,18 @@ public class QnaService {
 		return result;
 	}
 	
-	public List<QnaDTO> list(ProductDTO productDTO) throws Exception {
-		return qnaDAO.list(productDTO);
+	public List<QnaDTO> list(ProductDTO productDTO, Pager pager) throws Exception {
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		pager.setPerPage(10L);
+		pager.makeRow();
+		pager.makeNum(qnaDAO.getTotal(productDTO));
+		
+		hashMap.put("num", productDTO.getNum());
+		hashMap.put("startRow", pager.getStartRow());
+		hashMap.put("lastRow", pager.getLastRow());
+		
+		return qnaDAO.list(hashMap);
 	}
 	
 	public Long verifyDuplicated(ProductDTO productDTO, MemberDTO memberDTO) throws Exception {

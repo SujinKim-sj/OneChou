@@ -7,7 +7,7 @@
 							<h5 class="text-center">아직 이 상품에는 아무런 질문도 없어요</h5>
 						</div>
 					</c:when>
-					<c:otherwise>
+					<c:otherwise>					
 						<table class="table my-5">
 							<thead>
 							  <tr>
@@ -24,8 +24,9 @@
 								  <tr>
 									<td>${qnaDTO.writer}</td>
 									<td class="text-wrap" id="qnaContents${qnaDTO.num}" colspan="5" style="width:45%">
-									<c:forEach begin="1" end="${qnaDTO.depth}">└───</c:forEach>
-									${qnaDTO.contents}</td>
+										<c:forEach begin="1" end="${qnaDTO.depth}">└───</c:forEach>
+										<button class="replyBtn" type="button">${qnaDTO.contents}</button>
+									</td>
 									<td>${qnaDTO.regDate}</td>
 									<td class="text-center">
 										<c:if test="${not empty member}">
@@ -62,6 +63,32 @@
 						</table>
 					</c:otherwise>
 				</c:choose>
+				<div class="d-flex justify-content-center align-items-center">
+					<nav>
+						<ul class="pagination">
+						
+						<c:if test="${pager.pre}">
+							<li class="page-item">
+								<button class="page-link" type="button" data-page="${pager.startNum-1}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+								</button>
+							</li>
+						</c:if>
+						
+						<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+							<li class="page-item"><button class="page-link" data-page="${i}" type="button">${i}</button></li>
+						</c:forEach>
+						
+						<c:if test="${pager.next}">
+							<li class="page-item">
+								<button class="page-link" type="button" data-page="${pager.lastNum+1}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+								</button>
+							</li>
+						</c:if>
+						</ul>
+					</nav>
+				</div>
 				<c:if test="${check == 0}">
 					<div class="input-group mb-3">
 					  <span class="input-group-text">질문이 있으신가요?</span>
@@ -69,3 +96,4 @@
 					  <button class="btn btn-outline-secondary qnaAddBtn" type="submit">질문등록</button>
 					</div>
 				</c:if>
+				
