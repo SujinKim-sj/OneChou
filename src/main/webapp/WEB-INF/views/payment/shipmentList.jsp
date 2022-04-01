@@ -14,8 +14,20 @@
 	
 	<div class="container">
 		<div class="text-center my-5">
-			<h5>주문이 들어온 상품들</h5>
+			<h5>결제 완료된 주문정보</h5>
 		</div>
+		<div class="text-end">
+			
+			<c:choose>
+				<c:when test="${shipmentStatus == '0'}">
+					<a href="./shipmentList?shipmentStatus=1" class="btn btn-outline-secondary">발송 완료 상품 보기</a>
+				</c:when>
+				<c:otherwise>
+					<a href="./shipmentList?shipmentStatus=0" class="btn btn-outline-secondary">발송 준비 상품 보기</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<div id="paymentSection">
 		<c:forEach items="${paymentDTOs}" var="paymentDTO">
 		<div class="border border-2 rounded my-5">
 			<div class="m-3">
@@ -49,10 +61,20 @@
 				<div class="col-3 d-flex align-items-center justify-content-center">
 					<div class="d-flex justify-content-center align-items-center">
 						<div>
-							<form action="../payment/shipmentAdd" method="post">
-								<input type="hidden" name="num" value="${paidProductDTO.num}">
-								<button class="btn btn-secondary" type="submit">배송정보입력</button>
-							</form>
+							<c:choose>
+								<c:when test="${shipmentStatus == '0'}">
+								<form action="../payment/shipmentAdd" method="post">
+									<input type="hidden" name="num" value="${paidProductDTO.num}">
+									<button class="btn btn-secondary" type="submit">배송정보입력</button>
+								</form>
+								</c:when>
+								<c:otherwise>
+									<button type="button" class="shipmentSearchBtn btn btn-secondary" data-num="${paidProductDTO.num}">배송조회하기</button>
+									<input type="hidden" value="${paidProductDTO.deliveryCompany}" id="deliveryCompany${paidProductDTO.num}">
+									<input type="hidden" value="${paidProductDTO.shipmentNum}" id="shipmentNum${paidProductDTO.num}">
+								</c:otherwise>
+							</c:choose>
+
 						</div>
 					</div>
 				</div>
@@ -60,6 +82,7 @@
 			</c:forEach>
 		</div>
 		</c:forEach>
+		</div>
 		<div class="d-flex justify-content-center my-5">
 			<nav>
 			  <ul class="pagination">		    
@@ -87,6 +110,7 @@
 		</div>	
 	</div>
 
+	<script src="../resources/js/payment/shipmentList.js"></script>
 
 </body>
 </html>

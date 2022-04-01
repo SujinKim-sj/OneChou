@@ -152,7 +152,7 @@
 	</select>
 	
 	<select id="getShipmentProductList" parameterType="HashMap" resultMap="shipmentProductListResult">
-        SELECT A.NUM AS PAYMENTNUM, A.ORDERDATE, B.NUM, B.AMOUNT, B.PERPRICE, C.NAME, C.ROASTERYNAME, C.PRICE, D.FILENAME, E.OPTIONNAME, E.ADDPRICE, F.RECIPIENT, F.ADDRESS, F.RECIPIENTPHONE, F.MEMO
+        SELECT A.NUM AS PAYMENTNUM, A.ORDERDATE, B.NUM, B.AMOUNT, B.PERPRICE, B.DELIVERYCOMPANY, B.SHIPMENTNUM, C.NAME, C.ROASTERYNAME, C.PRICE, D.FILENAME, E.OPTIONNAME, E.ADDPRICE, F.RECIPIENT, F.ADDRESS, F.RECIPIENTPHONE, F.MEMO
 		FROM PAYMENT A
         JOIN PAIDPRODUCT B
         ON A.NUM = B.PAYMENTNUM
@@ -175,7 +175,7 @@
                                    WHERE I.MEMBERID = #{id}
                                    ORDER BY G.NUM ASC) J)
                          WHERE R BETWEEN #{startRow} AND #{lastRow}))
-		AND B.SHIPMENTSTATUS = 0
+		AND B.SHIPMENTSTATUS = #{shipmentStatus}
 		ORDER BY B.NUM ASC
 	</select>
 	
@@ -194,6 +194,8 @@
 			<id column="num" property="num"/>
 			<result column="amount" property="amount"/>
 			<result column="perPrice" property="perPrice"/>
+			<result column="deliveryCompany" property="deliveryCompany"/>
+			<result column="shipmentNum" property="shipmentNum"/>
 			
 			<association property="productDTO" javaType="ProductDTO">
 				<result column="name" property="name"/>
@@ -212,7 +214,7 @@
 		</collection>
 	</resultMap>
 	
-	<select id="getShipmentTotalCount" parameterType="MemberDTO" resultType="Long">
+	<select id="getShipmentTotalCount" parameterType="HashMap" resultType="Long">
 		SELECT COUNT(NUM)
 		FROM(SELECT DISTINCT G.NUM
 			 FROM PAYMENT G
@@ -221,6 +223,7 @@
         	 JOIN ROASTERY I
         	 ON H.ROASTERYNUM = I.NUM
         	 WHERE I.MEMBERID = #{id}
+        	 AND H.SHIPMENTSTATUS = #{shipmentStatus}
         	 ORDER BY G.NUM ASC)
 	</select>
 	

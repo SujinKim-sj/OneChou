@@ -58,8 +58,8 @@ public class PaymentDAO {
 		return sqlSession.selectList(NAMESPACE+"getShipmentProductList", hashMap);
 	}
 	
-	public Long getShipmentTotalCount(MemberDTO memberDTO) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+"getShipmentTotalCount", memberDTO);
+	public Long getShipmentTotalCount(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getShipmentTotalCount", hashMap);
 	}
 	
 	public PaymentDTO getShipmentProductDetail(PaidProductDTO paidProductDTO) throws Exception {

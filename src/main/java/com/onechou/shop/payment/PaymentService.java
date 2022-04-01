@@ -91,16 +91,17 @@ public class PaymentService {
 		return paymentDAO.detail(paymentDTO);
 	}
 	
-	public List<PaymentDTO> getShipmentProductList(MemberDTO memberDTO, Pager pager) throws Exception {
+	public List<PaymentDTO> getShipmentProductList(MemberDTO memberDTO, Pager pager, String shipmentStatus) throws Exception {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		pager.setPerPage(5L);
 		pager.makeRow();
-		pager.makeNum(paymentDAO.getShipmentTotalCount(memberDTO));
 		
 		hashMap.put("id", memberDTO.getId());
 		hashMap.put("startRow", pager.getStartRow());
 		hashMap.put("lastRow", pager.getLastRow());
+		hashMap.put("shipmentStatus", shipmentStatus);
 		
+		pager.makeNum(paymentDAO.getShipmentTotalCount(hashMap));
 		return paymentDAO.getShipmentProductList(hashMap);
 	}
 	

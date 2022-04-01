@@ -114,12 +114,17 @@ public class PaymentController {
 	}
 	
 	@GetMapping("shipmentList")
-	public void shipmentList(HttpSession session, Pager pager, Model model) throws Exception {
+	public void shipmentList(HttpSession session, Pager pager, Model model, String shipmentStatus) throws Exception {
+		
+		if(shipmentStatus == null) {
+			shipmentStatus = "0";
+		}
 		
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
-		List<PaymentDTO> paymentDTOs = paymentService.getShipmentProductList(memberDTO, pager);
+		List<PaymentDTO> paymentDTOs = paymentService.getShipmentProductList(memberDTO, pager, shipmentStatus);
 		
+		model.addAttribute("shipmentStatus", shipmentStatus);
 		model.addAttribute("pager", pager);
 		model.addAttribute("paymentDTOs", paymentDTOs);
 	}
