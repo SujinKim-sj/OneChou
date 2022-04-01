@@ -18,11 +18,13 @@
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container">
 		<div class="text-center">
-			<h1> Favorite Add Page </h1>
+			<h1> Favorite Update Page </h1>
 		</div>
 		<br>
-		<form action="./add" method="post">
+		<form action="./update" method="post">
 			<input type="hidden" name="memberId" value="${member.id}">
+
+			
 			<ul class="list-group text-center">
 				<li class="list-group-item"> 어떤 컵노트를 즐기시나요? </li>
 				

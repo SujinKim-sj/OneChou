@@ -30,8 +30,22 @@
 	<update id="update" parameterType="FavoriteDTO">
 		UPDATE FAVORITE 
 		SET ROASTINGPOINT = #{roastingPoint}, FLAVOR = #{flavor}
-		WHERE ID=#{id}
+		WHERE MEMBERID=#{memberId}
 	</update>
-	
+	<update id="noteUpdate" parameterType="CupnoteDTO">
+		UPDATE CUPNOTE 
+		SET  NOTENAME = #{noteName}
+		WHERE NUM = #{num} and FAVORITENUM=#{favoriteNum}
+	</update>
+	<select id="detail" parameterType="FavoriteDTO" resultType="FavoriteDTO">
+		SELECT *
+		FROM FAVORITE
+		WHERE MEMBERID=#{memberId}
+	</select>
+	<select id="noteList" parameterType="FavoriteDTO" resultType="CupnoteDTO">
+		SELECT *
+		FROM CUPNOTE
+		WHERE FAVORITENUM = #{num}
+	</select>
 	
 </mapper>
