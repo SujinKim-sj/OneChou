@@ -63,19 +63,19 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>	
 		<div class="border border-2 rounded mt-5">
-			<form action="./recommendedList" method="get"> 
+			<form action="./recommendedList" id="searchForm" method="get"> 
 				<div class="d-flex justify-content-between m-3">
-					<div class="border border-2 rounded p-3">
+					<div class="border border-2 rounded p-3" id="sortingSection">
 						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="sorting" value="col1" id="col1" <c:if test="${pager.sorting == 'col1' || pager.sorting == ''}">checked</c:if>>
+						  <input class="form-check-input sorting" type="radio" name="sorting" value="col1" id="col1" <c:if test="${pager.sorting == 'col1' || pager.sorting == ''}">checked</c:if>>
 						  <label class="form-check-label" for="col1">
 						    최신순
 						  </label>
 						</div>
 						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="sorting" value="col2" id="col2" <c:if test="${pager.sorting == 'col2'}">checked</c:if>>
+						  <input class="form-check-input sorting" type="radio" name="sorting" value="col2" id="col2" <c:if test="${pager.sorting == 'col2'}">checked</c:if>>
 						  <label class="form-check-label" for="col2">
 						    인기순
 						  </label>
@@ -84,100 +84,108 @@
 					<div class="d-flex align-items-center">
 						<div class="d-flex h-50">
 							<select class="form-select" name="kind">
-							  <option>검색기준을 골라주세요</option>
 							  <option value="col1" <c:if test="${pager.kind == 'col1'}">selected</c:if>>상품명</option>
 							  <option value="col2" <c:if test="${pager.kind == 'col2'}">selected</c:if>>로스터리정보</option>
 							</select>
-					        <input class="form-control me-2" type="search" name="search" value="${pager.search}" placeholder="Search" aria-label="Search">
+					        <input class="form-control me-2" type="search" name="search" value="${pager.search}" placeholder="Search" aria-label="Search" style="width: 250px;">
 					        <button class="btn btn-outline-success" type="submit">Search</button>
 				        </div>
 			        </div>
 		        </div>
 		    </form>
 		</div>
-		<div class="border border-top-0 border-2 rounded my-4">
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 p-3 g-5">
-				<c:forEach items="${productDTOs}" var="productDTO">
-					<div class="col">
-						<div class="card text-center">
-							<img src="../resources/upload/product/${productDTO.productFileDTO.fileName}" class="card-img-top" alt="...">
-							<div class="card-body">						
-							<h5 class="card-title">${productDTO.roasteryName}</h5>
-							<h6 class="card-title">${productDTO.name}</h6>
-							<p class="card-text">
-								<div>${productDTO.price}원</div>
-								<div class="mt-3">
-									<span class="fw-bold">겹치는 컵노트</span> : 
-									<c:forEach items="${productDTO.productFeatureDTO.productCupnoteDTOs}" var="productCupnoteDTO" varStatus="state">
-										${productCupnoteDTO.noteName}<c:choose><c:when test="${state.last}"></c:when><c:otherwise>,</c:otherwise></c:choose>
-									</c:forEach>
+		<c:choose>
+			<c:when test="${empty productDTOs}">
+				<div class="border border-top-0 border-2 text-center p-5 mb-5">
+					<h4>찾으시는 원두가 없어요</h4>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="border border-top-0 border-2 rounded my-4">
+					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 p-3 g-5">
+						<c:forEach items="${productDTOs}" var="productDTO">
+							<div class="col">
+								<div class="card text-center">
+									<img src="../resources/upload/product/${productDTO.productFileDTO.fileName}" class="card-img-top" alt="...">
+									<div class="card-body">						
+									<h5 class="card-title">${productDTO.roasteryName}</h5>
+									<h6 class="card-title">${productDTO.name}</h6>
+									<p class="card-text">
+										<div>${productDTO.price}원</div>
+										<div class="mt-3">
+											<span class="fw-bold">겹치는 컵노트</span> : 
+											<c:forEach items="${productDTO.productFeatureDTO.productCupnoteDTOs}" var="productCupnoteDTO" varStatus="state">
+												${productCupnoteDTO.noteName}<c:choose><c:when test="${state.last}"></c:when><c:otherwise>,</c:otherwise></c:choose>
+											</c:forEach>
+										</div>
+										<div>
+											<span class="fw-bold">로스팅포인트</span> : 
+											<c:choose>
+												<c:when test="${productDTO.productFeatureDTO.roastingPoint == 1}">
+													Light Roast
+												</c:when>
+												<c:when test="${productDTO.productFeatureDTO.roastingPoint == 2}">
+													Medium Roast
+												</c:when>
+												<c:otherwise>
+													Dark Roast
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div>
+											<span class="fw-bold">향미</span> :
+											<c:choose>
+												<c:when test="${productDTO.productFeatureDTO.flavor == 1}">
+													산미 위주의 상큼한 커피
+												</c:when>
+												<c:when test="${productDTO.productFeatureDTO.flavor == 2}">
+													고소하면서 부드러운 커피
+												</c:when>
+												<c:otherwise>
+													묵직하면서 단맛이 잘 느껴지는 커피
+												</c:otherwise>
+											</c:choose>
+										</div>						
+									</p>
+									
+									<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
+									</div>
 								</div>
-								<div>
-									<span class="fw-bold">로스팅포인트</span> : 
-									<c:choose>
-										<c:when test="${productDTO.productFeatureDTO.roastingPoint == 1}">
-											Light Roast
-										</c:when>
-										<c:when test="${productDTO.productFeatureDTO.roastingPoint == 2}">
-											Medium Roast
-										</c:when>
-										<c:otherwise>
-											Dark Roast
-										</c:otherwise>
-									</c:choose>
-								</div>
-								<div>
-									<span class="fw-bold">향미</span> :
-									<c:choose>
-										<c:when test="${productDTO.productFeatureDTO.flavor == 1}">
-											산미 위주의 상큼한 커피
-										</c:when>
-										<c:when test="${productDTO.productFeatureDTO.flavor == 2}">
-											고소하면서 부드러운 커피
-										</c:when>
-										<c:otherwise>
-											묵직하면서 단맛이 잘 느껴지는 커피
-										</c:otherwise>
-									</c:choose>
-								</div>						
-							</p>
-							
-							<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
-							</div>
-						</div>
-					</div>	
-				</c:forEach>
-			</div>
+							</div>	
+						</c:forEach>
+					</div>
 			
-			<div class="d-flex justify-content-center align-items-center mt-5">
-				<nav>
-				  <ul class="pagination">
-				    
-				    <c:if test="${pager.pre}">
-					    <li class="page-item">
-					      <a class="page-link" href="./list?page=${pager.startNum-1}&search=${pager.search}&kind=${pager.kind}" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-				    </c:if>
-				    
-				    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-				    	<li class="page-item"><a class="page-link" href="./list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
-				    </c:forEach>
-				    
-				    <c:if test="${pager.next}">
-					    <li class="page-item">
-					      <a class="page-link" href="./list?page=${pager.lastNum+1}&search=${pager.search}&kind=${pager.kind}" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-				    </c:if>
-				  </ul>
-				</nav>
-
-			</div>
-		</div>
+					<div class="d-flex justify-content-center align-items-center mt-2">
+						<nav>
+						  <ul class="pagination">
+						    
+						    <c:if test="${pager.pre}">
+							    <li class="page-item">
+							      <a class="page-link" href="./list?page=${pager.startNum-1}&search=${pager.search}&kind=${pager.kind}" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+							    </li>
+						    </c:if>
+						    
+						    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+						    	<li class="page-item"><a class="page-link" href="./list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+						    </c:forEach>
+						    
+						    <c:if test="${pager.next}">
+							    <li class="page-item">
+							      <a class="page-link" href="./list?page=${pager.lastNum+1}&search=${pager.search}&kind=${pager.kind}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </li>
+						    </c:if>
+						  </ul>
+						</nav>
+					</div>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
+	<script src="../resources/js/product/recommendedList.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

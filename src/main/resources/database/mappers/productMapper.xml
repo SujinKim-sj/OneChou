@@ -48,10 +48,9 @@
 		VALUES (#{num}, #{name}, #{info}, #{price}, #{purchase}, #{regDate}, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery}, 1)
 	</insert>
 	
-	<!-- 아직 검색조건은 넣지 않음 -->
 	<select id="list" parameterType="Pager" resultMap="listResult">
 		SELECT * 
-		FROM (SELECT ROWNUM R, B.* 
+		FROM (SELECT ROWNUM R, C.* 
 		      FROM (SELECT A.NUM, A.NAME, A.PRICE, A.ROASTERYNAME, B.FILENAME 
 		            FROM PRODUCT A
 		            JOIN PRODUCTFILE B
@@ -68,7 +67,11 @@
 		            	</otherwise>
 		            </choose>
 		            LIKE '%' || #{search} || '%' 
-		            ORDER BY NUM DESC) B)
+		            ORDER BY 
+		            <if test="sorting == 'col2'">
+		            	A.PURCHASE DESC,
+		            </if>
+		            A.NUM DESC) C)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
@@ -121,13 +124,13 @@
 		            ORDER BY 
 		            <choose>
 		            	<when test="sorting == 'col2'">
-		            		C.PURCHASE
+		            		C.PURCHASE DESC, C.NUM DESC
 		            	</when>
 		            	<otherwise>
-		            		C.REGDATE		            		
+		            		C.REGDATE DESC, C.PURCHASE DESC   		
 		            	</otherwise>
 		            </choose>
-		            DESC) E)
+		            ) E)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
@@ -265,15 +268,10 @@
 		          </choose>
 		          LIKE '%' || #{search} || '%'
 		          ORDER BY 
-		          <choose>
-		          	  <when test="sorting=='col2'">
-		          	  	  A.PURCHASE DESC
-		          	  </when>
-		          	  <otherwise>
-		          	  	  A.REGDATE DESC
-		          	  </otherwise>
-		          </choose>
-		          ) E)
+		          <if test="sorting == 'col2'">
+		          	  A.PURCHASE DESC,
+		          </if>
+		          A.NUM DESC) E)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
