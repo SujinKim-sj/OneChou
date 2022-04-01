@@ -49,7 +49,7 @@
 				<div class="col-3 d-flex align-items-center justify-content-center">
 					<div class="d-flex justify-content-center align-items-center">
 						<div>
-							<form action="../review/add" method="post">
+							<form action="../payment/shipmentAdd" method="post">
 								<input type="hidden" name="num" value="${paidProductDTO.num}">
 								<button class="btn btn-secondary" type="submit">배송정보입력</button>
 							</form>

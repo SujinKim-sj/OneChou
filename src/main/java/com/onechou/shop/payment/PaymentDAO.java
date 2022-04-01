@@ -61,4 +61,12 @@ public class PaymentDAO {
 	public Long getShipmentTotalCount(MemberDTO memberDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getShipmentTotalCount", memberDTO);
 	}
+	
+	public PaymentDTO getShipmentProductDetail(PaidProductDTO paidProductDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getShipmentProductDetail", paidProductDTO);
+	}
+	
+	public int shipmentUpdate(PaidProductDTO paidProductDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"shipmentUpdate", paidProductDTO);
+	}
 }

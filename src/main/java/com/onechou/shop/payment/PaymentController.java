@@ -124,5 +124,32 @@ public class PaymentController {
 		model.addAttribute("paymentDTOs", paymentDTOs);
 	}
 	
+	@PostMapping("shipmentAdd")
+	public void shipmentAdd(PaidProductDTO paidProductDTO, Model model) throws Exception {
+		
+		// 결제상품 정보 불러오기
+		PaymentDTO paymentDTO = paymentService.getShipmentProductDetail(paidProductDTO);
+		
+		model.addAttribute("paymentDTO", paymentDTO);
+	}
+	
+	@PostMapping("shipmentAddResult")
+	public ModelAndView shipmentAddResult(PaidProductDTO paidProductDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = paymentService.shipmentUpdate(paidProductDTO);
+		
+		String message = "배송 정보 등록에 성공했습니다.";
+		if(result == 0) {
+			message = "배송 정보 등록에 실패했습니다.\n다시 시도해주세요";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "./shipmentList");
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
+	
 	
 }

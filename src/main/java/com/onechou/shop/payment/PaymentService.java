@@ -104,4 +104,12 @@ public class PaymentService {
 		return paymentDAO.getShipmentProductList(hashMap);
 	}
 	
+	public PaymentDTO getShipmentProductDetail(PaidProductDTO paidProductDTO) throws Exception {
+		return paymentDAO.getShipmentProductDetail(paidProductDTO);
+	}
+	
+	public int shipmentUpdate(PaidProductDTO paidProductDTO) throws Exception {
+		return paymentDAO.shipmentUpdate(paidProductDTO);
+	}
+	
 }

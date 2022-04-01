@@ -224,4 +224,25 @@
         	 ORDER BY G.NUM ASC)
 	</select>
 	
+	<select id="getShipmentProductDetail" parameterType="PaidProductDTO" resultMap="shipmentProductListResult">
+		SELECT A.NUM AS PAYMENTNUM, A.ORDERDATE, B.RECIPIENT, B.ADDRESS, B.RECIPIENTPHONE, B.MEMO, C.AMOUNT, D.NAME, D.ROASTERYNAME, E.OPTIONNAME, E.ADDPRICE, F.FILENAME
+		FROM PAYMENT A
+		JOIN DELIVERY B
+		ON A.NUM = B.PAYMENTNUM
+		JOIN PAIDPRODUCT C
+		ON A.NUM = C.PAYMENTNUM
+		JOIN PRODUCT D
+		ON C.PRODUCTNUM = D.NUM
+		JOIN PRODUCTOPTION E
+		ON C.OPTIONNUM = E.NUM
+		JOIN PRODUCTFILE F
+		ON D.NUM = F.PRODUCTNUM
+		WHERE C.NUM = #{num}
+	</select>
+	
+	<update id="shipmentUpdate" parameterType="PaidProductDTO">
+		UPDATE PAIDPRODUCT SET DELIVERYCOMPANY = #{deliveryCompany}, SHIPMENTNUM = #{shipmentNum}, SHIPMENTSTATUS = 1
+		WHERE NUM = #{num}
+	</update>
+	
 </mapper>
