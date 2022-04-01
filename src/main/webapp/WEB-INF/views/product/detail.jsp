@@ -34,7 +34,7 @@
 					</tr>
 					<tr>
 						<td>가격</td>
-						<td colspan="3">${productDTO.price}</td>
+						<td colspan="3">${productDTO.price}원</td>
 					</tr>
 					<tr>
 						<td>컵노트</td>

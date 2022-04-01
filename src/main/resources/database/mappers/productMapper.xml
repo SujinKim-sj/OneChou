@@ -48,10 +48,9 @@
 		VALUES (#{num}, #{name}, #{info}, #{price}, #{purchase}, #{regDate}, #{roasteryNum}, #{roasteryName}, #{deliveryFee}, #{freeDelivery}, 1)
 	</insert>
 	
-	<!-- 아직 검색조건은 넣지 않음 -->
 	<select id="list" parameterType="Pager" resultMap="listResult">
 		SELECT * 
-		FROM (SELECT ROWNUM R, B.* 
+		FROM (SELECT ROWNUM R, C.* 
 		      FROM (SELECT A.NUM, A.NAME, A.PRICE, A.ROASTERYNAME, B.FILENAME 
 		            FROM PRODUCT A
 		            JOIN PRODUCTFILE B
@@ -68,7 +67,11 @@
 		            	</otherwise>
 		            </choose>
 		            LIKE '%' || #{search} || '%' 
-		            ORDER BY NUM DESC) B)
+		            ORDER BY 
+		            <if test="sorting == 'col2'">
+		            	A.PURCHASE DESC,
+		            </if>
+		            A.NUM DESC) C)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
@@ -121,13 +124,13 @@
 		            ORDER BY 
 		            <choose>
 		            	<when test="sorting == 'col2'">
-		            		C.PURCHASE
+		            		C.PURCHASE DESC, C.NUM DESC
 		            	</when>
 		            	<otherwise>
-		            		C.REGDATE		            		
+		            		C.REGDATE DESC, C.PURCHASE DESC   		
 		            	</otherwise>
 		            </choose>
-		            DESC) E)
+		            ) E)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
@@ -220,5 +223,85 @@
 		ORDER BY E.NUM ASC
 	</select>
 	
+	<select id="getMemberFavorite" parameterType="MemberDTO" resultMap="memberFavoriteResult">
+		SELECT A.ROASTINGPOINT, A.FLAVOR, B.NOTENAME
+		FROM FAVORITE A
+		JOIN CUPNOTE B
+		ON A.NUM = B.FAVORITENUM
+		WHERE A.MEMBERID = #{id}
+	</select>
+	
+	<resultMap type="FavoriteDTO" id="memberFavoriteResult">
+		<result column="roastingPoint" property="roastingPoint"/>
+		<result column="flavor" property="flavor"/>
+		
+		<collection property="cupnoteDTOs" javaType="List" ofType="CupnoteDTO">
+			<result column="noteName" property="noteName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="recommendedList" parameterType="HashMap" resultMap="detailBasicResult">	
+		SELECT *
+		FROM(SELECT ROWNUM R, E.*
+		     FROM(SELECT A.NUM, A.NAME, A.PRICE, A.ROASTERYNAME, B.FILENAME, C.ROASTINGPOINT, C.FLAVOR, D.NOTENAME
+		          FROM PRODUCT A
+		          JOIN PRODUCTFILE B
+		          ON A.NUM = B.PRODUCTNUM
+		          JOIN PRODUCTFEATURE C
+		          ON A.NUM = C.PRODUCTNUM
+		          JOIN PRODUCTCUPNOTE D
+		          ON C.NUM = D.FEATURENUM
+		          WHERE C.FLAVOR = #{flavor} AND C.ROASTINGPOINT = #{roastingPoint}
+		          AND 
+				  <foreach collection="cupnoteDTOs" item="cupnoteDTO" open="(" close=")" separator="OR">
+				  	  D.NOTENAME = #{cupnoteDTO.noteName}
+				  </foreach>
+		          AND A.SALE = 1
+		          AND 
+		          <choose>
+		          	  <when test="kind=='col2'">
+		          	  	  A.ROASTERYNAME
+		          	  </when>
+		          	  <otherwise>
+		          	  	  A.NAME
+		          	  </otherwise>
+		          </choose>
+		          LIKE '%' || #{search} || '%'
+		          ORDER BY 
+		          <if test="sorting == 'col2'">
+		          	  A.PURCHASE DESC,
+		          </if>
+		          A.NUM DESC) E)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<select id="getRecommendedTotal" parameterType="HashMap" resultType="Long">
+		SELECT COUNT(NUM)
+		FROM (SELECT DISTINCT A.NUM
+        	  FROM PRODUCT A
+        	  JOIN PRODUCTFILE B
+        	  ON A.NUM = B.PRODUCTNUM
+        	  JOIN PRODUCTFEATURE C
+        	  ON A.NUM = C.PRODUCTNUM
+        	  JOIN PRODUCTCUPNOTE D
+        	  ON C.NUM = D.FEATURENUM
+        	  WHERE C.FLAVOR = #{flavor} AND C.ROASTINGPOINT = #{roastingPoint}
+        	  AND 
+			  <foreach collection="cupnoteDTOs" item="cupnoteDTO" open="(" close=")" separator="OR">
+			  	  D.NOTENAME = #{cupnoteDTO.noteName}
+			  </foreach>
+        	  AND A.SALE = 1
+        	  AND 
+        	  <choose>
+        		  <when test="kind=='col2'">
+          			  A.ROASTERYNAME
+        		  </when>
+        		  <otherwise>
+          			  A.NAME
+        		  </otherwise>
+        	  </choose>
+        	  LIKE '%' || #{search} || '%')		
+	</select>
+		
 	
 </mapper>

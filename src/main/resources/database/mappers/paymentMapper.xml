@@ -71,7 +71,7 @@
 	</update>
 	
 	<select id="list" parameterType="HashMap" resultMap="paymentResult">
-		SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, B.PAYMENTNUM, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM, B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, E.FILENAME
+		SELECT A.NUM, A.ORDERDATE, A.TOTALPRICE, B.NUM AS PAIDPRODUCTNUM, B.PAYMENTNUM, B.PERPRICE, B.AMOUNT, B.PRODUCTNUM, B.DELIVERYCOMPANY, B.SHIPMENTNUM, B.SHIPMENTSTATUS, C.OPTIONNAME, C.ADDPRICE, D.NAME, D.ROASTERYNAME, D.PRICE, E.FILENAME
 		FROM PAYMENT A
 		JOIN PAIDPRODUCT B
 		ON A.NUM = B.PAYMENTNUM
@@ -105,6 +105,7 @@
 		</association>
 		
 		<collection property="paidProductDTOs" javaType="List" ofType="PaidProductDTO">
+			<id column="paidproductnum" property="num"/>
 			<result column="perPrice" property="perPrice"/>
 			<result column="amount" property="amount"/>
 			<result column="productNum" property="productNum"/>

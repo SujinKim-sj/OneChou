@@ -9,7 +9,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/shop/product/list" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">상품보기</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
-              <li><a class="dropdown-item" href="/shop/product/recommend">추천상품</a></li>
+              <li><a class="dropdown-item" href="/shop/product/recommendedList">추천상품</a></li>
               <li><a class="dropdown-item" href="/shop/product/list">전체상품</a></li>
             </ul>
           </li>

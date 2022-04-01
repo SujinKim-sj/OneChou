@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.onechou.shop.favorite.FavoriteDTO;
 import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.qna.QnaDTO;
 import com.onechou.shop.review.ReviewDTO;
@@ -199,5 +200,28 @@ public class ProductService {
 		}
 			
 		return check;
+	}
+	
+	public FavoriteDTO getMemberFavorite(MemberDTO memberDTO) throws Exception {
+		return productDAO.getMemberFavorite(memberDTO);
+	}
+	
+	public List<ProductDTO> recommendedList(FavoriteDTO favoriteDTO, Pager pager) throws Exception {		
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		pager.makeRow();
+		
+		hashMap.put("roastingPoint", favoriteDTO.getRoastingPoint());
+		hashMap.put("flavor", favoriteDTO.getFlavor());
+		hashMap.put("cupnoteDTOs", favoriteDTO.getCupnoteDTOs());
+		
+		hashMap.put("kind", pager.getKind());
+		hashMap.put("search", pager.getSearch());
+		hashMap.put("startRow", pager.getStartRow());
+		hashMap.put("lastRow", pager.getLastRow());
+		hashMap.put("sorting", pager.getSorting());
+		
+		pager.makeNum(productDAO.getRecommendedTotal(hashMap));
+		
+		return productDAO.recommendedList(hashMap);
 	}
 }

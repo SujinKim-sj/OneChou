@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.onechou.shop.favorite.FavoriteDTO;
 import com.onechou.shop.member.MemberDTO;
 import com.onechou.shop.qna.QnaDTO;
 import com.onechou.shop.review.ReviewDTO;
@@ -91,6 +92,18 @@ public class ProductDAO {
 	
 	public int updateAdd(ProductDTO productDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"updateAdd", productDTO);
+	}
+	
+	public FavoriteDTO getMemberFavorite(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getMemberFavorite", memberDTO);
+	}
+	
+	public List<ProductDTO> recommendedList(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"recommendedList", hashMap);
+	}
+	
+	public Long getRecommendedTotal(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getRecommendedTotal", hashMap);
 	}
 	
 }
