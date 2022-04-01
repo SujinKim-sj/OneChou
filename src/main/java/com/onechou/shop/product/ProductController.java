@@ -195,14 +195,14 @@ public class ProductController {
 	}
 	
 	@GetMapping("recommendedList")
-	public void recommendedList(HttpSession session, Model model) throws Exception {
+	public void recommendedList(HttpSession session, Model model, Pager pager) throws Exception {
 		
 		// 회원의 관심사 조회
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		FavoriteDTO favoriteDTO = productService.getMemberFavorite(memberDTO);
 		
 		// 관심사를 토대로 맞는 상품 조회
-		List<ProductDTO> productDTOs = productService.recommendedList(favoriteDTO);
+		List<ProductDTO> productDTOs = productService.recommendedList(favoriteDTO, pager);
 		
 		model.addAttribute("favoriteDTO", favoriteDTO);
 		model.addAttribute("productDTOs", productDTOs);

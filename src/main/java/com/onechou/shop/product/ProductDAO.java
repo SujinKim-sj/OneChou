@@ -102,4 +102,8 @@ public class ProductDAO {
 		return sqlSession.selectList(NAMESPACE+"recommendedList", hashMap);
 	}
 	
+	public Long getRecommendedTotal(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getRecommendedTotal", hashMap);
+	}
+	
 }

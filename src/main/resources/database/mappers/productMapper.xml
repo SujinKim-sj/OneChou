@@ -237,21 +237,73 @@
 		</collection>
 	</resultMap>
 	
-	<select id="recommendedList" parameterType="HashMap" resultMap="detailBasicResult">
-		SELECT A.NUM, A.NAME, A.PRICE, A.ROASTERYNAME, B.FILENAME, C.ROASTINGPOINT, C.FLAVOR, D.NOTENAME
-		FROM PRODUCT A
-		JOIN PRODUCTFILE B
-		ON A.NUM = B.PRODUCTNUM
-		JOIN PRODUCTFEATURE C
-		ON A.NUM = C.PRODUCTNUM
-		JOIN PRODUCTCUPNOTE D
-		ON C.NUM = D.FEATURENUM
-		WHERE C.FLAVOR = #{flavor} AND C.ROASTINGPOINT = #{roastingPoint}
-		AND 
-		<foreach collection="cupnoteDTOs" item="cupnoteDTO" open="(" close=")" separator="OR">
-			D.NOTENAME = #{cupnoteDTO.noteName}
-		</foreach>
-		AND A.SALE = 1
+	<select id="recommendedList" parameterType="HashMap" resultMap="detailBasicResult">	
+		SELECT *
+		FROM(SELECT ROWNUM R, E.*
+		     FROM(SELECT A.NUM, A.NAME, A.PRICE, A.ROASTERYNAME, B.FILENAME, C.ROASTINGPOINT, C.FLAVOR, D.NOTENAME
+		          FROM PRODUCT A
+		          JOIN PRODUCTFILE B
+		          ON A.NUM = B.PRODUCTNUM
+		          JOIN PRODUCTFEATURE C
+		          ON A.NUM = C.PRODUCTNUM
+		          JOIN PRODUCTCUPNOTE D
+		          ON C.NUM = D.FEATURENUM
+		          WHERE C.FLAVOR = #{flavor} AND C.ROASTINGPOINT = #{roastingPoint}
+		          AND 
+				  <foreach collection="cupnoteDTOs" item="cupnoteDTO" open="(" close=")" separator="OR">
+				  	  D.NOTENAME = #{cupnoteDTO.noteName}
+				  </foreach>
+		          AND A.SALE = 1
+		          AND 
+		          <choose>
+		          	  <when test="kind=='col2'">
+		          	  	  A.ROASTERYNAME
+		          	  </when>
+		          	  <otherwise>
+		          	  	  A.NAME
+		          	  </otherwise>
+		          </choose>
+		          LIKE '%' || #{search} || '%'
+		          ORDER BY 
+		          <choose>
+		          	  <when test="sorting=='col2'">
+		          	  	  A.PURCHASE DESC
+		          	  </when>
+		          	  <otherwise>
+		          	  	  A.REGDATE DESC
+		          	  </otherwise>
+		          </choose>
+		          ) E)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
+	
+	<select id="getRecommendedTotal" parameterType="HashMap" resultType="Long">
+		SELECT COUNT(NUM)
+		FROM (SELECT DISTINCT A.NUM
+        	  FROM PRODUCT A
+        	  JOIN PRODUCTFILE B
+        	  ON A.NUM = B.PRODUCTNUM
+        	  JOIN PRODUCTFEATURE C
+        	  ON A.NUM = C.PRODUCTNUM
+        	  JOIN PRODUCTCUPNOTE D
+        	  ON C.NUM = D.FEATURENUM
+        	  WHERE C.FLAVOR = #{flavor} AND C.ROASTINGPOINT = #{roastingPoint}
+        	  AND 
+			  <foreach collection="cupnoteDTOs" item="cupnoteDTO" open="(" close=")" separator="OR">
+			  	  D.NOTENAME = #{cupnoteDTO.noteName}
+			  </foreach>
+        	  AND A.SALE = 1
+        	  AND 
+        	  <choose>
+        		  <when test="kind=='col2'">
+          			  A.ROASTERYNAME
+        		  </when>
+        		  <otherwise>
+          			  A.NAME
+        		  </otherwise>
+        	  </choose>
+        	  LIKE '%' || #{search} || '%')		
+	</select>
+		
 	
 </mapper>

@@ -206,12 +206,21 @@ public class ProductService {
 		return productDAO.getMemberFavorite(memberDTO);
 	}
 	
-	public List<ProductDTO> recommendedList(FavoriteDTO favoriteDTO) throws Exception {
+	public List<ProductDTO> recommendedList(FavoriteDTO favoriteDTO, Pager pager) throws Exception {		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		pager.makeRow();
 		
 		hashMap.put("roastingPoint", favoriteDTO.getRoastingPoint());
 		hashMap.put("flavor", favoriteDTO.getFlavor());
 		hashMap.put("cupnoteDTOs", favoriteDTO.getCupnoteDTOs());
+		
+		hashMap.put("kind", pager.getKind());
+		hashMap.put("search", pager.getSearch());
+		hashMap.put("startRow", pager.getStartRow());
+		hashMap.put("lastRow", pager.getLastRow());
+		hashMap.put("sorting", pager.getSorting());
+		
+		pager.makeNum(productDAO.getRecommendedTotal(hashMap));
 		
 		return productDAO.recommendedList(hashMap);
 	}
