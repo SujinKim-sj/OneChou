@@ -151,4 +151,77 @@
 		WHERE A.NUM = #{num}
 	</select>
 	
+	<select id="getShipmentProductList" parameterType="HashMap" resultMap="shipmentProductListResult">
+        SELECT A.NUM AS PAYMENTNUM, A.ORDERDATE, B.NUM, B.AMOUNT, B.PERPRICE, C.NAME, C.ROASTERYNAME, C.PRICE, D.FILENAME, E.OPTIONNAME, E.ADDPRICE, F.RECIPIENT, F.ADDRESS, F.RECIPIENTPHONE, F.MEMO
+		FROM PAYMENT A
+        JOIN PAIDPRODUCT B
+        ON A.NUM = B.PAYMENTNUM
+		JOIN PRODUCT C
+		ON B.PRODUCTNUM = C.NUM
+		JOIN PRODUCTFILE D
+		ON C.NUM = D.PRODUCTNUM
+		JOIN PRODUCTOPTION E
+		ON B.OPTIONNUM = E.NUM
+		JOIN DELIVERY F
+		ON A.NUM = F.PAYMENTNUM
+		WHERE A.NUM IN ((SELECT NUM
+                         FROM(SELECT ROWNUM R, J.*
+                              FROM(SELECT DISTINCT G.NUM
+                                   FROM PAYMENT G
+                                   JOIN PAIDPRODUCT H
+                                   ON G.NUM = H.PAYMENTNUM
+                                   JOIN ROASTERY I
+                                   ON H.ROASTERYNUM = I.NUM
+                                   WHERE I.MEMBERID = #{id}
+                                   ORDER BY G.NUM ASC) J)
+                         WHERE R BETWEEN #{startRow} AND #{lastRow}))
+		AND B.SHIPMENTSTATUS = 0
+		ORDER BY B.NUM ASC
+	</select>
+	
+	<resultMap type="PaymentDTO" id="shipmentProductListResult">
+		<id column="paymentNum" property="num"/>
+		<result column="orderDate" property="orderDate"/>
+		
+		<association property="deliveryDTO" javaType="DeliveryDTO">
+			<result column="recipient" property="recipient"/>
+			<result column="address" property="address"/>
+			<result column="recipientPhone" property="recipientPhone"/>
+			<result column="memo" property="memo"/>
+		</association>
+		
+		<collection property="paidProductDTOs" javaType="List" ofType="PaidProductDTO">
+			<id column="num" property="num"/>
+			<result column="amount" property="amount"/>
+			<result column="perPrice" property="perPrice"/>
+			
+			<association property="productDTO" javaType="ProductDTO">
+				<result column="name" property="name"/>
+				<result column="roasteryName" property="roasteryName"/>
+				<result column="price" property="price"/>
+			
+				<association property="productFileDTO" javaType="ProductFileDTO">
+					<result column="fileName" property="fileName"/>
+				</association>
+			</association>
+			
+			<association property="productOptionDTO" javaType="productOptionDTO">
+				<result column="optionName" property="optionName"/>
+				<result column="addPrice" property="addPrice"/>
+			</association>
+		</collection>
+	</resultMap>
+	
+	<select id="getShipmentTotalCount" parameterType="MemberDTO" resultType="Long">
+		SELECT COUNT(NUM)
+		FROM(SELECT DISTINCT G.NUM
+			 FROM PAYMENT G
+        	 JOIN PAIDPRODUCT H
+        	 ON G.NUM = H.PAYMENTNUM
+        	 JOIN ROASTERY I
+        	 ON H.ROASTERYNUM = I.NUM
+        	 WHERE I.MEMBERID = #{id}
+        	 ORDER BY G.NUM ASC)
+	</select>
+	
 </mapper>

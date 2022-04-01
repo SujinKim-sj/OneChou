@@ -93,7 +93,7 @@ public class PaymentController {
 		return mv;		
 	}
 	
-	@GetMapping
+	@GetMapping("list")
 	public void list(HttpSession session, Model model, Pager pager) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
@@ -104,13 +104,24 @@ public class PaymentController {
 		
 	}
 	
-	@GetMapping ("detail")
+	@GetMapping("detail")
 	public void detail(PaymentDTO paymentDTO, Model model, String connectionPath) throws Exception {
 		paymentDTO = paymentService.detail(paymentDTO);
 		
 		model.addAttribute("connectionPath", connectionPath);
 		model.addAttribute("paymentDTO", paymentDTO);
 		
+	}
+	
+	@GetMapping("shipmentList")
+	public void shipmentList(HttpSession session, Pager pager, Model model) throws Exception {
+		
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		
+		List<PaymentDTO> paymentDTOs = paymentService.getShipmentProductList(memberDTO, pager);
+		
+		model.addAttribute("pager", pager);
+		model.addAttribute("paymentDTOs", paymentDTOs);
 	}
 	
 	

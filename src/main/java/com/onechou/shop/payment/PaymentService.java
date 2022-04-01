@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.onechou.shop.cart.CartDTO;
 import com.onechou.shop.member.MemberDTO;
+import com.onechou.shop.product.ProductDTO;
 import com.onechou.shop.util.Pager;
 
 @Service
@@ -88,6 +89,19 @@ public class PaymentService {
 	
 	public PaymentDTO detail(PaymentDTO paymentDTO) throws Exception {
 		return paymentDAO.detail(paymentDTO);
+	}
+	
+	public List<PaymentDTO> getShipmentProductList(MemberDTO memberDTO, Pager pager) throws Exception {
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		pager.setPerPage(5L);
+		pager.makeRow();
+		pager.makeNum(paymentDAO.getShipmentTotalCount(memberDTO));
+		
+		hashMap.put("id", memberDTO.getId());
+		hashMap.put("startRow", pager.getStartRow());
+		hashMap.put("lastRow", pager.getLastRow());
+		
+		return paymentDAO.getShipmentProductList(hashMap);
 	}
 	
 }

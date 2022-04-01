@@ -53,4 +53,12 @@ public class PaymentDAO {
 	public PaymentDTO detail(PaymentDTO paymentDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"detail", paymentDTO);
 	}
+	
+	public List<PaymentDTO> getShipmentProductList(HashMap<String, Object> hashMap) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"getShipmentProductList", hashMap);
+	}
+	
+	public Long getShipmentTotalCount(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getShipmentTotalCount", memberDTO);
+	}
 }
