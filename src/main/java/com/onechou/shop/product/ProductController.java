@@ -204,6 +204,7 @@ public class ProductController {
 		// 관심사를 토대로 맞는 상품 조회
 		List<ProductDTO> productDTOs = productService.recommendedList(favoriteDTO, pager);
 		
+		model.addAttribute("pager", pager);
 		model.addAttribute("favoriteDTO", favoriteDTO);
 		model.addAttribute("productDTOs", productDTOs);
 		
