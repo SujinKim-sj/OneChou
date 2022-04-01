@@ -15,6 +15,7 @@
 		<div class="text-center mt-5">
 			<h3>결제내역 리스트 페이지</h3>
 		</div>
+		<div id="paymentSection">
 		<c:forEach items="${paymentDTOs}" var="paymentDTO">
 		<div class="border border-2 rounded my-5">
 			<div class="d-flex justify-content-between m-3">
@@ -23,8 +24,7 @@
 					<div>주문일자 : ${paymentDTO.orderDate}</div>
 				</div>
 				<div><a href="./detail?num=${paymentDTO.num}">상세정보보기</a></div>
-			</div>
-			
+			</div>			
 			<c:forEach items="${paymentDTO.paidProductDTOs}" var="paidProductDTO">
 			<div class="row row-cols-3 border border-2 rounded m-3">
 				<div class="col-2">
@@ -59,7 +59,9 @@
 							</c:when>
 							<c:otherwise>
 								<div class="my-2">
-									<a class="btn btn-secondary" href="https://tracker.delivery/#/${paidProductDTO.deliveryCompany}/${paidProductDTO.shipmentNum}" target="_blank">배송조회하기</a>
+									<button type="button" class="shipmentSearchBtn btn btn-secondary" data-num="${paidProductDTO.num}">배송조회하기</button>
+									<input type="hidden" value="${paidProductDTO.deliveryCompany}" id="deliveryCompany${paidProductDTO.num}">
+									<input type="hidden" value="${paidProductDTO.shipmentNum}" id="shipmentNum${paidProductDTO.num}">
 								</div>
 							</c:otherwise>
 						</c:choose>						
@@ -74,7 +76,8 @@
 			</div>
 			</c:forEach>
 		</div>
-		</c:forEach>		
+		</c:forEach>
+		</div>	
 		<div class="d-flex justify-content-center my-5">
 			<nav>
 			  <ul class="pagination">		    
@@ -102,5 +105,6 @@
 		</div>		
 	</div>
 
+	<script src="../resources/js/payment/list.js"></script>
 </body>
 </html>
