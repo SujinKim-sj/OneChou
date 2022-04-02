@@ -22,6 +22,11 @@ public class MemberService {
 	public int join(MemberDTO memberDTO) throws Exception{
 		return memberDAO.join(memberDTO);
 	}
+	
+	public Long idDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return memberDAO.idDuplicateCheck(memberDTO);
+	}
+	
 	public int update(MemberDTO memberDTO) throws Exception{
 		return memberDAO.update(memberDTO);
 	}

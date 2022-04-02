@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -109,6 +110,20 @@ public class MemberController {
 		
 	}
 	
+	@GetMapping("idDuplicateCheck")
+	public ModelAndView idDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		System.out.println(memberDTO.getId());
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.idDuplicateCheck(memberDTO);
+		
+		System.out.println(result);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
 	
 	@RequestMapping(value = "joinCheck", method = RequestMethod.GET)
 	public String joinCheck() throws Exception{
@@ -178,23 +193,6 @@ public class MemberController {
 		model.addAttribute("message", message);
 		return "common/result";
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 	

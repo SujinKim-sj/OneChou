@@ -27,6 +27,10 @@ public class MemberDAO {
 		return sqlSession.insert(NAMESPACE+"join", memberDTO);
 	}
 	
+	public Long idDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"idDuplicateCheck", memberDTO);
+	}
+	
 	public MemberDTO mypage(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"mypage", memberDTO);
 	}
@@ -45,7 +49,6 @@ public class MemberDAO {
 	}
 	public RoasteryFileDTO roasteryFile(RoasteryDTO roasteryDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"roasteryFile", roasteryDTO);
-		
 	}
 
 }
