@@ -155,11 +155,14 @@ inputNickname.addEventListener("blur", function(){
     nicknameDuplicateCheck = false; // 다시 입력할 경우 다시 검사하도록
     nicknameDuplicateFeedback.innerHTML = "";
 
+    nicknameFeedback.classList.replace("text-success", "text-danger");
+
     if(inputNickname.value == '') {
         nicknameCheck = false;
         nicknameFeedback.innerHTML = "닉네임을 입력해주세요";
     } else {
         nicknameCheck = true;
+        nicknameFeedback.classList.replace("text-danger", "text-success");
         nicknameFeedback.innerHTML = "닉네임 중복검사를 실행해주세요"
     }
 })
@@ -213,6 +216,7 @@ inputEmail.addEventListener("blur", function(){
 
     let emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
+    emailFeedback.classList.replace("text-success", "text-danger");
 
     if(inputEmail.value == '') {
         emailCheck = false;
@@ -222,6 +226,7 @@ inputEmail.addEventListener("blur", function(){
         emailFeedback.innerHTML = "이메일형식이 아닙니다";
     } else {
         emailCheck = true;
+        emailFeedback.classList.replace("text-danger", "text-success");
         emailFeedback.innerHTML = "이메일 중복검사를 실행해주세요"
     }
 })
@@ -257,7 +262,73 @@ emailDuplicateBtn.addEventListener("click", function(){
                 emailDuplicateCheck = false;
                 emailDuplicateFeedback.classList.replace("text-success", "text-danger");
                 emailDuplicateFeedback.innerHTML = "이미 사용중인 이메일이에요"
+                inputEmail.innerHTML = "";
                 inputEmail.focus();
+            }
+        }
+    }
+})
+
+// 전화번호 입력 검증
+const inputPhone = document.querySelector('#inputPhone');
+const phoneFeedback = document.querySelector('#phoneFeedback');
+
+let phoneCheck = false;
+
+inputPhone.addEventListener("blur", function(){
+    phoneDuplicateCheck = false; // 다시 입력할 경우 다시 검사하도록
+    phoneDuplicateFeedback.innerHTML = "";
+
+    phoneFeedback.classList.replace("text-success", "text-danger");
+
+    let phoneRegExp = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
+
+    if(inputPhone.value == '') {
+        phoneCheck = false;
+        phoneFeedback.innerHTML = "전화번호를 입력해주세요";
+    } else if(!phoneRegExp.test(inputPhone.value)) {
+        phoneCheck = false;
+        phoneFeedback.innerHTML = "전화번호형식에 맞지 않아요<br>-를 같이 입력했는지 확인해주세요";
+    } else {
+        phoneCheck = true;
+        phoneFeedback.classList.replace("text-danger", "text-success");
+        phoneFeedback.innerHTML = "전화번호 중복검사를 실행해주세요"
+    }
+})
+
+// 전화번호 중복 검사
+const phoneDuplicateBtn = document.querySelector('#phoneDuplicateBtn');
+const phoneDuplicateFeedback = document.querySelector('#phoneDuplicateFeedback')
+
+let phoneDuplicateCheck = false;
+
+phoneDuplicateBtn.addEventListener("click", function(){
+    if(phoneCheck == false) {
+        alert('전화번호를 먼저 입력하거나 \n-를 제외하고 입력해주세요');
+        return;
+    }
+
+    phoneFeedback.innerHTML = "";
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','./phoneDuplicateCheck?phone='+inputPhone.value);
+
+    xhttp.send();
+
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            result = this.responseText.trim();
+            if(result == '0') {
+                phoneDuplicateCheck = true;
+                phoneDuplicateFeedback.classList.replace("text-danger", "text-success");
+                phoneDuplicateFeedback.innerHTML = "사용가능한 번호에요"
+            } else {
+                phoneDuplicateCheck = false;
+                phoneDuplicateFeedback.classList.replace("text-success", "text-danger");
+                phoneDuplicateFeedback.innerHTML = "이미 사용중인 번호에요"
+                inputPhone.innerHTML = ""
+                inputPhone.focus();
             }
         }
     }

@@ -39,6 +39,10 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"emailDuplicateCheck", memberDTO);
 	}
 	
+	public Long phoneDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"phoneDuplicateCheck", memberDTO);
+	}
+	
 	public MemberDTO mypage(MemberDTO memberDTO) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"mypage", memberDTO);
 	}

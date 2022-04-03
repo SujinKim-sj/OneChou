@@ -34,6 +34,10 @@ public class MemberService {
 		return memberDAO.emailDuplicateCheck(memberDTO);
 	}
 	
+	public Long phoneDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return memberDAO.phoneDuplicateCheck(memberDTO);
+	}
+	
 	public int update(MemberDTO memberDTO) throws Exception{
 		return memberDAO.update(memberDTO);
 	}
