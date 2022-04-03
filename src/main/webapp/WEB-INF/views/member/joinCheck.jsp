@@ -6,16 +6,7 @@
 <head>
 <meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
-	<style type="text/css">
-		label {
-			margin: 10px;
-		}
-		
-		.policy-text {
-			overflow: auto;
-			height: 400px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="../resources/css/member/joinCheck.css">
 
 <title>Insert title here</title>
 </head>
@@ -28,31 +19,31 @@
 		<div class="rule">
 			<div class="form-check d-flex align-items-center justify-content-start">
 				<input class="form-check-input" type="checkbox" id="checkAll">
-				<label class="form-check-label fw-bold fs-5" for="checkAll">
+				<label class="form-check-label fw-bold fs-4 ms-2" for="checkAll">
 					전체동의
 				</label>
 			</div>
 		</div>
 		<div id="rules">
-			<div class="rule my-3">
-				<div class="form-check d-flex align-items-center mb-2">
+			<div class="rule border border-2 rounded-3 my-4">
+				<div class="form-check d-flex align-items-center mx-4 my-3">
 				  <input class="form-check-input check" type="checkbox" id="check1">
-				  <label class="form-check-label" for="check1">
+				  <label class="form-check-label fw-bold fs-5 ms-2" for="check1">
 				    이용 약관 (필수)
 				  </label>
 				</div>
-				<div class="policy-text border border-2 rounded d-flex justify-content-center">
+				<div class="policy-text border border-2 rounded d-flex justify-content-center mx-4 mt-3 mb-5 p-3">
 					<c:import url="../template/standardPolicy.jsp"></c:import>
 				</div>
 			</div>
-			<div class="rule my-4">
-				<div class="form-check d-flex align-items-center mb-2">
+			<div class="rule border border-2 rounded-3 my-4">
+				<div class="form-check d-flex align-items-center mx-4 my-3">
 				  <input class="form-check-input check" type="checkbox" id="check2">
-				  <label class="form-check-label" for="check2">
+				  <label class="form-check-label fw-bold fs-5 ms-2" for="check2">
 				    개인정보 수집 및 이용 (필수)
 				  </label>
 				</div>
-				<div class="policy-text border border-2 rounded d-flex justify-content-center">
+				<div class="policy-text border border-2 rounded d-flex justify-content-center mx-4 mt-3 mb-5 p-3">
 					<c:import url="../template/privacyPolicy.jsp"></c:import>
 				</div>
 			</div>

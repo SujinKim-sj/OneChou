@@ -6,11 +6,6 @@
 <head>
 <meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
-	<style type="text/css">
-		label {
-			margin: 10px;
-		}
-	</style>
 
 <title>Insert title here</title>
 </head>
