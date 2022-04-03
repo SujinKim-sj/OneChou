@@ -54,3 +54,47 @@ idDuplicateBtn.addEventListener("click", function(){
         }
     }
 })
+// 카카오 주소 API
+function getAddress() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var addr = data.address; // 최종 주소 변수
+
+            // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("inputAddress").value = addr;
+            // 상세 주소로 포커스를 옮긴다.
+            document.getElementById("inputDetailAddress").focus();
+        }
+    }).open();
+}
+
+// 주소 검증 및 통합
+const inputAddress = document.querySelector('#inputAddress');
+const inputDetailAddress = document.querySelector('#inputDetailAddress');
+const addressFeedback = document.querySelector('#addressFeedback');
+const detailAddressFeedback = document.querySelector('#detailAddressFeedback');
+const integratedAddress = document.querySelector('#integratedAddress');
+
+let addressCheck = false;
+
+inputDetailAddress.addEventListener("blur", function(){
+    let addressValue = inputAddress.value;
+    let detailAddressValue = inputDetailAddress.value;
+
+    // 주소를 검색했는지 확인
+    if (addressValue == '') {
+        addressCheck = false;
+        addressFeedback.innerHTML = "주소를 검색해주세요";
+    } else {
+        addressFeedback.innerHTML = "";
+
+        if(detailAddressValue == '') {
+            addressCheck = false;
+            detailAddressFeedback.innerHTML = "상세주소를 입력해주세요";
+        } else {
+            addressCheck = true;
+            detailAddressFeedback.innerHTML = "";
+            integratedAddress.value = addressValue + " " + detailAddressValue;
+        }
+    }
+})

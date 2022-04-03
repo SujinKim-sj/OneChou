@@ -88,15 +88,17 @@
 						<button type="button" class="btn btn-outline-secondary" id="idDuplicateBtn">중복검사</button>
 					</div>
 				</div>
-				<div class="row d-flex justify-content-center m-3 g-3">
+				<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
 					<div class="col-4">
 					    <label for="inputAddress" class="form-label fw-bold">주소</label>
 					    <input type="text" class="form-control" id="inputAddress" placeholder="주소를 검색해주세요" readonly>
-					    <div class="fs-6 text-danger" id="addressFeedback">
-					    </div>
 					</div>
 					<div class="col-2 d-flex justify-content-end align-items-end">					
 						<button type="button" class="btn btn-outline-secondary" id="addressSearchBtn" onclick="getAddress()">주소검색</button>
+					</div>
+				</div>
+				<div class="row d-flex justify-content-center mb-3 px-4">
+					<div class="col-6 fs-6 text-danger" id="addressFeedback">
 					</div>
 				</div>
 				<div class="row d-flex justify-content-center m-3 g-3">
@@ -105,6 +107,7 @@
 					    <input type="text" class="form-control" id="inputDetailAddress" placeholder="상세주소를 입력해주세요">
 					    <div class="fs-6 text-danger" id="detailAddressFeedback">
 					    </div>
+					    <input type="hidden" id="integratedAddress" name="address">
 					</div>
 				</div>
 			</div>
