@@ -54,6 +54,79 @@ idDuplicateBtn.addEventListener("click", function(){
         }
     }
 })
+// pw 검증
+const inputPw = document.querySelector('#inputPw');
+const pwFeedback = document.querySelector('#pwFeedback');
+
+let pwCheck = false;
+
+inputPw.addEventListener('keyup', function(){
+    let pwValue = inputPw.value;
+    let message = "";
+    pwFeedback.classList.replace("text-success", "text-danger");
+
+    if(pwValue == '') {
+        pwCheck = false;
+        message = "비밀번호를 입력해주세요"
+    } else if(!pwValue.match('^[a-zA-Z0-9]*$')) {
+        pwCheck = false;
+        message = "한글 및 특수문자는 비밀번호로 사용할 수 없어요";
+    } else if(pwValue.length < 8 || pwValue.length > 15) {
+        pwCheck = false;
+        message = "8글자이상 15글자 이하로 입력해주세요"
+    } else {
+        pwCheck = true;
+        message = "올바른 비밀번호에요"
+        pwFeedback.classList.replace("text-danger", "text-success");
+    }
+
+    pwFeedback.innerHTML = message;
+
+})
+
+// pw 일치 검증
+const inputPwCheck = document.querySelector('#inputPwCheck');
+const pwCheckFeedback = document.querySelector('#pwCheckFeedback');
+
+const pwSameCheck = false;
+
+inputPwCheck.addEventListener("keyup", function(){
+    let pwValue = inputPw.value;
+    let pwCheckValue = inputPwCheck.value;
+    let message = "";
+
+    pwCheckFeedback.classList.replace("text-success", "text-danger");
+
+    if(pwValue != pwCheckValue) {
+        pwSameCheck = false;
+        message = "비밀번호가 일치하지 않아요"
+    } else {
+        pwSameCheck = true;
+        message = "비밀번호가 일치해요"
+        pwCheckFeedback.classList.replace("text-danger", "text-success");
+    }
+
+    pwCheckFeedback.innerHTML = message;
+})
+
+// 이름 입력 검증
+const inputName = document.querySelector('#inputName');
+const nameFeedback = document.querySelector('#nameFeedback');
+
+let nameCheck = false;
+
+inputName.addEventListener("blur", function(){
+    let nameValue = inputName.value;
+    let message = "";
+    nameCheck = true;
+
+    if(nameValue == '') {
+        nameCheck = false;
+        message = "이름을 입력해주세요"
+    }
+
+    nameFeedback.innerHTML = message;
+})
 // 카카오 주소 API
 function getAddress() {
     new daum.Postcode({
