@@ -42,6 +42,7 @@
 					    </div>
 					</div>
 				</div>
+				
 				<div class="row d-flex justify-content-center m-3 g-3">					
 					<div class="col-6">
 					    <label for="inputPwCheck" class="form-label fw-bold">비밀번호확인</label>
@@ -50,6 +51,7 @@
 					    </div>
 					</div>					
 				</div>
+				
 				<div class="row d-flex justify-content-center m-3 g-3">
 					<div class="col-6">
 					    <label for="inputName" class="form-label fw-bold">이름</label>
@@ -58,6 +60,7 @@
 					    </div>
 					</div>				
 				</div>
+				
 				<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
 					<div class="col-2"></div>
 					<div class="col-4">
@@ -74,17 +77,24 @@
 					<div class="col-6 fs-6 text-danger" id="nicknameFeedback">
 					</div>
 				</div>
-				<div class="row d-flex justify-content-center m-3 g-3">
+				
+				<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
+					<div class="col-3"></div>
 					<div class="col-4">
 					    <label for="inputEmail" class="form-label fw-bold">이메일</label>
-					    <input type="text" class="form-control" id="inputEmail" placeholder="이메일을 입력해주세요">
-					    <div class="fs-6 text-danger" id="emailFeedback">
-					    </div>
+					    <input type="text" class="form-control" id="inputEmail" placeholder="id@site.com의 형식으로 입력해주세요.">
 					</div>
 					<div class="col-2 d-flex justify-content-end align-items-end">					
-						<button type="button" class="btn btn-outline-secondary" id="idDuplicateBtn">중복검사</button>
+						<button type="button" class="btn btn-outline-secondary" id="emailDuplicateBtn">중복검사</button>
+					</div>
+					<div class="col-3 fs-6 d-flex justify-content-start align-items-end text-danger" id="emailDuplicateFeedback">
 					</div>
 				</div>
+				<div class="row d-flex justify-content-center mb-3 px-4">
+					<div class="col-6 fs-6 text-danger" id="emailFeedback">
+					</div>
+				</div>
+				
 				<div class="row d-flex justify-content-center m-3 g-3">			
 					<div class="col-4">
 					    <label for="inputPhone" class="form-label fw-bold">전화번호</label>

@@ -124,11 +124,22 @@ public class MemberController {
 		return mv;
 	}
 	
-	@GetMapping
+	@GetMapping("nicknameDuplicateCheck")
 	public ModelAndView nicknameDuplicateCheck(MemberDTO memberDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
 		Long result = memberService.nicknameDuplicateCheck(memberDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	@GetMapping("emailDuplicateCheck")
+	public ModelAndView emailDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.emailDuplicateCheck(memberDTO);
 		
 		mv.addObject("result", result);
 		mv.setViewName("common/ajaxResult");

@@ -168,6 +168,9 @@ nicknameDuplicateBtn.addEventListener("click", function(){
         alert('닉네임을 먼저 입력해주세요');
         return;
     }
+
+    nicknameFeedback.innerHTML = "";
+
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','./nicknameDuplicateCheck?nickname='+inputNickname.value);
@@ -181,12 +184,73 @@ nicknameDuplicateBtn.addEventListener("click", function(){
                 nicknameDuplicateCheck = true;
                 nicknameDuplicateFeedback.classList.replace("text-danger", "text-success");
                 nicknameDuplicateFeedback.innerHTML = "사용가능한 별명이에요"
-                nicknameFeedback.innerHTML = "";
             } else {
                 nicknameDuplicateCheck = false;
                 nicknameDuplicateFeedback.classList.replace("text-success", "text-danger");
                 nicknameDuplicateFeedback.innerHTML = "이미 사용중인 별명이에요"
                 inputNickname.focus();
+            }
+        }
+    }
+})
+
+// 이메일 입력 검증
+const inputEmail = document.querySelector('#inputEmail');
+const emailFeedback = document.querySelector('#emailFeedback');
+
+let emailCheck = false;
+
+inputEmail.addEventListener("blur", function(){
+    emailDuplicateCheck = false; // 다시 입력할 경우 다시 검사하도록
+    emailDuplicateFeedback.innerHTML = "";
+
+    let emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+
+    if(inputEmail.value == '') {
+        emailCheck = false;
+        emailFeedback.innerHTML = "이메일을 입력해주세요";
+    } else if (!emailRegExp.test(inputEmail.value)) {
+        emailCheck = false;
+        emailFeedback.innerHTML = "이메일형식이 아닙니다";
+    } else {
+        emailCheck = true;
+        emailFeedback.innerHTML = "이메일 중복검사를 실행해주세요"
+    }
+})
+
+// 이메일 중복 검사
+const emailDuplicateBtn = document.querySelector('#emailDuplicateBtn');
+const emailDuplicateFeedback = document.querySelector('#emailDuplicateFeedback')
+
+let emailDuplicateCheck = false;
+
+emailDuplicateBtn.addEventListener("click", function(){
+    if(emailCheck == false) {
+        alert('이메일을 먼저 입력해주세요');
+        return;
+    }
+
+    emailFeedback.innerHTML = "";
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','./emailDuplicateCheck?email='+inputEmail.value);
+
+    xhttp.send();
+
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            result = this.responseText.trim();
+            if(result == '0') {
+                emailDuplicateCheck = true;
+                emailDuplicateFeedback.classList.replace("text-danger", "text-success");
+                emailDuplicateFeedback.innerHTML = "사용가능한 이메일이에요"
+            } else {
+                emailDuplicateCheck = false;
+                emailDuplicateFeedback.classList.replace("text-success", "text-danger");
+                emailDuplicateFeedback.innerHTML = "이미 사용중인 이메일이에요"
+                inputEmail.focus();
             }
         }
     }

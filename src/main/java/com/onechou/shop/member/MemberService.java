@@ -30,6 +30,9 @@ public class MemberService {
 	public Long nicknameDuplicateCheck(MemberDTO memberDTO) throws Exception {
 		return memberDAO.nicknameDuplicateCheck(memberDTO);
 	}
+	public Long emailDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return memberDAO.emailDuplicateCheck(memberDTO);
+	}
 	
 	public int update(MemberDTO memberDTO) throws Exception{
 		return memberDAO.update(memberDTO);

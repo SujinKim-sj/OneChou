@@ -44,6 +44,10 @@
 		SELECT COUNT(ID) FROM MEMBER WHERE NICKNAME = #{nickname}
 	</select>
 	
+	<select id="emailDuplicateCheck" parameterType="MemberDTO" resultType="Long">
+		SELECT COUNT(ID) FROM MEMBER WHERE EMAIL = #{email}
+	</select>
+	
 	<insert id="join" parameterType="MemberDTO">
 		INSERT INTO MEMBER VALUES
 		(#{id},#{pw},#{name},#{email},#{phone},#{nickname},#{address},#{kind})
