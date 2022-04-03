@@ -75,15 +75,14 @@ inputPw.addEventListener('keyup', function(){
     let message = "";
     pwFeedback.classList.replace("text-success", "text-danger");
 
+    let pwRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
     if(pwValue == '') {
         pwCheck = false;
         message = "비밀번호를 입력해주세요"
-    } else if(!pwValue.match('^[a-zA-Z0-9]*$')) {
+    } else if(!pwRegExp.test(pwValue)) {
         pwCheck = false;
-        message = "한글 및 특수문자는 비밀번호로 사용할 수 없어요";
-    } else if(pwValue.length < 8 || pwValue.length > 15) {
-        pwCheck = false;
-        message = "8글자이상 15글자 이하로 입력해주세요"
+        message = "영문 대/소문자 + 숫자 + 특수문자 조합<br>8자 이상 15자 이하로 입력해주세요";
     } else {
         pwCheck = true;
         message = "올바른 비밀번호에요"
@@ -98,9 +97,17 @@ inputPw.addEventListener('keyup', function(){
 const inputPwCheck = document.querySelector('#inputPwCheck');
 const pwCheckFeedback = document.querySelector('#pwCheckFeedback');
 
-const pwSameCheck = false;
+let pwSameCheck = false;
 
 inputPwCheck.addEventListener("keyup", function(){
+    if(pwCheck == false) {
+        alert('비밀번호를 입력하거나\n올바른 형식의 비밀번호를 입력해주세요')
+        inputPw.value = '';
+        inputPwCheck.value = '';
+        inputPw.focus();
+        return;
+    }
+
     let pwValue = inputPw.value;
     let pwCheckValue = inputPwCheck.value;
     let message = "";
