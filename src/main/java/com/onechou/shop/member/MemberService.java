@@ -27,6 +27,10 @@ public class MemberService {
 		return memberDAO.idDuplicateCheck(memberDTO);
 	}
 	
+	public Long nicknameDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return memberDAO.nicknameDuplicateCheck(memberDTO);
+	}
+	
 	public int update(MemberDTO memberDTO) throws Exception{
 		return memberDAO.update(memberDTO);
 	}

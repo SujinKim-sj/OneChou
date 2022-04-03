@@ -124,6 +124,17 @@ public class MemberController {
 		return mv;
 	}
 	
+	@GetMapping
+	public ModelAndView nicknameDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.nicknameDuplicateCheck(memberDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
 	
 	@RequestMapping(value = "joinCheck", method = RequestMethod.GET)
 	public String joinCheck() throws Exception{

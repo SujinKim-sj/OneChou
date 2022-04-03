@@ -8,6 +8,7 @@ inputId.addEventListener("blur", function(){
     let idValue = inputId.value;
     let message = "";
     idDuplicateCheck = false; // 아이디를 다시 입력할 경우 false로
+    idDuplicateFeedback.innerHTML = "";
 
     idFeedback.classList.replace("text-success", "text-danger");
     
@@ -31,10 +32,15 @@ inputId.addEventListener("blur", function(){
 
 // id 중복 검사
 const idDuplicateBtn = document.querySelector('#idDuplicateBtn');
+const idDuplicateFeedback = document.querySelector('#idDuplicateFeedback');
 
 let idDuplicateCheck = false;
 
 idDuplicateBtn.addEventListener("click", function(){
+    if(idCheck == false) {
+        alert('아이디를 먼저 입력하거나\n유효한 아이디를 입력해주세요.')
+        return;
+    }
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','./idDuplicateCheck?id='+inputId.value);
@@ -46,14 +52,18 @@ idDuplicateBtn.addEventListener("click", function(){
             result = this.responseText.trim();
             if(result == '0') {
                 idDuplicateCheck = true;
-                idFeedback.innerHTML = "사용가능한 아이디에요"
+                idDuplicateFeedback.classList.replace("text-danger", "text-success");
+                idDuplicateFeedback.innerHTML = "사용가능한 아이디에요"
             } else {
                 idDuplicateCheck = false;
-                idFeedback.innerHTML = "이미 사용중인 아이디에요"
+                idDuplicateFeedback.classList.replace("text-success", "text-danger");
+                idDuplicateFeedback.innerHTML = "이미 사용중인 아이디에요"
+                inputId.focus();
             }
         }
     }
 })
+
 // pw 검증
 const inputPw = document.querySelector('#inputPw');
 const pwFeedback = document.querySelector('#pwFeedback');
@@ -127,6 +137,61 @@ inputName.addEventListener("blur", function(){
 
     nameFeedback.innerHTML = message;
 })
+
+// 별명 입력 검증
+const inputNickname = document.querySelector('#inputNickname');
+const nicknameFeedback = document.querySelector('#nicknameFeedback');
+
+let nicknameCheck = false;
+
+inputNickname.addEventListener("blur", function(){
+    nicknameDuplicateCheck = false; // 다시 입력할 경우 다시 검사하도록
+    nicknameDuplicateFeedback.innerHTML = "";
+
+    if(inputNickname.value == '') {
+        nicknameCheck = false;
+        nicknameFeedback.innerHTML = "닉네임을 입력해주세요";
+    } else {
+        nicknameCheck = true;
+        nicknameFeedback.innerHTML = "닉네임 중복검사를 실행해주세요"
+    }
+})
+
+// 별명 중복 검사
+const nicknameDuplicateBtn = document.querySelector('#nicknameDuplicateBtn');
+const nicknameDuplicateFeedback = document.querySelector('#nicknameDuplicateFeedback')
+
+let nicknameDuplicateCheck = false;
+
+nicknameDuplicateBtn.addEventListener("click", function(){
+    if(nicknameCheck == false) {
+        alert('닉네임을 먼저 입력해주세요');
+        return;
+    }
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','./nicknameDuplicateCheck?nickname='+inputNickname.value);
+
+    xhttp.send();
+
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200) {
+            result = this.responseText.trim();
+            if(result == '0') {
+                nicknameDuplicateCheck = true;
+                nicknameDuplicateFeedback.classList.replace("text-danger", "text-success");
+                nicknameDuplicateFeedback.innerHTML = "사용가능한 별명이에요"
+                nicknameFeedback.innerHTML = "";
+            } else {
+                nicknameDuplicateCheck = false;
+                nicknameDuplicateFeedback.classList.replace("text-success", "text-danger");
+                nicknameDuplicateFeedback.innerHTML = "이미 사용중인 별명이에요"
+                inputNickname.focus();
+            }
+        }
+    }
+})
+
 // 카카오 주소 API
 function getAddress() {
     new daum.Postcode({
