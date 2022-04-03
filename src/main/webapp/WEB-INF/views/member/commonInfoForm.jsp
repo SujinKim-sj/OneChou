@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-		<div class="border border-2 rounded-3 my-5">
+		<div class="border border-2 rounded-3 m-5">
 			<div class="text-center border-bottom border-2 p-4">
 				<h3>기본정보를 입력해주세요</h3>
 			</div>
@@ -70,7 +70,7 @@
 					<div class="col-3"></div>
 					<div class="col-4">
 					    <label for="inputEmail" class="form-label fw-bold">이메일</label>
-					    <input type="text" class="form-control" id="inputEmail" name="email" placeholder="id@site.com의 형식으로 입력해주세요.">
+					    <input type="text" class="form-control" id="inputEmail" name="email" placeholder="id@site.com의 형식으로 입력해주세요">
 					</div>
 					<div class="col-2 d-flex justify-content-end align-items-end">					
 						<button type="button" class="btn btn-outline-secondary" id="emailDuplicateBtn">중복검사</button>

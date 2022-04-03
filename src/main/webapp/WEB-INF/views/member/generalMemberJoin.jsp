@@ -16,8 +16,8 @@
 	<div class="container">
 		<form action="./join" method="post" id="joinForm">
 			<c:import url="./commonInfoForm.jsp"></c:import>
-			<div class="border border-2 rounded-3 my-5">
-				<div class="text-center p-3 border-bottom border-2">
+			<div class="border border-2 rounded-3 m-5">
+				<div class="text-center p-4 border-bottom border-2">
 					<h3> 관심원두를 골라주세요 </h3>
 				</div>
 				<div class="m-5">
