@@ -78,10 +78,18 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="join", method = RequestMethod.GET)
-	public String join(HttpSession session,Long kind) {
-		session.setAttribute("kind", kind);
-		return "member/join";
+	public ModelAndView join(Integer kind) {
+		ModelAndView mv = new ModelAndView();
+		
+		if(kind == 2) {
+			mv.setViewName("member/generalMemberJoin");
+		} else {
+			mv.setViewName("member/roasteryMemberJoin");
+		}
+		
+		return mv;
 	}
+	
 	@RequestMapping(value = "join",method = RequestMethod.POST)
 	public String join(MemberDTO memberDTO, Model model,HttpSession session) throws Exception {
 		int result = memberService.join(memberDTO);
@@ -103,11 +111,6 @@ public class MemberController {
 		model.addAttribute("path", p);
 		String path = "common/result";
 		return path;
-	}
-	
-	@GetMapping("generalMemberJoin")
-	public void generalMemberJoin() throws Exception {
-		
 	}
 	
 	@GetMapping("idDuplicateCheck")

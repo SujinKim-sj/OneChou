@@ -35,7 +35,7 @@
 						  <li class="list-group-item">각 원두별로 리뷰, 질문기능을 제공해요</li>
 						</ul>
 						<div class="my-5">
-							<a class="btn btn-outline-secondary" href="./generalMemberJoin">일반 회원가입</a>
+							<a class="btn btn-outline-secondary" href="./join?kind=2">일반 회원가입</a>
 						</div>
 					</div>
 					<div class="col-5 border border-2 rounded-3 text-center mx-3">
@@ -49,7 +49,7 @@
 						  <li class="list-group-item">각 상품별로 배송처리를 할 수 있어요</li>
 						</ul>
 						<div class="my-5">
-							<a class="btn btn-outline-secondary" href="./roasteryMemberJoin">로스터리 회원가입</a>
+							<a class="btn btn-outline-secondary" href="./join?kind=1">로스터리 회원가입</a>
 						</div>
 					</div>
 				</div>
