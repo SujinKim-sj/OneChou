@@ -11,7 +11,8 @@
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container">
-		<form action="./join" method="post" id="joinForm">
+		<form action="./join" method="post" id="joinForm" enctype="multipart/form-data">
+			<input type="hidden" name="kind" value="1">
 			<c:import url="./commonInfoForm.jsp"></c:import>
 			<div class="border border-2 rounded-3 m-5">
 				<div class="text-center p-4 border-bottom border-2">

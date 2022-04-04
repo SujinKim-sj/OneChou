@@ -23,8 +23,24 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE + "login", memberDTO);
 	}
 	
-	public int join(MemberDTO memberDTO) throws Exception{
-		return sqlSession.insert(NAMESPACE+"join", memberDTO);
+	public int addMember(MemberDTO memberDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"addMember", memberDTO);
+	}
+	
+	public int addRoastery(RoasteryDTO roasteryDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addRoastery", roasteryDTO);
+	}
+	
+	public int addRoasteryFile(RoasteryFileDTO roasteryFileDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addRoasteryFile", roasteryFileDTO);
+	}
+	
+	public int addFavorite(FavoriteDTO favoriteDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addFavorite", favoriteDTO);
+	}
+	
+	public int addCupnote(CupnoteDTO cupnoteDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addCupnote", cupnoteDTO);
 	}
 	
 	public Long idDuplicateCheck(MemberDTO memberDTO) throws Exception {

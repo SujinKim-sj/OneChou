@@ -157,8 +157,7 @@ joinBtn.addEventListener("click", function(){
         if(!confirm('회원가입하시겠습니까?')){
             return;
         } else {
-            alert('성공');
-            //joinForm.submit();
+            joinForm.submit();
         }
     } else if(!idCheck) {
         alert('아이디를 확인해주세요');

@@ -56,10 +56,37 @@
 		SELECT COUNT(NUM) FROM ROASTERY WHERE NAME = #{name}
 	</select>
 	
-	<insert id="join" parameterType="MemberDTO">
-		INSERT INTO MEMBER VALUES
-		(#{id},#{pw},#{name},#{email},#{phone},#{nickname},#{address},#{kind})
+	<insert id="addMember" parameterType="MemberDTO">
+		INSERT INTO MEMBER (ID, PW, NAME, EMAIL, PHONE, NICKNAME, ADDRESS, KIND)
+		VALUES (#{id}, #{pw}, #{name}, #{email}, #{phone}, #{nickname}, #{address}, #{kind})
 	</insert>
+	
+	<insert id="addRoastery" parameterType="RoasteryDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT ROASTERY_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ROASTERY (NUM, NAME, INFO, ADDRESS, MEMBERID)
+		VALUES (#{num}, #{name}, #{info}, #{address}, #{memberId})
+	</insert>
+	
+	<insert id="addRoasteryFile" parameterType="RoasteryFileDTO">
+		INSERT INTO ROASTERYFILE (FILENUM, FILENAME, ORINAME, ROASTERYNUM)
+		VALUES (ROASTERYFILE_SEQ.NEXTVAL, #{fileName}, #{oriName}, #{roasteryNum})
+	</insert>
+	
+	<insert id="addFavorite" parameterType="FavoriteDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT FAVORITE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FAVORITE (NUM, ROASTINGPOINT, FLAVOR, MEMBERID)
+		VALUES (#{num}, #{roastingPoint}, #{flavor}, #{memberId})
+	</insert>
+	
+	<insert id="addCupnote" parameterType="CupnoteDTO">
+		INSERT INTO CUPNOTE (NUM, NOTENAME, FAVORITENUM)
+		VALUES (CUPNOTE_SEQ.NEXTVAL, #{noteName}, #{favoriteNum})
+	</insert>
+	
 	<update id="update" parameterType="MemberDTO">
 		UPDATE MEMBER 
 		SET PW=#{pw} ,NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickname}, ADDRESS=#{address}
