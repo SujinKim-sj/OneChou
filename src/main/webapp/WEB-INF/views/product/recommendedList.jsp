@@ -112,40 +112,52 @@
 									<h6 class="card-title">${productDTO.name}</h6>
 									<p class="card-text">
 										<div>${productDTO.price}원</div>
+										<div class="mt-3 pt-3 border-top">
+											<ul class="list-group">
+  												<li class="list-group-item">좋아하실만한 컵노트</li>
+  												<li class="list-group-item">
+  												<c:forEach items="${productDTO.productFeatureDTO.productCupnoteDTOs}" var="productCupnoteDTO" varStatus="state">
+													${productCupnoteDTO.noteName}<c:choose><c:when test="${state.last}"></c:when><c:otherwise>,</c:otherwise></c:choose>
+												</c:forEach>
+												</li>
+  											</ul>										
+										</div>
 										<div class="mt-3">
-											<span class="fw-bold">겹치는 컵노트</span> : 
-											<c:forEach items="${productDTO.productFeatureDTO.productCupnoteDTOs}" var="productCupnoteDTO" varStatus="state">
-												${productCupnoteDTO.noteName}<c:choose><c:when test="${state.last}"></c:when><c:otherwise>,</c:otherwise></c:choose>
-											</c:forEach>
+											<ul class="list-group">
+  												<li class="list-group-item">로스팅포인트</li>
+  												<li class="list-group-item">
+  												<c:choose>
+													<c:when test="${productDTO.productFeatureDTO.roastingPoint == 1}">
+														Light Roast
+													</c:when>
+													<c:when test="${productDTO.productFeatureDTO.roastingPoint == 2}">
+														Medium Roast
+													</c:when>
+													<c:otherwise>
+														Dark Roast
+													</c:otherwise>
+												</c:choose>
+												</li>
+  											</ul>
 										</div>
-										<div>
-											<span class="fw-bold">로스팅포인트</span> : 
-											<c:choose>
-												<c:when test="${productDTO.productFeatureDTO.roastingPoint == 1}">
-													Light Roast
-												</c:when>
-												<c:when test="${productDTO.productFeatureDTO.roastingPoint == 2}">
-													Medium Roast
-												</c:when>
-												<c:otherwise>
-													Dark Roast
-												</c:otherwise>
-											</c:choose>
-										</div>
-										<div>
-											<span class="fw-bold">향미</span> :
-											<c:choose>
-												<c:when test="${productDTO.productFeatureDTO.flavor == 1}">
-													산미 위주의 상큼한 커피
-												</c:when>
-												<c:when test="${productDTO.productFeatureDTO.flavor == 2}">
-													고소하면서 부드러운 커피
-												</c:when>
-												<c:otherwise>
-													묵직하면서 단맛이 잘 느껴지는 커피
-												</c:otherwise>
-											</c:choose>
-										</div>						
+										<div class="mt-3">
+											<ul class="list-group">
+  												<li class="list-group-item">향미</li>
+  												<li class="list-group-item">
+  												<c:choose>
+													<c:when test="${productDTO.productFeatureDTO.flavor == 1}">
+														산미 위주의 상큼한 커피
+													</c:when>
+													<c:when test="${productDTO.productFeatureDTO.flavor == 2}">
+														고소하면서 부드러운 커피
+													</c:when>
+													<c:otherwise>
+														묵직하면서 단맛이 잘 느껴지는 커피
+													</c:otherwise>
+												</c:choose>
+												</li>
+  											</ul>
+										</div>				
 									</p>
 									
 									<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
