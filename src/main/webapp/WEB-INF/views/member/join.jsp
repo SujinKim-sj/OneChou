@@ -15,6 +15,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container">
 	<c:import url="../template/header.jsp"></c:import>
 	<h1>Join Page</h1>
 	<form action="" class="frm" method="post" id="frm" enctype="multipart/form-data">
@@ -58,6 +59,7 @@
 		<button id="btn" type="button">회원가입</button>
 	</form>
 	
+</div>
 	<script src="../resources/js/member/join.js"></script>
 </body>
 </html>
