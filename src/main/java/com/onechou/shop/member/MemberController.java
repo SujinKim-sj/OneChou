@@ -160,6 +160,17 @@ public class MemberController {
 		return mv;
 	}
 	
+	@GetMapping("roasteryNameDuplicateCheck")
+	public ModelAndView roasteryNameDuplicateCheck(RoasteryDTO roasteryDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.roasteryNameDuplicateCheck(roasteryDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
 	
 	@RequestMapping(value = "joinCheck", method = RequestMethod.GET)
 	public String joinCheck() throws Exception{

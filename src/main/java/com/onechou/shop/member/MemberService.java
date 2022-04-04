@@ -38,6 +38,10 @@ public class MemberService {
 		return memberDAO.phoneDuplicateCheck(memberDTO);
 	}
 	
+	public Long roasteryNameDuplicateCheck(RoasteryDTO roasteryDTO) throws Exception {
+		return memberDAO.roasteryNameDuplicateCheck(roasteryDTO);
+	}
+	
 	public int update(MemberDTO memberDTO) throws Exception{
 		return memberDAO.update(memberDTO);
 	}

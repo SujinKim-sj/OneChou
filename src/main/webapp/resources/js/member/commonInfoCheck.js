@@ -88,7 +88,7 @@ inputPw.addEventListener('keyup', function(){
         message = "영문 대/소문자 + 숫자 + 특수문자 조합<br>8자 이상 15자 이하로 입력해주세요";
     } else {
         pwCheck = true;
-        message = "올바른 비밀번호에요"
+        message = "사용 가능한 비밀번호에요"
         pwFeedback.classList.replace("text-danger", "text-success");
     }
 
@@ -339,6 +339,7 @@ phoneDuplicateBtn.addEventListener("click", function(){
 
 // 카카오 주소 API
 function getAddress() {
+    addressFeedback.innerHTML = "";
     new daum.Postcode({
         oncomplete: function(data) {
             var addr = data.address; // 최종 주소 변수

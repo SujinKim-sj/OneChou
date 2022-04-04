@@ -107,4 +107,3 @@ joinBtn.addEventListener("click", function(){
     }
 
 })
-               
