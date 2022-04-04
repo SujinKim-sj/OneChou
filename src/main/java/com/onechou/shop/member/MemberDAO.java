@@ -23,8 +23,44 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE + "login", memberDTO);
 	}
 	
-	public int join(MemberDTO memberDTO) throws Exception{
-		return sqlSession.insert(NAMESPACE+"join", memberDTO);
+	public int addMember(MemberDTO memberDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"addMember", memberDTO);
+	}
+	
+	public int addRoastery(RoasteryDTO roasteryDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addRoastery", roasteryDTO);
+	}
+	
+	public int addRoasteryFile(RoasteryFileDTO roasteryFileDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addRoasteryFile", roasteryFileDTO);
+	}
+	
+	public int addFavorite(FavoriteDTO favoriteDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addFavorite", favoriteDTO);
+	}
+	
+	public int addCupnote(CupnoteDTO cupnoteDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"addCupnote", cupnoteDTO);
+	}
+	
+	public Long idDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"idDuplicateCheck", memberDTO);
+	}
+	
+	public Long nicknameDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"nicknameDuplicateCheck", memberDTO);
+	}
+	
+	public Long emailDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"emailDuplicateCheck", memberDTO);
+	}
+	
+	public Long phoneDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"phoneDuplicateCheck", memberDTO);
+	}
+	
+	public Long roasteryNameDuplicateCheck(RoasteryDTO roasteryDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"roasteryNameDuplicateCheck", roasteryDTO);
 	}
 	
 	public MemberDTO mypage(MemberDTO memberDTO) throws Exception{
@@ -45,7 +81,6 @@ public class MemberDAO {
 	}
 	public RoasteryFileDTO roasteryFile(RoasteryDTO roasteryDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"roasteryFile", roasteryDTO);
-		
 	}
 
 }

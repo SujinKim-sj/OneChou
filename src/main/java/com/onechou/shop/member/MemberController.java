@@ -1,5 +1,6 @@
 package com.onechou.shop.member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -11,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.onechou.shop.favorite.CupnoteDTO;
@@ -76,31 +80,114 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="join", method = RequestMethod.GET)
-	public String join(HttpSession session,Long kind) {
-		session.setAttribute("kind", kind);
-		return "member/join";
-	}
-	@RequestMapping(value = "join",method = RequestMethod.POST)
-	public String join(MemberDTO memberDTO, Model model,HttpSession session) throws Exception {
-		int result = memberService.join(memberDTO);
-		String message = "join Fail";
-		String p = "./join";
+	public ModelAndView join(Integer kind) {
+		ModelAndView mv = new ModelAndView();
 		
-		if(result>0) {
-			Long kind = memberDTO.getKind();
-			session.setAttribute("member", memberDTO);
-			message = "join Success";
-			if(kind>1) {
-				p = "../favorite/add";				
-			}else {
-				p = "../roastery/add";
-			}
+		if(kind == 2) {
+			mv.setViewName("member/generalMemberJoin");
+		} else {
+			mv.setViewName("member/roasteryMemberJoin");
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("path", p);
-		String path = "common/result";
-		return path;
+		return mv;
+	}
+	
+	@RequestMapping(value = "join",method = RequestMethod.POST)
+	public ModelAndView join(MemberDTO memberDTO, RoasteryDTO roasteryDTO, String roasteryName, String roasteryAddress, MultipartFile image, FavoriteDTO favoriteDTO, String[] noteNames) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		// 회원 유형 판단 후 파라미터 MemberDTO로 합치기
+		System.out.println(memberDTO.getKind());
+		if(memberDTO.getKind() == 1) {
+			// 멤버테이블과 컬럼명이 같아서 파라미터명을 다르게 보냄
+			roasteryDTO.setName(roasteryName);
+			roasteryDTO.setAddress(roasteryAddress);
+			memberDTO.setRoasteryDTO(roasteryDTO);
+		} else {
+			// 받은 컵노트 합쳐주기
+			List<CupnoteDTO> cupnoteDTOs = new ArrayList<CupnoteDTO>();
+			for(int i=0;i<noteNames.length;i++) {
+				CupnoteDTO cupnoteDTO = new CupnoteDTO();
+				cupnoteDTO.setNoteName(noteNames[i]);
+				cupnoteDTOs.add(cupnoteDTO);
+			}
+			
+			favoriteDTO.setCupnoteDTOs(cupnoteDTOs);
+			memberDTO.setFavoriteDTO(favoriteDTO);			
+		}
+		
+		// 데이터 삽입하기
+		boolean result = memberService.join(memberDTO, image);
+		
+		String message = "회원가입에 성공했습니다";
+		
+		if(!result) {
+			message = "회원가입에 실패했습니다. \n다시 시도해주세요.";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "../");
+		mv.setViewName("common/result");
+		
+		return mv;
+	}
+	
+	@GetMapping("idDuplicateCheck")
+	public ModelAndView idDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		System.out.println(memberDTO.getId());
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.idDuplicateCheck(memberDTO);
+		
+		System.out.println(result);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	@GetMapping("nicknameDuplicateCheck")
+	public ModelAndView nicknameDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.nicknameDuplicateCheck(memberDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	@GetMapping("emailDuplicateCheck")
+	public ModelAndView emailDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.emailDuplicateCheck(memberDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	@GetMapping("phoneDuplicateCheck")
+	public ModelAndView phoneDuplicateCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.phoneDuplicateCheck(memberDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	@GetMapping("roasteryNameDuplicateCheck")
+	public ModelAndView roasteryNameDuplicateCheck(RoasteryDTO roasteryDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		Long result = memberService.roasteryNameDuplicateCheck(roasteryDTO);
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
 	}
 	
 	
@@ -172,23 +259,6 @@ public class MemberController {
 		model.addAttribute("message", message);
 		return "common/result";
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 	

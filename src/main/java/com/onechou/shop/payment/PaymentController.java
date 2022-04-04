@@ -93,7 +93,7 @@ public class PaymentController {
 		return mv;		
 	}
 	
-	@GetMapping
+	@GetMapping("list")
 	public void list(HttpSession session, Model model, Pager pager) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
@@ -104,13 +104,56 @@ public class PaymentController {
 		
 	}
 	
-	@GetMapping ("detail")
+	@GetMapping("detail")
 	public void detail(PaymentDTO paymentDTO, Model model, String connectionPath) throws Exception {
 		paymentDTO = paymentService.detail(paymentDTO);
 		
 		model.addAttribute("connectionPath", connectionPath);
 		model.addAttribute("paymentDTO", paymentDTO);
 		
+	}
+	
+	@GetMapping("shipmentList")
+	public void shipmentList(HttpSession session, Pager pager, Model model, String shipmentStatus) throws Exception {
+		
+		if(shipmentStatus == null) {
+			shipmentStatus = "0";
+		}
+		
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		
+		List<PaymentDTO> paymentDTOs = paymentService.getShipmentProductList(memberDTO, pager, shipmentStatus);
+		
+		model.addAttribute("shipmentStatus", shipmentStatus);
+		model.addAttribute("pager", pager);
+		model.addAttribute("paymentDTOs", paymentDTOs);
+	}
+	
+	@PostMapping("shipmentAdd")
+	public void shipmentAdd(PaidProductDTO paidProductDTO, Model model) throws Exception {
+		
+		// 결제상품 정보 불러오기
+		PaymentDTO paymentDTO = paymentService.getShipmentProductDetail(paidProductDTO);
+		
+		model.addAttribute("paymentDTO", paymentDTO);
+	}
+	
+	@PostMapping("shipmentAddResult")
+	public ModelAndView shipmentAddResult(PaidProductDTO paidProductDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = paymentService.shipmentUpdate(paidProductDTO);
+		
+		String message = "배송 정보 등록에 성공했습니다.";
+		if(result == 0) {
+			message = "배송 정보 등록에 실패했습니다.\n다시 시도해주세요";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "./shipmentList");
+		mv.setViewName("common/result");
+		
+		return mv;
 	}
 	
 	

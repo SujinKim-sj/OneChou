@@ -16,18 +16,6 @@ public class RoasteryService {
 	@Autowired
 	private FileManager fileManager;
 
-	public int add(RoasteryDTO roasteryDTO, MultipartFile file) throws Exception {
-		int result = roasteryDAO.add(roasteryDTO);
-
-		String fileName = fileManager.save(file, "resources/upload/roastery/");
-		RoasteryFileDTO roasteryFileDTO = new RoasteryFileDTO();
-		roasteryFileDTO.setFileName(fileName);
-		roasteryFileDTO.setOriName(file.getOriginalFilename());
-		roasteryFileDTO.setRoasteryNum(roasteryDTO.getNum());
-		result = roasteryDAO.addFile(roasteryFileDTO);
-
-		return result;
-	};
 	public int update(RoasteryDTO roasteryDTO, MultipartFile file) throws Exception {
 		int result = roasteryDAO.update(roasteryDTO);
 		if(file.getSize()!=0) {
@@ -41,7 +29,7 @@ public class RoasteryService {
 		result = roasteryDAO.updateFile(roasteryFileDTO);
 		}
 		return result;
-	};
+	}
 	
 	public RoasteryDTO detail(MemberDTO memberDTO) throws Exception{
 		return roasteryDAO.detail(memberDTO);
@@ -51,5 +39,4 @@ public class RoasteryService {
 		return roasteryDAO.file(roasteryDTO);
 	}
 	
-
 }

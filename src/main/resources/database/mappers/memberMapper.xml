@@ -36,11 +36,57 @@
 		WHERE ROASTERYNUM=#{num}
 	</select>
 
+	<select id="idDuplicateCheck" parameterType="MemberDTO" resultType="Long">
+		SELECT COUNT(ID) FROM MEMBER WHERE ID = #{id}
+	</select>
 	
-	<insert id="join" parameterType="MemberDTO">
-		INSERT INTO MEMBER VALUES
-		(#{id},#{pw},#{name},#{email},#{phone},#{nickname},#{address},#{kind})
+	<select id="nicknameDuplicateCheck" parameterType="MemberDTO" resultType="Long">
+		SELECT COUNT(ID) FROM MEMBER WHERE NICKNAME = #{nickname}
+	</select>
+	
+	<select id="emailDuplicateCheck" parameterType="MemberDTO" resultType="Long">
+		SELECT COUNT(ID) FROM MEMBER WHERE EMAIL = #{email}
+	</select>
+	
+	<select id="phoneDuplicateCheck" parameterType="MemberDTO" resultType="Long">
+		SELECT COUNT(ID) FROM MEMBER WHERE PHONE = #{phone}
+	</select>
+	
+	<select id="roasteryNameDuplicateCheck" parameterType="RoasteryDTO" resultType="Long">
+		SELECT COUNT(NUM) FROM ROASTERY WHERE NAME = #{name}
+	</select>
+	
+	<insert id="addMember" parameterType="MemberDTO">
+		INSERT INTO MEMBER (ID, PW, NAME, EMAIL, PHONE, NICKNAME, ADDRESS, KIND)
+		VALUES (#{id}, #{pw}, #{name}, #{email}, #{phone}, #{nickname}, #{address}, #{kind})
 	</insert>
+	
+	<insert id="addRoastery" parameterType="RoasteryDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT ROASTERY_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ROASTERY (NUM, NAME, INFO, ADDRESS, MEMBERID)
+		VALUES (#{num}, #{name}, #{info}, #{address}, #{memberId})
+	</insert>
+	
+	<insert id="addRoasteryFile" parameterType="RoasteryFileDTO">
+		INSERT INTO ROASTERYFILE (FILENUM, FILENAME, ORINAME, ROASTERYNUM)
+		VALUES (ROASTERYFILE_SEQ.NEXTVAL, #{fileName}, #{oriName}, #{roasteryNum})
+	</insert>
+	
+	<insert id="addFavorite" parameterType="FavoriteDTO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+			SELECT FAVORITE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FAVORITE (NUM, ROASTINGPOINT, FLAVOR, MEMBERID)
+		VALUES (#{num}, #{roastingPoint}, #{flavor}, #{memberId})
+	</insert>
+	
+	<insert id="addCupnote" parameterType="CupnoteDTO">
+		INSERT INTO CUPNOTE (NUM, NOTENAME, FAVORITENUM)
+		VALUES (CUPNOTE_SEQ.NEXTVAL, #{noteName}, #{favoriteNum})
+	</insert>
+	
 	<update id="update" parameterType="MemberDTO">
 		UPDATE MEMBER 
 		SET PW=#{pw} ,NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickname}, ADDRESS=#{address}

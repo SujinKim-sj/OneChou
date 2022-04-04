@@ -164,8 +164,8 @@
 			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
 				<p class="text-center fs-2">원두설명</p>
 			</div>
-			<div class="mt-3 mb-3">
-				<p class="fs-5 text-wrap">${productDTO.info}</p>
+			<div class="d-flex justify-content-center align-items-center mt-3 mb-3">
+				<span class="fs-5 mb-3 infoText">${productDTO.info}</span>
 			</div>
 		</div>
 

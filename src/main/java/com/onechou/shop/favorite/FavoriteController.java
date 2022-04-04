@@ -22,43 +22,6 @@ public class FavoriteController {
 	@Autowired
 	private FavoriteService favoriteService;
 	
-	@RequestMapping(value ="add",method = RequestMethod.GET)
-	public ModelAndView add(HttpSession session) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		mv.addObject("member", memberDTO);
-		return mv;
-	}
-	
-	@RequestMapping(value = "add", method = RequestMethod.POST )
-	public String add(FavoriteDTO favoriteDTO , String [] noteNames ,Model model) throws Exception{
-		int result = favoriteService.add(favoriteDTO);
-		for(int i=0;i<noteNames.length;i++) {
-			CupnoteDTO cupnoteDTO = new CupnoteDTO();
-			cupnoteDTO.setFavoriteNum(favoriteDTO.getNum());
-			cupnoteDTO.setNoteName(noteNames[i]);
-			result = favoriteService.noteAdd(cupnoteDTO);
-		}
-		
-		if(result>0) {
-			System.out.println("성공");
-		}else
-		{
-			System.out.println("실패");
-		}
-		
-		String message = "favorite Fail";
-		String p = "./add";
-		if(result>0) {
-			message = "favorite Success";
-				p = "../";
-		}
-		model.addAttribute("message", message);
-		model.addAttribute("path", p);
-		String path = "common/result";
-		return path;
-	}
-	
 	@RequestMapping(value ="update",method = RequestMethod.GET)
 	public ModelAndView update(HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -99,7 +62,6 @@ public class FavoriteController {
 		return path;
 	}
 
-	
 }
 	
 

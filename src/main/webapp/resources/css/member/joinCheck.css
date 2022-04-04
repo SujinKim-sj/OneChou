@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+.policy-text {
+	overflow: auto;
+	height: 400px;
+}
