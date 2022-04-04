@@ -6,19 +6,11 @@
 			</div>
 			<div class="mb-5">
 				<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
-					<div class="col-3"></div>
-					<div class="col-4">
+					<div class="col-6">
 					    <label for="inputId" class="form-label fw-bold">아이디</label>
 					    <input type="text" class="form-control" id="inputId" name="id" placeholder="6글자 이상 입력, 영문 대소문자/숫자만 입력 가능합니다">
-					</div>
-					<div class="col-2 d-flex justify-content-end align-items-end">					
-						<button type="button" class="btn btn-outline-secondary" id="idDuplicateBtn">중복검사</button>
-					</div>
-					<div class="col-3 fs-6 d-flex justify-content-start align-items-end text-danger" id="idDuplicateFeedback">
-					</div>
-				</div>
-				<div class="row d-flex justify-content-center mb-3 px-4">
-					<div class="col-6 fs-6 text-danger" id="idFeedback">
+						<div class="fs-6 text-danger" id="idFeedback">
+						</div>
 					</div>
 				</div>
 				
@@ -50,53 +42,29 @@
 				</div>
 				
 				<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
-					<div class="col-3"></div>
-					<div class="col-4">
+					<div class="col-6">
 					    <label for="inputNickname" class="form-label fw-bold">별명</label>
 					    <input type="text" class="form-control" id="inputNickname" name="nickname" placeholder="별명을 입력해주세요">
+						<div class="fs-6 text-danger" id="nicknameFeedback">
+						</div>
 					</div>	
-					<div class="col-2 d-flex justify-content-end align-items-end">					
-						<button type="button" class="btn btn-outline-secondary" id="nicknameDuplicateBtn">중복검사</button>
-					</div>
-					<div class="col-3 fs-6 d-flex justify-content-start align-items-end text-danger" id="nicknameDuplicateFeedback">
-					</div>
-				</div>
-				<div class="row d-flex justify-content-center mb-3 px-4">
-					<div class="col-6 fs-6 text-danger" id="nicknameFeedback">
-					</div>
 				</div>
 				
 				<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
-					<div class="col-3"></div>
-					<div class="col-4">
+					<div class="col-6">
 					    <label for="inputEmail" class="form-label fw-bold">이메일</label>
 					    <input type="text" class="form-control" id="inputEmail" name="email" placeholder="id@site.com의 형식으로 입력해주세요">
-					</div>
-					<div class="col-2 d-flex justify-content-end align-items-end">					
-						<button type="button" class="btn btn-outline-secondary" id="emailDuplicateBtn">중복검사</button>
-					</div>
-					<div class="col-3 fs-6 d-flex justify-content-start align-items-end text-danger" id="emailDuplicateFeedback">
+						<div class="fs-6 text-danger" id="emailFeedback">
+						</div>
 					</div>
 				</div>
-				<div class="row d-flex justify-content-center mb-3 px-4">
-					<div class="col-6 fs-6 text-danger" id="emailFeedback">
-					</div>
-				</div>
-				
+
 				<div class="row d-flex justify-content-center mx-3 mt-3 g-3">		
-					<div class="col-3"></div>	
-					<div class="col-4">
+					<div class="col-6">
 					    <label for="inputPhone" class="form-label fw-bold">전화번호</label>
 					    <input type="text" class="form-control" id="inputPhone" name="phone" placeholder="숫자만 입력해주세요">
-					</div>
-					<div class="col-2 d-flex justify-content-end align-items-end">					
-						<button type="button" class="btn btn-outline-secondary" id="phoneDuplicateBtn">중복검사</button>
-					</div>
-					<div class="col-3 fs-6 d-flex justify-content-start align-items-end text-danger" id="phoneDuplicateFeedback">
-					</div>
-				</div>
-				<div class="row d-flex justify-content-center mb-3 px-4">
-					<div class="col-6 fs-6 text-danger" id="phoneFeedback">
+						<div class="fs-6 text-danger" id="phoneFeedback">
+						</div>
 					</div>
 				</div>
 				

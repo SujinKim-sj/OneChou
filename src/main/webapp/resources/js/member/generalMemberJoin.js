@@ -55,7 +55,7 @@ const joinForm = document.querySelector('#joinForm');
 
 joinBtn.addEventListener("click", function(){
     
-    if(idCheck && idDuplicateCheck && pwCheck && pwSameCheck && nameCheck && nicknameCheck && nicknameDuplicateCheck && emailCheck && emailDuplicateCheck && phoneCheck && phoneDuplicateCheck && addressCheck && noteCheck && roastingCheck && flavorCheck) {
+    if(idCheck && pwCheck && pwSameCheck && nameCheck && nicknameCheck && emailCheck && phoneCheck && addressCheck && noteCheck && roastingCheck && flavorCheck) {
         if(!confirm('회원가입하시겠습니까?')){
             return;
         } else {
@@ -64,9 +64,6 @@ joinBtn.addEventListener("click", function(){
     } else if(!idCheck) {
         alert('아이디를 확인해주세요');
         inputId.focus();
-    } else if(!idDuplicateCheck) {
-        alert('아이디 중복검사를 해주세요');
-        idDuplicateBtn.focus();
     } else if(!pwCheck) {
         alert('비밀번호를 확인 해주세요');
         inputPw.focus();
@@ -77,23 +74,14 @@ joinBtn.addEventListener("click", function(){
         alert('이름을 입력 해주세요');
         inputName.focus();
     } else if(!nicknameCheck) {
-        alert('별명을 입력해주세요');
+        alert('별명을 확인해주세요');
         inputNickname.focus();
-    } else if(!idDuplicateCheck) {
-        alert('별명 중복검사를 해주세요');
-        nicknameDuplicateBtn.focus();
     } else if(!emailCheck) {
         alert('이메일을 확인해주세요');
         inputEmail.focus();
-    } else if(!emailDuplicateCheck) {
-        alert('이메일 중복검사를 해주세요');
-        emailDuplicateBtn.focus();
     } else if(!phoneCheck) {
         alert('전화번호를 확인해주세요');
         inputPhone.focus();
-    } else if(!phoneDuplicateCheck) {
-        alert('전화번호 중복검사를 해주세요');
-        phoneDuplicateBtn.focus();
     } else if(!addressCheck) {
         alert('주소를 확인해주세요');
         inputDetailAddress.focus();

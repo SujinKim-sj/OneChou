@@ -1,12 +1,10 @@
-// 로스터리 이름 입력 검증
+// 로스터리 이름 검증
 const inputRoasteryName = document.querySelector('#inputRoasteryName');
 const roasteryNameFeedback = document.querySelector('#roasteryNameFeedback');
 
 let roasteryNameCheck = false;
 
 inputRoasteryName.addEventListener("blur", function(){
-    roasteryNameDuplicateCheck = false; // 다시 입력할 경우 다시 검사하도록
-    roasteryNameDuplicateFeedback.innerHTML = "";
 
     roasteryNameFeedback.classList.replace("text-success", "text-danger");
 
@@ -14,44 +12,23 @@ inputRoasteryName.addEventListener("blur", function(){
         roasteryNameCheck = false;
         roasteryNameFeedback.innerHTML = "로스터리 이름을 입력해주세요";
     } else {
-        roasteryNameCheck = true;
-        roasteryNameFeedback.classList.replace("text-danger", "text-success");
-        roasteryNameFeedback.innerHTML = "로스터리 이름 중복검사를 실행해주세요"
-    }
-})
+        const xhttp = new XMLHttpRequest();
 
-// 로스터리 이름 중복 검사
-const roasteryNameDuplicateBtn = document.querySelector('#roasteryNameDuplicateBtn');
-const roasteryNameDuplicateFeedback = document.querySelector('#roasteryNameDuplicateFeedback')
-
-let roasteryNameDuplicateCheck = false;
-
-roasteryNameDuplicateBtn.addEventListener("click", function(){
-    if(roasteryNameCheck == false) {
-        alert('닉네임을 먼저 입력해주세요');
-        return;
-    }
-
-    roasteryNameFeedback.innerHTML = "";
-
-    const xhttp = new XMLHttpRequest();
-
-    xhttp.open('GET','./roasteryNameDuplicateCheck?name='+inputRoasteryName.value);
-
-    xhttp.send();
-
-    xhttp.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200) {
-            result = this.responseText.trim();
-            if(result == '0') {
-                roasteryNameDuplicateCheck = true;
-                roasteryNameDuplicateFeedback.classList.replace("text-danger", "text-success");
-                roasteryNameDuplicateFeedback.innerHTML = "사용가능한 이름이에요"
-            } else {
-                roasteryNameDuplicateCheck = false;
-                roasteryNameDuplicateFeedback.classList.replace("text-success", "text-danger");
-                roasteryNameDuplicateFeedback.innerHTML = "이미 사용중인 이름이에요"
-                inputRoasteryName.focus();
+        xhttp.open('GET','./roasteryNameDuplicateCheck?name='+inputRoasteryName.value);
+    
+        xhttp.send();
+    
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200) {
+                result = this.responseText.trim();
+                if(result == '0') {
+                    roasteryNameCheck = true;
+                    roasteryNameFeedback.classList.replace("text-danger", "text-success");
+                    roasteryNameFeedback.innerHTML = "사용가능한 이름이에요"
+                } else {
+                    roasteryNameCheck = false;
+                    roasteryNameFeedback.innerHTML = "이미 사용중인 이름이에요"
+                }
             }
         }
     }
@@ -153,7 +130,7 @@ const joinForm = document.querySelector('#joinForm');
 
 joinBtn.addEventListener("click", function(){
     
-    if(idCheck && idDuplicateCheck && pwCheck && pwSameCheck && nameCheck && nicknameCheck && nicknameDuplicateCheck && emailCheck && emailDuplicateCheck && phoneCheck && phoneDuplicateCheck && addressCheck && roasteryNameCheck && roasteryNameDuplicateCheck && infoCheck && roasteryAddressCheck && imageCheck) {
+    if(idCheck && pwCheck && pwSameCheck && nameCheck && nicknameCheck && emailCheck && phoneCheck && addressCheck && roasteryNameCheck && infoCheck && roasteryAddressCheck && imageCheck) {
         if(!confirm('회원가입하시겠습니까?')){
             return;
         } else {
@@ -162,9 +139,6 @@ joinBtn.addEventListener("click", function(){
     } else if(!idCheck) {
         alert('아이디를 확인해주세요');
         inputId.focus();
-    } else if(!idDuplicateCheck) {
-        alert('아이디 중복검사를 해주세요');
-        idDuplicateBtn.focus();
     } else if(!pwCheck) {
         alert('비밀번호를 확인 해주세요');
         inputPw.focus();
@@ -175,38 +149,29 @@ joinBtn.addEventListener("click", function(){
         alert('이름을 입력 해주세요');
         inputName.focus();
     } else if(!nicknameCheck) {
-        alert('별명을 입력해주세요');
+        alert('별명을 확인해주세요');
         inputNickname.focus();
-    } else if(!idDuplicateCheck) {
-        alert('별명 중복검사를 해주세요');
-        nicknameDuplicateBtn.focus();
     } else if(!emailCheck) {
         alert('이메일을 확인해주세요');
         inputEmail.focus();
-    } else if(!emailDuplicateCheck) {
-        alert('이메일 중복검사를 해주세요');
-        emailDuplicateBtn.focus();
     } else if(!phoneCheck) {
         alert('전화번호를 확인해주세요');
         inputPhone.focus();
-    } else if(!phoneDuplicateCheck) {
-        alert('전화번호 중복검사를 해주세요');
-        phoneDuplicateBtn.focus();
     } else if(!addressCheck) {
         alert('주소를 확인해주세요');
         inputDetailAddress.focus();
     } else if(!roasteryNameCheck) {
-        alert('로스터리 이름을 입력해주세요')
+        alert('로스터리 이름을 확인해주세요');
         inputRoasteryName.focus();
     } else if(!infoCheck) {
-        alert('로스터리 설명을 입력 해주세요')
+        alert('조금이라도 로스터리를 설명해주세요');
         inputInfo.focus();
-    } else if(!roasteryAddressCheck) {
+    } else if(!roasteryAddressCheck){
         alert('로스터리 주소를 확인해주세요');
-        inputRoasteryDetailAddress.focus;
+        inputRoasteryDetailAddress.focus();
     } else {
-        alert('로스터리 이미지 파일을 확인해주세요')
-        document.querySelector('#inputImage').focus();
+        alert('로스터리 이미지를 확인해주세요')
+        document.querySelector('#imputImage').focus();
     }
 
 })

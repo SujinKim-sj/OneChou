@@ -18,23 +18,18 @@
 				<div class="text-center p-4 border-bottom border-2">
 					<h3>로스터리 정보를 입력해주세요</h3>
 				</div>
+				
 				<div class="mb-5">
 					<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
-						<div class="col-3"></div>
-						<div class="col-4">
+						<div class="col-6">
 						    <label for="inputRoasteryName" class="form-label fw-bold">로스터리 이름</label>
 						    <input type="text" class="form-control" id="inputRoasteryName" name="roasteryName" placeholder="로스터리 이름을 입력해주세요">
+							<div class="fs-6 text-danger" id="roasteryNameFeedback">
+							</div>
 					    </div>
-					    <div class="col-2 d-flex justify-content-end align-items-end">					
-							<button type="button" class="btn btn-outline-secondary" id="roasteryNameDuplicateBtn">중복검사</button>
-						</div>
-					    <div class="col-3 fs-6 d-flex justify-content-start align-items-end text-danger" id="roasteryNameDuplicateFeedback">
-						</div>
+
 					</div>
-					<div class="row d-flex justify-content-center mb-3 px-4">
-						<div class="col-6 fs-6 text-danger" id="roasteryNameFeedback">
-						</div>
-					</div>
+
 					<div class="row d-flex justify-content-center m-3 g-3">
 						<div class="col-6">
 						    <label for="inputInfo" class="form-label fw-bold">로스터리 설명</label>
@@ -43,6 +38,7 @@
 						    </div>
 						</div>				
 					</div>
+					
 					<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
 						<div class="col-4">
 						    <label for="inputRoasteryAddress" class="form-label fw-bold">로스터리 주소</label>
@@ -51,11 +47,11 @@
 						<div class="col-2 d-flex justify-content-end align-items-end">					
 							<button type="button" class="btn btn-outline-secondary" id="roasteryAddressSearchBtn" onclick="getRoasteryAddress()">주소검색</button>
 						</div>
-					</div>
+					</div>		
 					<div class="row d-flex justify-content-center mb-3 px-4">
 						<div class="col-6 fs-6 text-danger" id="roasteryAddressFeedback">
 						</div>
-					</div>
+					</div>		
 					<div class="row d-flex justify-content-center m-3 g-3">
 						<div class="col-6">
 						    <label for="inputRoasteryDetailAddress" class="form-label fw-bold">로스터리 상세주소</label>
@@ -65,6 +61,7 @@
 						    <input type="hidden" id="integratedRoasteryAddress" name="roasteryAddress">
 						</div>
 					</div>
+					
 					<div class="row d-flex justify-content-center m-3 g-3">
 						<div class="col-6">
 						    <label for="inputImage" class="form-label fw-bold">로스터리 이미지</label>
@@ -72,7 +69,7 @@
 						    <div class="fs-6 text-danger" id="imageFeedback">
 						    </div>
 						</div>
-					</div>		
+					</div>			
 				</div>
 			</div>
 		</form>
