@@ -58,7 +58,10 @@ public class HomeController {
 			mv.addObject("newestProductDTOs", productDTOs);			
 		}
 		
-
+		pager.setSorting("col2");
+		List<ProductDTO> productDTOs = productService.list(pager);
+		
+		mv.addObject("productDTOs", productDTOs);
 		mv.setViewName("index");
 		
 		return mv;

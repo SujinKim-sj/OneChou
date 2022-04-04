@@ -112,7 +112,29 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-		
+		<div class="border border-2 rounded-3 my-5" id="newestProductSection">
+			<div class="text-center p-3">
+				<h3>인기 원두</h3>
+			</div>
+		 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 p-3 g-5">
+				<c:forEach items="${productDTOs}" var="productDTO">
+					<div class="col">
+						<div class="card text-center">
+							<img src="./resources/upload/product/${productDTO.productFileDTO.fileName}" class="card-img-top" alt="...">
+							<div class="card-body">						
+							<h5 class="card-title">${productDTO.roasteryName}</h5>
+							<h6 class="card-title">${productDTO.name}</h6>
+							<p class="card-text">
+								<div>${productDTO.price}원</div>					
+							</p>
+							
+							<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
+							</div>
+						</div>
+					</div>	
+				</c:forEach>
+			</div>
+		</div>
 	</div>
 	
 	
