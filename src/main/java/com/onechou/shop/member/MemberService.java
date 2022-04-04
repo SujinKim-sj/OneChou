@@ -72,8 +72,7 @@ public class MemberService {
 				}
 			}
 		}
-		
-		
+
 		return check;
 	}
 	

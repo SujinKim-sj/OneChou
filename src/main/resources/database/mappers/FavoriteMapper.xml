@@ -15,18 +15,7 @@
 			<result column="noteName" property="noteName" />
 		</collection>
 	</resultMap>
-	<insert id="add" parameterType="FavoriteDTO">
-		<selectKey order="BEFORE" keyProperty="num"
-			resultType="Long">
-			SELECT FAVORITE_SEQ.NEXTVAL FROM DUAL
-		</selectKey>
-		INSERT INTO FAVORITE
-		VALUES(#{num}, #{roastingPoint}, #{flavor}, #{memberId})
-	</insert>
-	<insert id="noteAdd" parameterType="CupnoteDTO">
-		INSERT INTO CUPNOTE
-		VALUES(CUPNOTE_SEQ.NEXTVAL,#{noteName},#{favoriteNum})
-	</insert>
+
 	<update id="update" parameterType="FavoriteDTO">
 		UPDATE FAVORITE 
 		SET ROASTINGPOINT = #{roastingPoint}, FLAVOR = #{flavor}

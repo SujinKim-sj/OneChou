@@ -20,26 +20,6 @@ public class RoasteryController {
 	@Autowired
 	private RoasteryService roasteryService;
 	
-	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public void add(HttpSession session) throws Exception{
-		session.getAttribute("member");
-	}
-	
-	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String add(RoasteryDTO roasteryDTO,MultipartFile file,Model model) throws Exception{		
-		int result = roasteryService.add(roasteryDTO,file);
-		
-		String message = "roastery fail";
-		String p = "redirect:./add";
-		if(result>0) {
-			message = "roastery Success";
-				p = "../";
-		}
-		model.addAttribute("message", message);
-		model.addAttribute("path", p);
-		String path = "common/result";
-		return path;
-	}
 	
 	@GetMapping("update")
 	public ModelAndView update (HttpSession session) throws Exception {
@@ -78,15 +58,5 @@ public class RoasteryController {
 		mv.setViewName("roastery/detail");
 		return mv;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
