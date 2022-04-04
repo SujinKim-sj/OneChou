@@ -4,16 +4,44 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
-	<title>Home</title>
+	<title>OneChou</title>
 	<c:import url="./template/css_import.jsp"></c:import>
 </head>
 <body>
 	<c:import url="./template/header.jsp"></c:import>
 	<div class="container">
+		<div class="row row-cols-1 row-cols-lg-2 align-items-stretch g-4 py-5">
+	      <div class="col">
+	        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('./resources/indexImage/블랙워터이슈1.jpg');">
+	          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+	            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><a class="text-decoration-none link-light" href="https://bwissue.com/news/1817865" target='_blank'>콘티(Conti)에서 출시한 <br>1그룹 에스프레소 머신,<br> 에이스(ACE)</a></h2>
+	            <ul class="d-flex list-unstyled justify-content-end mt-auto">
+	              <li class="d-flex align-items-center">
+	                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
+	                <small>2022-03-28</small>
+	              </li>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
+	
+	      <div class="col">
+	        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('./resources/indexImage/블랙워터이슈2.png');">
+	          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+	            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><a class="text-decoration-none link-light" href="https://bwissue.com/news/1813618" target='_blank'>CAFE A에서 진행되는<br>박승규 게스트 바리스타 행사</a></h2>
+	            <ul class="d-flex list-unstyled justify-content-end mt-auto">
+	              <li class="d-flex align-items-center">
+	                <small>2022-03-22</small>
+	              </li>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
+		</div>
 		
 		<c:choose>
 			<c:when test="${member.kind == 2 && fn:length(recommendedProductDTOs) != 0}">
-				<div class="border border-2 rounded-3 my-5" id="recommendedProductSection">
+				<div class="border border-2 border-secondary rounded-3 mt-2 mb-5" id="recommendedProductSection">
 						<div class="text-center p-3">
 							<h3>${member.nickname}님을 위한 추천원두</h3>
 						</div>
@@ -87,7 +115,7 @@
 			</c:when>
 			
 			<c:otherwise>
-				<div class="border border-2 rounded-3 my-5" id="newestProductSection">
+				<div class="border border-2 border-secondary rounded-3 mt-2 mb-5" id="newestProductSection">
 					<div class="text-center p-3">
 						<h3>최근에 등록된 신상 원두</h3>
 					</div>
@@ -112,7 +140,7 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-		<div class="border border-2 rounded-3 my-5" id="newestProductSection">
+		<div class="border border-2 border-secondary rounded-3 my-5" id="newestProductSection">
 			<div class="text-center p-3">
 				<h3>인기 원두</h3>
 			</div>
