@@ -87,6 +87,10 @@
 		VALUES (CUPNOTE_SEQ.NEXTVAL, #{noteName}, #{favoriteNum})
 	</insert>
 	
+	<select id="memberDetail" parameterType="MemberDTO" resultType="MemberDTO">
+		SELECT * FROM MEMBER WHERE ID = #{id}
+	</select>
+	
 	<update id="update" parameterType="MemberDTO">
 		UPDATE MEMBER 
 		SET PW=#{pw} ,NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickname}, ADDRESS=#{address}

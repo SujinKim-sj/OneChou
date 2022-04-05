@@ -114,5 +114,7 @@ public class MemberService {
 		return memberDAO.roasteryFile(roasteryDTO);
 	}
 
-	
+	public MemberDTO memberDetail(MemberDTO memberDTO) throws Exception {
+		return memberDAO.memberDetail(memberDTO);
+	}
 }

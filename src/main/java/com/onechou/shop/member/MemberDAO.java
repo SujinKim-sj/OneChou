@@ -82,5 +82,9 @@ public class MemberDAO {
 	public RoasteryFileDTO roasteryFile(RoasteryDTO roasteryDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"roasteryFile", roasteryDTO);
 	}
+	
+	public MemberDTO memberDetail(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"memberDetail", memberDTO);
+	}
 
 }
