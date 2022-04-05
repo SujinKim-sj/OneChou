@@ -210,14 +210,15 @@ public class MemberController {
 			List<CupnoteDTO> cupnoteDTOs = memberService.noteDetail(favoriteDTO);
 			favoriteDTO.setCupnoteDTOs(cupnoteDTOs);
 			memberDTO.setFavoriteDTO(favoriteDTO);
+			mv.setViewName("member/generalMemberMypage");
 		}
 		else if (memberDTO.getKind()==1) {
 			RoasteryDTO roasteryDTO = memberService.roasteryDetail(memberDTO);
 			RoasteryFileDTO roasteryFileDTO = memberService.roasteryFile(roasteryDTO);
 			roasteryDTO.setRoasteryFileDTO(roasteryFileDTO);
 			memberDTO.setRoasteryDTO(roasteryDTO);
+			mv.setViewName("member/roasteryMemberMypage");
 		}
-		mv.setViewName("member/mypage");
 		mv.addObject("dto", memberDTO);
 		return mv;
 	} 
