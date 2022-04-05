@@ -137,6 +137,9 @@
 							</div>	
 						</c:forEach>
 					</div>
+					<div class="text-end">
+							<a href="./product/list?sorting=col1" class="btn btn-outline-secondary m-3">최신원두 더보기</a>
+					</div>
 				</div>
 			</c:otherwise>
 		</c:choose>
@@ -161,6 +164,9 @@
 						</div>
 					</div>	
 				</c:forEach>
+			</div>
+			<div class="text-end">
+				<a href="./product/list?sorting=col2" class="btn btn-outline-secondary m-3">인기원두 더보기</a>
 			</div>
 		</div>
 	</div>

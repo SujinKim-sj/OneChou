@@ -3,10 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 				<c:choose>
 					<c:when test="${empty reviewDTOs}">
-						<h5 class="text-center">아직 이 상품에는 아무런 리뷰도 없어요</h5>
+						<div class="my-5 text-center">
+							<h5>아직 이 상품에는 아무런 리뷰도 없어요</h5>
+						</div>
 					</c:when>
 					<c:otherwise>
-						<table class="table">
+						<table class="table my-4">
 							<thead>
 							  <tr>
 								<th scope="col">별점</th>

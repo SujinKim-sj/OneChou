@@ -169,8 +169,8 @@
 			</div>
 		</div>
 
-		<div class="row mt-5 mb-5 border border-2 rounded" id="reviewSection2">
-			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
+		<div class="row mt-5 mb-5 border border-2 rounded">
+			<div class="py-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
 				<p class="text-center fs-2">원두리뷰</p>
 			</div>
 			<div class="mt-3 mb-3" id="reviewSection">
@@ -179,10 +179,10 @@
 		</div>
 
 		<div class="row mt-5 mb-5 border border-2 rounded">
-			<div class="pt-3 pb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
+			<div class="py-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
 				<p class="text-center fs-2 mb-0">원두질문</p>
 			</div>
-			<div id="qnaSection">
+			<div class="mt-3 mb-3" id="qnaSection">
 
 			</div>
 		</div>
