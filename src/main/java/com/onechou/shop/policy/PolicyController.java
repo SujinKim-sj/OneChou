@@ -12,5 +12,10 @@ public class PolicyController {
 	public void service() throws Exception {
 		
 	}
+	
+	@GetMapping("privacy")
+	public void privacy() throws Exception {
+		
+	}
 
 }

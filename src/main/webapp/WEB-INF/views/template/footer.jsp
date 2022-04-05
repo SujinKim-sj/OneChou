@@ -13,7 +13,7 @@
 		      <h5>이용약관</h5>
 		        <ul class="nav flex-column">
 		          <li class="nav-item my-2"><a href="/shop/policy/service" class="nav-link p-0 text-muted">표준약관</a></li>
-		          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">개인정보처리방침</a></li>
+		          <li class="nav-item mb-2"><a href="/shop/policy/privacy" class="nav-link p-0 text-muted">개인정보처리방침</a></li>
 		          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">사업자정보확인</a></li>
 		        </ul>
 	      </div>
