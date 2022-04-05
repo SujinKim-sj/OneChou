@@ -16,28 +16,72 @@ label {
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-	<form action="" class="frm" method="post" id="frm"
-		enctype="multipart/form-data">
-		<input type="hidden" name="num" value="${roastery.num}">
-		<input type="hidden" name="memberId" value="${member.id}">
-		<fieldset>
-			<legend>로스터리 이름</legend>
-			<input type="text" class="roastery" name="name" id="name" value="${roastery.name}">
-		</fieldset>
-		<fieldset>
-			<legend>주소</legend>
-			<input type="text" class="roastery" name="address" id="address" value="${roastery.address}">
-		</fieldset>
-		<fieldset>
-			<legend>설명</legend>
-			<textarea rows="15" cols="80" name="info" class="roastery" id="info">${roastery.name}</textarea>
-		</fieldset>
-		<fieldset>
-			<input type="file" id="file" name="file">
-		</fieldset>
-		<button type="button" id="btn">수정완료</button>
-	</form>
+	<div class="container my-5" style="width: 75%">
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-6">
+				<form action="" class="frm justify-content-center border rounded"
+					method="post" id="updateForm" enctype="multipart/form-data">
+					<div class="row">
+						<div class="col"></div>
+						<div class="col-8 my-3">
+							<input type="hidden" name="num" value="${roastery.num}">
+							<input type="hidden" name="memberId" value="${member.id}">
+							<fieldset>
+								<legend>로스터리 이름</legend>
+								<input type="text" class="roastery form-control" name="name"
+									id="inputRoasteryName" value="${roastery.name}"
+									placeholder="로스터리명을 입력하세요.">
+								<div id="roasteryNameFeedback"></div>
+							</fieldset>
+									<div style="height: 10px"></div>
+							<fieldset>
+								<legend>주소</legend>
+								<input type="text" class="roastery form-control" readonly name="address"
+									id="inputRoasteryAddress" value="${roastery.address}"
+									placeholder="주소를 입력해주세요.">
+									<div style="height: 10px"></div>
+								<button type="button" class="btn btn-primary" onclick="getRoasteryAddress()">주소
+									찾기</button>
+								<div id="roasteryAddressFeedback"></div>
+									<div style="height: 10px"></div>
+								<input type="text" class="form-control"
+									id="inputRoasteryDetailAddress">
+								<div id="roasteryDetailAddressFeedback"></div>
+								<input type="hidden" id="integratedRoasteryAddress"
+									name="roasteryAddress">
+							</fieldset>
+									<div style="height: 10px"></div>
+							<fieldset>
+								<legend>설명</legend>
+								<textarea rows="12%" cols="30%" name="info"
+									class="roastery form-control" id="inputInfo"
+									placeholder="설명을 작성해주세요.">${roastery.name}</textarea>
+								<div id="infoFeedback"></div>
+							</fieldset>
+									<div style="height: 10px"></div>
 
-	<script type="text/javascript" src="../resources/js/roastery/add.js"></script>
+							<fieldset>
+								<legend>로스터리 이미지</legend>
+								<input type="file" id="file" name="file" class="form-control"
+									onchange="fileTypeCheck(this)"
+									accept="image/gif, image/jpeg, image/png">
+								<div id="imageFeedback"></div>
+							</fieldset>
+							<p></p>
+							<button type="button" id="updateBtn" class="btn btn-primary">수정완료</button>
+						</div>
+						<div class="col"></div>
+					</div>
+				</form>
+			</div>
+			<div class="col"></div>
+		</div>
+
+	</div>
+	<script type="text/javascript"
+		src="../resources/js/member/roasteryMemberUpdate.js"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>
