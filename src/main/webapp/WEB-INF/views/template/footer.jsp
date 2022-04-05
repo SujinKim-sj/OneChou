@@ -5,7 +5,7 @@
 	      <div class="col-3">
 	        <h5>OneChou</h5>
 	        <ul class="nav flex-column">
-	          <li class="nav-item my-2"><a href="#" class="nav-link p-0 text-muted">소개</a></li>
+	          <li class="nav-item my-2"><a href="/shop/introduce" class="nav-link p-0 text-muted">소개</a></li>
 	        </ul>
 	      </div>
 	      

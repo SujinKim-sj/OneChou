@@ -102,7 +102,7 @@
 	  											</ul>
 											</div>						
 										</p>									
-										<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
+										<a href="./product/detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
 										</div>
 									</div>
 								</div>	
@@ -131,7 +131,7 @@
 										<div>${productDTO.price}원</div>					
 									</p>
 									
-									<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
+									<a href="./product/detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
 									</div>
 								</div>
 							</div>	
@@ -159,7 +159,7 @@
 								<div>${productDTO.price}원</div>					
 							</p>
 							
-							<a href="./detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
+							<a href="./product/detail?num=${productDTO.num}" class="btn btn-secondary">상세정보보기</a>
 							</div>
 						</div>
 					</div>	
