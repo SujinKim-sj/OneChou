@@ -39,6 +39,23 @@
 						
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/product/recommendedList"/>
+			<mapping path="/payment/list"/>
+			<mapping path="/payment/detail"/>
+			<mapping path="/cart/**"/>
+
+			<beans:ref bean="generalMemberCheckInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/product/add"/>
+			<mapping path="/product/myList"/>
+			<mapping path="/payment/shipmentList"/>
+			
+			<beans:ref bean="roasteryMemberCheckIntercepter"/>
+		</interceptor>
 	
 	</interceptors>
 	

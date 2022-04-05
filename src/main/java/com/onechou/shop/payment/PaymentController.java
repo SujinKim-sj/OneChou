@@ -39,7 +39,7 @@ public class PaymentController {
 		model.addAttribute("cartDTOs", cartDTOs);
 	}
 	
-	@PostMapping
+	@PostMapping("addResult")
 	public ModelAndView addResult(HttpSession session, PaymentDTO paymentDTO, DeliveryDTO deliveryDTO, String[] perPrices, String[] amounts, String[] productNums, String[] optionNums,String[] roasteryNums, String[] nums) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		

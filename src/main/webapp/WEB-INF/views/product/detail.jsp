@@ -150,13 +150,15 @@
 						<td colspan="1" id="showPerPrice"></td>
 					</tr>
 				</table>
-				<div class="d-flex justify-content-between mb-3">
-					<button class="btn btn-secondary" id="cartBtn" type="button">장바구니담기</button>
-					<form action="../payment/add" method="post" id="payForm">
-						<input type="hidden" id="cartNum" name="nums">
-					</form>
-					<button class="btn btn-secondary" id="paymentBtn" type="button">바로구매하기</button>
-				</div>
+				<c:if test="${member.kind == 2}">
+					<div class="d-flex justify-content-between mb-3">
+						<button class="btn btn-secondary" id="cartBtn" type="button">장바구니담기</button>
+						<form action="../payment/add" method="post" id="payForm">
+							<input type="hidden" id="cartNum" name="nums">
+						</form>
+						<button class="btn btn-secondary" id="paymentBtn" type="button">바로구매하기</button>
+					</div>
+				</c:if>
 			</div>	
 		</div>
 
