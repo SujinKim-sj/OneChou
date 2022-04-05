@@ -229,9 +229,10 @@ public class MemberController {
 	@RequestMapping(value = "updateCheck", method = RequestMethod.POST)
 	public String updateCheck(Model model,MemberDTO memberDTO,HttpSession session)throws Exception{
 		MemberDTO mem = (MemberDTO)session.getAttribute("member");
+		memberDTO = memberService.updateCheck(memberDTO);
 		String message="Check fail";
 		String path="./updateCheck";
-		if(mem.getId().equals(memberDTO.getId())&&mem.getPw().equals(memberDTO.getPw())) {
+		if(mem.getId().equals(memberDTO.getId())) {
 			message="Check Success";
 			path="./update";
 		}
@@ -242,8 +243,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(value = "update",method = RequestMethod.GET)
-	public void update(HttpSession session)throws Exception{
-		session.getAttribute("member");
+	public void update(MemberDTO memberDTO)throws Exception{
 	}
 
 	@RequestMapping(value = "update",method = RequestMethod.POST)

@@ -35,24 +35,20 @@ label {
 							<div class="border-bottom border-1 border-dark"
 								style="width: 100%;"></div>
 							<h3>ID</h3>
-							<input type="Text" class="form-control" readonly="readonly"
-								value="${dto.id}">
+							<div><h3>${dto.id}</h3></div>
 							<p>
 							<h3>이름</h3>
-							<input type="Text" class="form-control" readonly="readonly"
-								value="${dto.name}">
+							<h3>${dto.name}</h3>
 							<p>
 							<h3>별명</h3>
-							<input type="Text" class="form-control" readonly="readonly"
-								value="${dto.nickname}">
+							<h3>${dto.nickname}</h3> 
 							<p>
 							<h3>이메일 주소</h3>
-							<input type="Text" class="form-control" readonly="readonly"
-								value="${dto.email}">
+							<h3>${dto.email}</h3>
 							<p>
 							<h3>전화번호</h3>
-							<input type="Text" class="form-control" readonly="readonly"
-								value="${dto.phone}"> <input type="hidden" name="kind"
+							<h3>${dto.phone}</h3> 
+							<input type="hidden" name="kind"
 								value='${dto.kind}'>
 							<p>
 							<div>

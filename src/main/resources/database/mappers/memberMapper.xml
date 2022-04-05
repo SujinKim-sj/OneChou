@@ -5,7 +5,7 @@
    
 <mapper namespace="com.onechou.shop.member.MemberDAO">
 	<select id="login" parameterType="MemberDTO" resultType="MemberDTO">
-		SELECT *
+		SELECT ID,NICKNAME,KIND
 		FROM MEMBER 
 		WHERE ID = #{id} AND PW = #{pw}
 	</select>
@@ -87,6 +87,7 @@
 		VALUES (CUPNOTE_SEQ.NEXTVAL, #{noteName}, #{favoriteNum})
 	</insert>
 	
+
 	<update id="update" parameterType="MemberDTO">
 		UPDATE MEMBER 
 		SET PW=#{pw} ,NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickname}, ADDRESS=#{address}

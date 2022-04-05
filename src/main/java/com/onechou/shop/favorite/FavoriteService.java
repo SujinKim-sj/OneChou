@@ -27,6 +27,6 @@ public class FavoriteService {
 	public List<CupnoteDTO> noteList(FavoriteDTO favoriteDTO) throws Exception{
 		return favoriteDAO.noteList(favoriteDTO);
 	}
-
+	
 
 }

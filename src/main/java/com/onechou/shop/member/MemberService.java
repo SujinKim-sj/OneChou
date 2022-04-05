@@ -25,6 +25,10 @@ public class MemberService {
 		return memberDAO.login(memberDTO);
 	}
 	
+	public MemberDTO updateCheck(MemberDTO memberDTO) throws Exception{
+		return memberDAO.updateCheck(memberDTO);
+	}
+	
 	public boolean join(MemberDTO memberDTO, MultipartFile image) throws Exception{
 		boolean check = true;
 		

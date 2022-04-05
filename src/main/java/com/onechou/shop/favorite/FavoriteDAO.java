@@ -32,4 +32,5 @@ public class FavoriteDAO {
 		return sqlSession.selectList(namespace+"noteList",favoriteDTO);
 	}
 
+
 }
