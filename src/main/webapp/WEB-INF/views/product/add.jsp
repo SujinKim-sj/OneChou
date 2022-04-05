@@ -10,7 +10,7 @@
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-    <div class="container mt-5">
+    <div class="container my-5">
         <form action="./add" id="frm" enctype="multipart/form-data" method="post">
 	        <input type="hidden" name="roasteryName" value="${roasteryDTO.name}">
 	        <input type="hidden" name="roasteryNum" value="${roasteryDTO.num}">            
@@ -202,9 +202,11 @@
             </div>
         </form>
     </div>
-
+    
+	<c:import url="../template/footer.jsp"></c:import>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="../resources/js/product/add.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 
 </body>

@@ -171,7 +171,7 @@ joinBtn.addEventListener("click", function(){
         inputRoasteryDetailAddress.focus();
     } else {
         alert('로스터리 이미지를 확인해주세요')
-        document.querySelector('#imputImage').focus();
+        document.querySelector('#inputImage').focus();
     }
 
 })

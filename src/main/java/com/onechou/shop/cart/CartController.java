@@ -45,7 +45,7 @@ public class CartController {
 		List<CartDTO> cartDTOs = cartService.list(memberDTO);
 		
 		mv.addObject("cartDTOs", cartDTOs);
-		mv.setViewName("ajax/cart/list");
+		mv.setViewName("cart/list");
 		return mv;
 	}
 	

@@ -13,7 +13,7 @@
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	
-	<div class="container">
+	<div class="container my-5">
 		<form action="./join" method="post" id="joinForm">
 			<input type="hidden" name="kind" value="2">
 			<c:import url="./commonInfoForm.jsp"></c:import>
@@ -118,8 +118,10 @@
 			<button type="button" class="btn btn-outline-secondary" id="joinBtn">회원가입하기</button>
 		</div>
 	</div>
+
+	<c:import url="../template/footer.jsp"></c:import>
 	
-	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>		
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
 	<script type="text/javascript" src="../resources/js/member/commonInfoCheck.js"></script>

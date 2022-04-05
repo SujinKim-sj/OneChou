@@ -12,7 +12,7 @@
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	
-	<div class="container mt-5">
+	<div class="container my-5">
 
 		<div class="row row-cols-2 border border-2 rounded">
 			<div class="col col-5">
@@ -169,8 +169,8 @@
 			</div>
 		</div>
 
-		<div class="row mt-5 mb-5 border border-2 rounded" id="reviewSection2">
-			<div class="pt-3 mb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
+		<div class="row mt-5 mb-5 border border-2 rounded">
+			<div class="py-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
 				<p class="text-center fs-2">원두리뷰</p>
 			</div>
 			<div class="mt-3 mb-3" id="reviewSection">
@@ -179,17 +179,19 @@
 		</div>
 
 		<div class="row mt-5 mb-5 border border-2 rounded">
-			<div class="pt-3 pb-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
+			<div class="py-3 border-bottom bg-success p-2 text-dark bg-opacity-10">
 				<p class="text-center fs-2 mb-0">원두질문</p>
 			</div>
-			<div id="qnaSection">
+			<div class="mt-3 mb-3" id="qnaSection">
 
 			</div>
 		</div>
 
 	</div>
 	
+	<c:import url="../template/footer.jsp"></c:import>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>	
 	<script src="../resources/js/product/detail.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
