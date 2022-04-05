@@ -5,83 +5,95 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:import url="../template/css_import.jsp"></c:import>
-<style type="text/css">
-label {
-	margin: 10px;
-}
-</style>
+	<c:import url="../template/css_import.jsp"></c:import>
+	<link rel="stylesheet" type="text/css" href="../resources/css/roastery/update.css">
 
 <title>Insert title here</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-	<div class="container my-5" style="width: 75%">
-		<div class="row">
-			<div class="col"></div>
-			<div class="col-6">
-				<form action="" class="frm justify-content-center border rounded"
-					method="post" id="updateForm" enctype="multipart/form-data">
-					<div class="row">
-						<div class="col"></div>
-						<div class="col-8 my-3">
-							<input type="hidden" name="num" value="${roastery.num}">
-							<input type="hidden" name="memberId" value="${member.id}">
-							<fieldset>
-								<legend>로스터리 이름</legend>
-								<input type="text" class="roastery form-control" name="name"
-									id="inputRoasteryName" value="${roastery.name}"
-									placeholder="로스터리명을 입력하세요.">
-								<div id="roasteryNameFeedback"></div>
-							</fieldset>
-									<div style="height: 10px"></div>
-							<fieldset>
-								<legend>주소</legend>
-								<input type="text" class="roastery form-control" readonly name="address"
-									id="inputRoasteryAddress" value="${roastery.address}"
-									placeholder="주소를 입력해주세요.">
-									<div style="height: 10px"></div>
-								<button type="button" class="btn btn-primary" onclick="getRoasteryAddress()">주소
-									찾기</button>
-								<div id="roasteryAddressFeedback"></div>
-									<div style="height: 10px"></div>
-								<input type="text" class="form-control"
-									id="inputRoasteryDetailAddress">
-								<div id="roasteryDetailAddressFeedback"></div>
-								<input type="hidden" id="integratedRoasteryAddress"
-									name="roasteryAddress">
-							</fieldset>
-									<div style="height: 10px"></div>
-							<fieldset>
-								<legend>설명</legend>
-								<textarea rows="12%" cols="30%" name="info"
-									class="roastery form-control" id="inputInfo"
-									placeholder="설명을 작성해주세요.">${roastery.name}</textarea>
-								<div id="infoFeedback"></div>
-							</fieldset>
-									<div style="height: 10px"></div>
+	<div class="container my-5">
+		<form action="./join" method="post" id="joinForm" enctype="multipart/form-data">
+			<input type="hidden" name="kind" value="1">
+			<div class="border border-2 rounded-3 m-5">
+				<div class="text-center p-4 border-bottom border-2">
+					<h3>로스터리 정보를 입력해주세요</h3>
+				</div>
+				
+				<div class="mb-5">
+					<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
+						<div class="col-6">
+						    <label for="inputRoasteryName" class="form-label fw-bold">로스터리 이름</label>
+						    <input type="text" class="form-control" id="inputRoasteryName" name="roasteryName" value="${roasteryDTO.name}" placeholder="로스터리 이름을 입력해주세요">
+							<div class="fs-6 text-danger" id="roasteryNameFeedback">
+							</div>
+					    </div>
 
-							<fieldset>
-								<legend>로스터리 이미지</legend>
-								<input type="file" id="file" name="file" class="form-control"
-									onchange="fileTypeCheck(this)"
-									accept="image/gif, image/jpeg, image/png">
-								<div id="imageFeedback"></div>
-							</fieldset>
-							<p></p>
-							<button type="button" id="updateBtn" class="btn btn-primary">수정완료</button>
-						</div>
-						<div class="col"></div>
 					</div>
-				</form>
-			</div>
-			<div class="col"></div>
-		</div>
 
+					<div class="row d-flex justify-content-center m-3 g-3">
+						<div class="col-6">
+						    <label for="inputInfo" class="form-label fw-bold">로스터리 설명</label>
+						    <textarea class="form-control" id="inputInfo" name="info" placeholder="자유롭게 로스터리를 설명해주세요" rows="10">${roasteryDTO.info}</textarea>
+						    <div class="fs-6 text-danger" id="infoFeedback">
+						    </div>
+						</div>				
+					</div>
+					
+					<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
+						<div class="col-4">
+						    <label for="inputRoasteryAddress" class="form-label fw-bold">로스터리 주소</label>
+						    <input type="text" class="form-control" id="inputRoasteryAddress" placeholder="주소를 검색해주세요" readonly>
+						</div>
+						<div class="col-2 d-flex justify-content-end align-items-end">					
+							<button type="button" class="btn btn-outline-secondary" id="roasteryAddressSearchBtn" onclick="getRoasteryAddress()">주소검색</button>
+						</div>
+					</div>		
+					<div class="row d-flex justify-content-center mb-3 px-4">
+						<div class="col-6 fs-6 text-danger" id="roasteryAddressFeedback">
+						</div>
+					</div>		
+					<div class="row d-flex justify-content-center m-3 g-3">
+						<div class="col-6">
+						    <label for="inputRoasteryDetailAddress" class="form-label fw-bold">로스터리 상세주소</label>
+						    <input type="text" class="form-control" id="inputRoasteryDetailAddress" placeholder="로스터리 상세주소를 입력해주세요">
+						    <div class="fs-6 text-danger" id="roasteryDetailAddressFeedback">
+						    </div>
+						    <input type="hidden" id="integratedRoasteryAddress" name="roasteryAddress">
+						</div>
+					</div>
+					
+					<div id="roasteryImageDiv" class="row d-flex justify-content-center m-3 g-3">
+	                    <div id="originalImage" class="col-6 d-flex justify-content-between align-items-end m-3">
+	                        <input type="hidden" name="fileName" value="${roasteryDTO.roasteryFileDTO.fileName}">
+	                        <input type="hidden" name="oriName" value="${roasteryDTO.roasteryFileDTO.oriName}">                	
+	                        <div class="d-flex align-items-end">
+		                        <img class="roasteryImg" src="../resources/upload/roastery/${roasteryDTO.roasteryFileDTO.fileName}">
+	                        </div>                
+	                        <div class="mb-2"><button type="button" class="btn btn-secondary" id="changeImageBtn">로스터리 이미지 변경하기</button></div>
+	                    </div>
+	                    <!-- 변경버튼을 누르면 위 코드가 삭제되고 아래 코드가 생성됨 
+							<div class="row d-flex justify-content-center m-3 g-3">
+								<div class="col-6">
+								    <label for="inputImage" class="form-label fw-bold">로스터리 이미지</label>
+								    <input type="file" class="form-control" id="inputImage" name="image" onchange="fileTypeCheck(this)" accept="image/gif, image/jpeg, image/png">
+								    <div class="fs-6 text-danger" id="imageFeedback">
+								    </div>
+								</div>
+							</div>
+	                         -->
+	                </div>							
+				</div>
+			</div>
+		</form>
+		<div class="text-center my-5">
+			<button type="button" class="btn btn-outline-secondary" id="updateBtn">정보수정하기</button>
+		</div>
 	</div>
-	<script type="text/javascript"
-		src="../resources/js/member/roasteryMemberUpdate.js"></script>
-	<script
-		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+	<script type="text/javascript" src="../resources/js/roastery/update.js"></script>
+	
 </body>
 </html>

@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="detail" parameterType="RoasteryDTO" resultMap="detailResult">
-		SELECT A.*, B.FILENAME
+		SELECT A.*, B.FILENAME, B.ORINAME
 		FROM ROASTERY A
 		JOIN ROASTERYFILE B
 		ON A.NUM = B.ROASTERYNUM
@@ -35,6 +35,7 @@
 		<association property="roasteryFileDTO" javaType="RoasteryFileDTO">
 			<id column="fileNum" property="fileNum"/>
 			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
 		</association>
 		
 	</resultMap>

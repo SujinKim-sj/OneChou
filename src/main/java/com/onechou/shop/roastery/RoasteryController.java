@@ -21,18 +21,14 @@ public class RoasteryController {
 	private RoasteryService roasteryService;
 	
 	
-	@GetMapping("update")
-	public ModelAndView update (HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		RoasteryDTO roasteryDTO = roasteryService.detail(memberDTO);
-		mv.setViewName("roastery/update");
-		mv.addObject("member", memberDTO);
-		mv.addObject("roastery", roasteryDTO);
-		return mv;
-	}
 	@PostMapping("update")
-	public String update(RoasteryDTO roasteryDTO, MultipartFile file, Model model) throws Exception{
+	public void update(RoasteryDTO roasteryDTO, Model model) throws Exception {
+		roasteryDTO = roasteryService.detail(roasteryDTO);
+		
+		model.addAttribute("roasteryDTO", roasteryDTO);
+	}
+	@PostMapping("updateResult")
+	public String updateResult(RoasteryDTO roasteryDTO, MultipartFile file, Model model) throws Exception{
 		int result = roasteryService.update(roasteryDTO,file);
 		
 		String message = "roastery update fail";
