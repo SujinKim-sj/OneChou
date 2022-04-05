@@ -98,20 +98,13 @@ public class MemberService {
 	public int update(MemberDTO memberDTO) throws Exception{
 		return memberDAO.update(memberDTO);
 	}
-	public MemberDTO mypage(MemberDTO memberDTO) throws Exception{
-		return memberDAO.mypage(memberDTO);
+	
+	public MemberDTO genenalMemberMypage(MemberDTO memberDTO) throws Exception {
+		return memberDAO.genenalMemberMypage(memberDTO);
 	}
-	public FavoriteDTO favoriteDetail(MemberDTO memberDTO) throws Exception{
-		return memberDAO.favoriteDetail(memberDTO);
-	}
-	public List<CupnoteDTO> noteDetail(FavoriteDTO favoriteDTO) throws Exception{
-		return memberDAO.noteDetail(favoriteDTO);
-	}
-	public RoasteryDTO roasteryDetail(MemberDTO memberDTO) throws Exception{
-		return memberDAO.roasteryDetail(memberDTO);
-	}
-	public RoasteryFileDTO roasteryFile(RoasteryDTO roasteryDTO) throws Exception{
-		return memberDAO.roasteryFile(roasteryDTO);
+	
+	public MemberDTO roasteryMemberMypage(MemberDTO memberDTO) throws Exception {
+		return memberDAO.roasteryMemberMypage(memberDTO);
 	}
 
 	public MemberDTO memberDetail(MemberDTO memberDTO) throws Exception {

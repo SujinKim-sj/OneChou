@@ -17,7 +17,25 @@
 		SELECT * FROM ROASTERYFILE WHERE ROASTERYNUM=#{num}
 	</select>
 	
-	<select id="detail" parameterType="MemberDTO" resultType="RoasteryDTO">
-		SELECT * FROM ROASTERY WHERE MEMBERID = #{id}
+	<select id="detail" parameterType="RoasteryDTO" resultMap="detailResult">
+		SELECT A.*, B.FILENAME
+		FROM ROASTERY A
+		JOIN ROASTERYFILE B
+		ON A.NUM = B.ROASTERYNUM
+		WHERE A.NUM = #{num}
 	</select>
+	
+	<resultMap type="RoasteryDTO" id="detailResult">
+		<id column="num" property="num"/>
+		<result column="name" property="name"/>
+		<result column="info" property="info"/>
+		<result column="address" property="address"/>
+		<result column="memberId" property="memberId"/>
+		
+		<association property="roasteryFileDTO" javaType="RoasteryFileDTO">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+		</association>
+		
+	</resultMap>
 </mapper>

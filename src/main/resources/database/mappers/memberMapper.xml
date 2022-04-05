@@ -9,22 +9,48 @@
 		FROM MEMBER 
 		WHERE ID = #{id} AND PW = #{pw}
 	</select>
-	<select id="mypage" parameterType="MemberDTO" resultType="MemberDTO">
-		SELECT *
-		FROM MEMBER
-		WHERE ID=#{id}
+	
+	<select id="genenalMemberMypage" parameterType="MemberDTO" resultMap="mypageResult">
+		SELECT A.ID, A.NAME, A.EMAIL, A.PHONE, A.NICKNAME, A.ADDRESS, A.KIND, B.ROASTINGPOINT, B.FLAVOR, C.NOTENAME
+		FROM MEMBER A
+		JOIN FAVORITE B
+		ON A.ID = B.MEMBERID
+		JOIN CUPNOTE C
+		ON B.NUM = C.FAVORITENUM
+		WHERE A.ID = #{id}
+	</select>
+	
+	<resultMap type="MemberDTO" id="mypageResult">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+		<result column="nickname" property="nickname"/>
+		<result column="address" property="address"/>
+		<result column="kind" property="kind"/>
+		
+		<association property="favoriteDTO" javaType="FavoriteDTO">
+			<result column="roastingPoint" property="roastingPoint"/>
+			<result column="flavor" property="flavor"/>
+			<collection property="cupnoteDTOs" javaType="List" ofType="CupnoteDTO">
+				<result column="noteName" property="noteName"/>
+			</collection>
+		</association>		
+		
+		<association property="roasteryDTO" javaType="RoasteryDTO">
+			<id column="roasteryNum" property="num"/>
+			<result column="roasteryName" property="name"/>
+		</association>
+	</resultMap>
+	
+	<select id="roasteryMemberMypage" parameterType="MemberDTO" resultMap="mypageResult">
+		SELECT A.NAME, A.EMAIL, A.PHONE, A.NICKNAME, A.ADDRESS, A.KIND, B.NUM AS ROASTERYNUM, B.NAME AS ROASTERYNAME
+		FROM MEMBER A
+		JOIN ROASTERY B
+		ON A.ID = B.MEMBERID
+		WHERE A.ID = #{id}
 	</select>
 
-	<select id="favoriteDetail" parameterType="MemberDTO" resultType="FavoriteDTO">
-		SELECT *
-		FROM FAVORITE
-		WHERE MEMBERID=#{id}
-	</select>
-	<select id="noteDetail" parameterType="FavoriteDTO" resultType="CupnoteDTO">
-		SELECT * 
-		FROM CUPNOTE
-		WHERE FAVORITENUM = #{num}
-	</select>
 	<select id="roasteryDetail" parameterType="MemberDTO" resultType="RoasteryDTO">
 		SELECT *
 		FROM ROASTERY

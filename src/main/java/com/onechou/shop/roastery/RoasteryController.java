@@ -48,15 +48,11 @@ public class RoasteryController {
 
 	}
 	@GetMapping("detail")
-	public ModelAndView detail(HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		RoasteryDTO roasteryDTO = roasteryService.detail(memberDTO);
-		RoasteryFileDTO roasteryFileDTO = roasteryService.file(roasteryDTO);
-		roasteryDTO.setRoasteryFileDTO(roasteryFileDTO);
-		mv.addObject("roastery", roasteryDTO);
-		mv.setViewName("roastery/detail");
-		return mv;
+	public void detail(RoasteryDTO roasteryDTO, Model model) throws Exception {
+		
+		roasteryDTO = roasteryService.detail(roasteryDTO);
+		
+		model.addAttribute("roasteryDTO", roasteryDTO);
 	}
 	
 }

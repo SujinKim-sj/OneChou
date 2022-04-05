@@ -31,8 +31,8 @@ public class RoasteryService {
 		return result;
 	}
 	
-	public RoasteryDTO detail(MemberDTO memberDTO) throws Exception{
-		return roasteryDAO.detail(memberDTO);
+	public RoasteryDTO detail(RoasteryDTO roasteryDTO) throws Exception{
+		return roasteryDAO.detail(roasteryDTO);
 	}
 	
 	public RoasteryFileDTO file (RoasteryDTO roasteryDTO) throws Exception{

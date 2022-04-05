@@ -203,22 +203,19 @@ public class MemberController {
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public ModelAndView mypage(HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
+		
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		memberDTO = memberService.mypage(memberDTO);
-		if(memberDTO.getKind()==2) {
-			FavoriteDTO favoriteDTO = memberService.favoriteDetail(memberDTO);
-			List<CupnoteDTO> cupnoteDTOs = memberService.noteDetail(favoriteDTO);
-			favoriteDTO.setCupnoteDTOs(cupnoteDTOs);
-			memberDTO.setFavoriteDTO(favoriteDTO);
+		
+		if(memberDTO.getKind() == 1) {
+			memberDTO = memberService.roasteryMemberMypage(memberDTO);
+			mv.setViewName("member/roasteryMemberPage");
+		} else {
+			memberDTO = memberService.genenalMemberMypage(memberDTO);
+			mv.setViewName("member/generalMemberPage");
 		}
-		else if (memberDTO.getKind()==1) {
-			RoasteryDTO roasteryDTO = memberService.roasteryDetail(memberDTO);
-			RoasteryFileDTO roasteryFileDTO = memberService.roasteryFile(roasteryDTO);
-			roasteryDTO.setRoasteryFileDTO(roasteryFileDTO);
-			memberDTO.setRoasteryDTO(roasteryDTO);
-		}
-		mv.setViewName("member/mypage");
-		mv.addObject("dto", memberDTO);
+
+		mv.addObject("memberDTO", memberDTO);
+
 		return mv;
 	} 
 	

@@ -63,28 +63,21 @@ public class MemberDAO {
 		return sqlSession.selectOne(NAMESPACE+"roasteryNameDuplicateCheck", roasteryDTO);
 	}
 	
-	public MemberDTO mypage(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"mypage", memberDTO);
+	public MemberDTO genenalMemberMypage(MemberDTO memberDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"genenalMemberMypage", memberDTO);
 	}
 	
-	public int update(MemberDTO memberDTO) throws Exception{
-		return sqlSession.update(NAMESPACE+"update", memberDTO);
-	}
-	public FavoriteDTO favoriteDetail(MemberDTO memberDTO)throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"favoriteDetail", memberDTO);
-	}
-	public List<CupnoteDTO> noteDetail(FavoriteDTO favoriteDTO) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"noteDetail",favoriteDTO);
-	}
-	public RoasteryDTO roasteryDetail(MemberDTO memberDTO) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+"roasteryDetail", memberDTO);
-	}
-	public RoasteryFileDTO roasteryFile(RoasteryDTO roasteryDTO) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+"roasteryFile", roasteryDTO);
+	public MemberDTO roasteryMemberMypage(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"roasteryMemberMypage", memberDTO);
 	}
 	
 	public MemberDTO memberDetail(MemberDTO memberDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"memberDetail", memberDTO);
 	}
+	
+	public int update(MemberDTO memberDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"update", memberDTO);
+	}
+	
 
 }
