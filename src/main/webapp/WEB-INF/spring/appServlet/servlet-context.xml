@@ -21,6 +21,27 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<interceptors>
+		
+		<!-- 로그인 여부 확인하는 인터셉터 -->
+		<interceptor>
+			<mapping path="/product/**"/>
+			<mapping path="/payment/**"/>
+			<mapping path="/cart/**"/>
+			<mapping path="/qna/**"/>
+			<mapping path="/review/**"/>
+
+			<exclude-mapping path="/product/list"/>
+			<exclude-mapping path="/product/detail"/>
+			<exclude-mapping path="/qna/list"/>						
+			<exclude-mapping path="/qna/replyList"/>
+			<exclude-mapping path="/review/list"/>						
+						
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	
+	</interceptors>
+	
 	<context:component-scan base-package="com.onechou.shop" />
 	
 	
