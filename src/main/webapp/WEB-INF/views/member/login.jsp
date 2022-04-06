@@ -19,34 +19,49 @@ label {
 	<div class="container my-5" style="text-align: center;">
 		<h1>Member Login Page</h1>
 
-		<div class="my-5 border border-2 rounded">
-			<form action="./login" method="post" class="my-5" style="text-align: center;">
-				<div class="row">
-				<div class="col"></div>
-				<div class="col-4 ">
-				<fieldset>
-					<legend>ID</legend>
-					<input type="text" class="form-control" name="id" value="${cookie.remember.value}">
-				</fieldset>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-6">
+				<div class="my-5 border border-2 rounded">
 
-				<fieldset>
-					<legend>Password</legend>
-					<input type="password" class="form-control" name="pw">
-				</fieldset>
+					<form action="./login" method="post" class="my-5"
+						style="text-align: center;">
+						<div class="row">
+							<div class="col"></div>
+							<div class="col-8 ">
+								<fieldset>
+									<legend>ID</legend>
+									<input type="text" class="form-control my-3" name="id"
+										value="${cookie.remember.value}">
+								</fieldset>
 
-				<div style="height: 50px"></div>
-				<fieldset>
-					<legend>Remember Me</legend>
-					<input type="checkbox" name="remember" id="rememberId" value="1">
-				</fieldset>
-				<div style="height: 50px"></div>
-				<button type="submit" class="btn btn-primary">LOGIN</button>
+								<fieldset>
+									<legend>Password</legend>
+									<input type="password" class="form-control my-3" name="pw">
+								</fieldset>
+								<div>
+								<fieldset style="text-align: right;">
+									Remember Me
+									<input type="checkbox" name="remember" id="rememberId"
+										value="1">
+								</fieldset>
+								</div>
+								<div style="height: 20px"></div>
+								<div style="text-align: right;">
+								아직 회원이 아니신가요? <a href="./joinCheck">회원가입</a>
+								&nbsp; &nbsp; &nbsp; 
+								<button type="submit" class="btn btn-primary my-3">LOGIN</button>
+								</div>
+								
+							</div>
+							<div class="col"></div>
+
+						</div>
+					</form>
+					<script src="../resources/js/member/login.js"></script>
 				</div>
-				<div class="col"></div>
-
-				</div>
-			</form>
-			<script src="../resources/js/member/login.js"></script>
+			</div>
+			<div class="col"></div>
 		</div>
 	</div>
 	<c:import url="../template/footer.jsp"></c:import>
