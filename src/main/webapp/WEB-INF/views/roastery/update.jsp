@@ -13,8 +13,8 @@
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container my-5">
-		<form action="./join" method="post" id="joinForm" enctype="multipart/form-data">
-			<input type="hidden" name="kind" value="1">
+		<form action="./updateResult" method="post" id="updateForm" enctype="multipart/form-data">
+			<input type="hidden" name="num" value="${roasteryDTO.num}">
 			<div class="border border-2 rounded-3 m-5">
 				<div class="text-center p-4 border-bottom border-2">
 					<h3>로스터리 정보를 입력해주세요</h3>
@@ -24,7 +24,7 @@
 					<div class="row d-flex justify-content-center mx-3 mt-3 g-3">
 						<div class="col-6">
 						    <label for="inputRoasteryName" class="form-label fw-bold">로스터리 이름</label>
-						    <input type="text" class="form-control" id="inputRoasteryName" name="roasteryName" value="${roasteryDTO.name}" placeholder="로스터리 이름을 입력해주세요">
+						    <input type="text" class="form-control" id="inputRoasteryName" name="name" value="${roasteryDTO.name}" placeholder="로스터리 이름을 입력해주세요">
 							<div class="fs-6 text-danger" id="roasteryNameFeedback">
 							</div>
 					    </div>
@@ -59,14 +59,13 @@
 						    <input type="text" class="form-control" id="inputRoasteryDetailAddress" placeholder="로스터리 상세주소를 입력해주세요">
 						    <div class="fs-6 text-danger" id="roasteryDetailAddressFeedback">
 						    </div>
-						    <input type="hidden" id="integratedRoasteryAddress" name="roasteryAddress">
+						    <input type="hidden" id="integratedRoasteryAddress" name="address">
 						</div>
 					</div>
 					
 					<div id="roasteryImageDiv" class="row d-flex justify-content-center m-3 g-3">
+                        <input type="hidden" name="fileName" value="${roasteryDTO.roasteryFileDTO.fileName}">
 	                    <div id="originalImage" class="col-6 d-flex justify-content-between align-items-end m-3">
-	                        <input type="hidden" name="fileName" value="${roasteryDTO.roasteryFileDTO.fileName}">
-	                        <input type="hidden" name="oriName" value="${roasteryDTO.roasteryFileDTO.oriName}">                	
 	                        <div class="d-flex align-items-end">
 		                        <img class="roasteryImg" src="../resources/upload/roastery/${roasteryDTO.roasteryFileDTO.fileName}">
 	                        </div>                

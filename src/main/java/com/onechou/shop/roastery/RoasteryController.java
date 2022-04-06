@@ -27,20 +27,26 @@ public class RoasteryController {
 		
 		model.addAttribute("roasteryDTO", roasteryDTO);
 	}
+	
 	@PostMapping("updateResult")
-	public String updateResult(RoasteryDTO roasteryDTO, MultipartFile file, Model model) throws Exception{
-		int result = roasteryService.update(roasteryDTO,file);
+	public ModelAndView updateResult(RoasteryDTO roasteryDTO, RoasteryFileDTO roasteryFileDTO, MultipartFile image) throws Exception{
+		ModelAndView mv = new ModelAndView();
 		
-		String message = "roastery update fail";
-		String p = "redirect:./update";
-		if(result>0) {
-			message = "roastery update Success";
-				p = "../member/mypage";
+		roasteryDTO.setRoasteryFileDTO(roasteryFileDTO);
+		
+		boolean result = roasteryService.update(roasteryDTO, image);
+		
+		String message = "로스터리 정보 업데이트에 실패했습니다.";
+		
+		if(result) {
+			message = "로스터리 정보 업데이트에 성공했습니다.";
 		}
-		model.addAttribute("message", message);
-		model.addAttribute("path", p);
-		String path = "common/result";
-		return path;
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "./detail?num="+roasteryDTO.getNum());
+		mv.setViewName("common/result");
+		
+		return mv;
 
 	}
 	@GetMapping("detail")

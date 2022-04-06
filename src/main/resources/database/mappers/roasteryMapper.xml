@@ -6,11 +6,13 @@
 <mapper namespace="com.onechou.shop.roastery.RoasteryDAO">
 
 	<update id="update" parameterType="RoasteryDTO">
-		UPDATE ROASTERY SET NAME=#{name}, ADDRESS=#{address}, INFO=#{info} WHERE MEMBERID=#{memberId}
+		UPDATE ROASTERY SET NAME = #{name}, ADDRESS = #{address}, INFO = #{info} 
+		WHERE NUM = #{num}
 	</update>
 	
 	<update id="updateFile" parameterType="RoasteryFileDTO">
-		UPDATE ROASTERYFILE SET FILENAME=#{fileName}, ORINAME=#{oriName} WHERE ROASTERYNUM=#{roasteryNum}
+		UPDATE ROASTERYFILE SET FILENAME = #{fileName}, ORINAME = #{oriName} 
+		WHERE ROASTERYNUM = #{roasteryNum}
 	</update>
 	
 	<select id="file" parameterType="RoasteryDTO" resultType="RoasteryFileDTO">
