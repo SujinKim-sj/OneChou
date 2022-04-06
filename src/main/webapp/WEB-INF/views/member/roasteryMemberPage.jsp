@@ -13,17 +13,25 @@
 
 	<div class="container my-5">
 		<div class="text-center">
-			<h3>일반회원 페이지</h3>
+			<h3>로스터리회원 페이지</h3>
 		</div>
 
 		<div class="row border border-2 rounded-3 p-4 my-5 g-5">
 			<div class="col mt-0 px-5 d-flex flex-column">
 				<c:import url="./commonInfo.jsp"></c:import>
 			</div>
-			<div class="col text-center px-5 mt-0">
+			<div class="col d-flex justify-content-center align-items-center text-center px-5 mt-0">
 				<div>
-					<a class="btn btn-outline-secondary" href="../roastery/detail?num=${memberDTO.roasteryDTO.num}">로스터리 상세정보 보기</a>
-				</div>				
+					<div class="my-4">
+						<a class="btn btn-outline-secondary" href="../roastery/detail?num=${memberDTO.roasteryDTO.num}">로스터리 상세정보 보기</a>
+					</div>
+					<div class="my-4">
+						<a class="btn btn-outline-secondary" href="../product/myList">로스터리 상품 목록보기</a>
+					</div>
+					<div class="my-4">
+						<a class="btn btn-outline-secondary" href="../payment/shipmentList">주문이 들어온 상품보기</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -31,6 +31,9 @@
 		            <li class="nav-item">
 		              <a class="nav-link" href="/shop/member/logout">Logout</a>
 		            </li>
+		            <li class="nav-item">
+		              <a class="nav-link" href="/shop/cart/index">Cart</a>
+		            </li>
 	            </c:otherwise>
             </c:choose>
         </ul>
