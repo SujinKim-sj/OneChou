@@ -15,7 +15,15 @@
 			<h3>일반회원 페이지</h3>
 		</div>
 
-		<div class="row border border-2 rounded-3 p-4 my-5 g-5">
+			<div class="mt-5 text-end">
+				<div class="my-2">
+					<a class="link-secondary" href="../payment/list">내 결제내역 보기</a>
+				</div>
+				<div class="my-2">
+					<a class="link-secondary" href="../cart/index">내 장바구니 보기</a>
+				</div>
+			</div>
+		<div class="row border border-2 rounded-3 mt-3 p-4 g-5">
 			<div class="col mt-0 px-5 d-flex flex-column">
 				<c:import url="./commonInfo.jsp"></c:import>
 			</div>
