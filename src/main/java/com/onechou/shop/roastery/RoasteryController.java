@@ -51,7 +51,7 @@ public class RoasteryController {
 	}
 	@GetMapping("detail")
 	public void detail(RoasteryDTO roasteryDTO, Model model) throws Exception {
-		
+
 		roasteryDTO = roasteryService.detail(roasteryDTO);
 		
 		model.addAttribute("roasteryDTO", roasteryDTO);
