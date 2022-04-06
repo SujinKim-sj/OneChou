@@ -21,42 +21,40 @@ public class RoasteryController {
 	private RoasteryService roasteryService;
 	
 	
-	@GetMapping("update")
-	public ModelAndView update (HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		RoasteryDTO roasteryDTO = roasteryService.detail(memberDTO);
-		mv.setViewName("roastery/update");
-		mv.addObject("member", memberDTO);
-		mv.addObject("roastery", roasteryDTO);
-		return mv;
-	}
 	@PostMapping("update")
-	public String update(RoasteryDTO roasteryDTO, MultipartFile file, Model model) throws Exception{
-		int result = roasteryService.update(roasteryDTO,file);
+	public void update(RoasteryDTO roasteryDTO, Model model) throws Exception {
+		roasteryDTO = roasteryService.detail(roasteryDTO);
 		
-		String message = "roastery update fail";
-		String p = "redirect:./update";
-		if(result>0) {
-			message = "roastery update Success";
-				p = "../member/mypage";
+		model.addAttribute("roasteryDTO", roasteryDTO);
+	}
+	
+	@PostMapping("updateResult")
+	public ModelAndView updateResult(RoasteryDTO roasteryDTO, RoasteryFileDTO roasteryFileDTO, MultipartFile image) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		roasteryDTO.setRoasteryFileDTO(roasteryFileDTO);
+		
+		boolean result = roasteryService.update(roasteryDTO, image);
+		
+		String message = "로스터리 정보 업데이트에 실패했습니다.";
+		
+		if(result) {
+			message = "로스터리 정보 업데이트에 성공했습니다.";
 		}
-		model.addAttribute("message", message);
-		model.addAttribute("path", p);
-		String path = "common/result";
-		return path;
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "./detail?num="+roasteryDTO.getNum());
+		mv.setViewName("common/result");
+		
+		return mv;
 
 	}
 	@GetMapping("detail")
-	public ModelAndView detail(HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		RoasteryDTO roasteryDTO = roasteryService.detail(memberDTO);
-		RoasteryFileDTO roasteryFileDTO = roasteryService.file(roasteryDTO);
-		roasteryDTO.setRoasteryFileDTO(roasteryFileDTO);
-		mv.addObject("roastery", roasteryDTO);
-		mv.setViewName("roastery/detail");
-		return mv;
+	public void detail(RoasteryDTO roasteryDTO, Model model) throws Exception {
+		
+		roasteryDTO = roasteryService.detail(roasteryDTO);
+		
+		model.addAttribute("roasteryDTO", roasteryDTO);
 	}
 	
 }

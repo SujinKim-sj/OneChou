@@ -1,0 +1,13 @@
+.roasteryImg {
+    display:block;
+	width:100%;
+	height:auto;
+}
+
+.roasteryInfoDiv {
+    overflow: hidden;
+}
+
+.roasteryInfo {
+    white-space: pre-wrap;
+}

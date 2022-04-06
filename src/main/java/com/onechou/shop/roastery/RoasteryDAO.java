@@ -25,8 +25,8 @@ public class RoasteryDAO {
 		return sqlSession.selectOne(namespace+"file", roasteryDTO);
 	}
 	
-	public RoasteryDTO detail(MemberDTO memberDTO) throws Exception {
-		return sqlSession.selectOne(namespace+"detail", memberDTO);
+	public RoasteryDTO detail(RoasteryDTO roasteryDTO) throws Exception {
+		return sqlSession.selectOne(namespace+"detail", roasteryDTO);
 	}
 
 	
