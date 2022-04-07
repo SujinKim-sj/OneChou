@@ -122,4 +122,9 @@
 		SET NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickname}, ADDRESS=#{address}
 		WHERE ID=#{id}
 	</update>
+	
+	<update id="updatePw" parameterType="MemberDTO">
+		UPDATE MEMBER SET PW = #{pw}
+		WHERE ID = #{id}
+	</update>
 </mapper>

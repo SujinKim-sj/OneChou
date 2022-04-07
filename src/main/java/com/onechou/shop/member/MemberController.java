@@ -54,7 +54,7 @@ public class MemberController {
 		//cookie 작성 후 실행
 		memberDTO = memberService.login(memberDTO);
 			
-		String message = "로그인에 실패했습니다.\n아이디와 비밀번호를 확인해주세요.";
+		String message = "로그인에 실패했습니다.\\n아이디와 비밀번호를 확인해주세요.";
 		String p = "./login";
 				
 		if(memberDTO != null) {
@@ -222,7 +222,7 @@ public class MemberController {
 	} 
 	
 	@RequestMapping(value = "pwUpdateCheck", method = RequestMethod.GET)
-	public void pwUpdateCheck()throws Exception{
+	public void pwUpdateCheck() throws Exception{
 	}
 	
 	@RequestMapping(value = "pwUpdateCheck", method = RequestMethod.POST)
@@ -247,8 +247,30 @@ public class MemberController {
 		return mv;
 	}
 	
+	@GetMapping("updatePw")
+	public void updatePw() throws Exception {
+		
+	}
+	
+	@PostMapping("updatePw")
+	public ModelAndView updatePw(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = memberService.updatePw(memberDTO);
+		
+		String message = "비밀번호 수정이 완료되었습니다.";
+		if(result < 1) {
+			message = "비밀번호 수정에 실패했습니다. \\n다시 시도해주세요.";
+		}
+		
+		mv.addObject("message", message);
+		mv.addObject("path", "./mypage");
+		mv.setViewName("common/result");
+		return mv;
+	}
+	
 	@RequestMapping(value = "update",method = RequestMethod.GET)
-	public void update(HttpSession session, Model model)throws Exception{
+	public void update(HttpSession session, Model model) throws Exception{
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
 		memberDTO = memberService.memberDetail(memberDTO);
@@ -257,14 +279,14 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "update",method = RequestMethod.POST)
-	public String update(Model model, MemberDTO memberDTO)throws Exception{
+	public String update(Model model, MemberDTO memberDTO) throws Exception{
 		
 		int result = memberService.update(memberDTO);
 		
 		String message = "업데이트에 성공했습니다";
 		
 		if(result < 1) {
-			message="업데이트에 실패했습니다\n 다시 시도해주세요";
+			message="업데이트에 실패했습니다\\n 다시 시도해주세요";
 		}
 		
 		model.addAttribute("path", "./mypage");
@@ -272,13 +294,8 @@ public class MemberController {
 		return "common/result";
 	}
 	
-	@GetMapping("updatePw")
-	public void updatePw() throws Exception {
-		
-	}
 
 }
-	
 	
 	
 	

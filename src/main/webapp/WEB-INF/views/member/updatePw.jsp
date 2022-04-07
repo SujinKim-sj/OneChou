@@ -13,7 +13,8 @@
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container my-5">
 		<div class="align-items-center">
-			<form action="./pwUpdate" id="updateForm" method="post">
+			<form action="./updatePw" id="updateForm" method="post">
+			<input type="hidden" name="id" value="${member.id}">
 				<div class="row d-flex justify-content-center m-3 g-3">
 					<div class="col-6 border border-2 rounded-3 p-5">
 						<div class="text-center mb-5">
