@@ -18,27 +18,26 @@ label {
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container my-5">
 		<div class="align-items-center">
-			<form action="" id="frm" method="post"
-				class="border border-2 rounded">
-				<div class="row">
-				<div class="col"></div>
-				<div class="col">
-				<div class="rounded my-5" style="text-align: center; height: 300px;">
-					<div style="height: 40px"></div>
-					<h1 style="text-align: center;">본인 확인</h1>
-					<div style="height: 10px"></div>
-					<input type="text" name="id" id="id" class="form-control"
-						placeholder="id입력">
-					<div style="height: 10px"></div>
-					<input type="password" name="pw" id="pw" class="form-control"
-						placeholder="비밀번호 입력">
-					<div style="height: 10px"></div>
-					<p></p>
-
-					<button type="submit" id="btn" class="btn btn-primary">확인</button>
-				</div>
-				</div>
-				<div class="col"></div>
+			<form action="" id="frm" method="post">
+				<div class="row d-flex justify-content-center">
+					<div class="col-6 border border-2 rounded-3 p-5">
+						<div class="text-center mb-5">
+							<h3>본인 확인이 필요합니다</h3>
+						</div>
+						<div>
+							<fieldset>
+								<legend>아이디</legend>
+								<input type="text" class="form-control my-3" name="id">
+							</fieldset>
+								<fieldset>
+								<legend>비밀번호</legend>
+								<input type="password" class="form-control my-3" name="pw">
+							</fieldset>
+						</div>
+						<div class="text-end mt-4">
+							<button type="submit" id="btn" class="btn btn-outline-primary">인증하기</button>
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>

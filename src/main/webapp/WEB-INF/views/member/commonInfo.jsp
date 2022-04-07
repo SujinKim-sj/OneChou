@@ -15,6 +15,7 @@
 					  <li class="list-group-item">주소 : ${memberDTO.address}</li>
 					</ul>
 				</div>
-				<div class="mt-4 ">
+				<div class="d-flex justify-content-between mt-4 ">
 					<a href="./updateCheck" class="btn btn-outline-secondary">내 정보 수정하기</a>
+					<a href="./updateCheck" class="btn btn-outline-secondary">비밀번호 변경하기</a>
 				</div>
