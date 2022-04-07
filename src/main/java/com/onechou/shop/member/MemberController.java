@@ -36,7 +36,8 @@ public class MemberController {
 	//Login - POST, GET방식
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(HttpSession session, MemberDTO memberDTO, String remember, Model model, HttpServletResponse response) throws Exception {
+	public String login(HttpSession session, MemberDTO memberDTO, String remember, Model model, HttpServletResponse response, String connectionPath) throws Exception {
+		
 		if(remember != null && remember.equals("1")) {
 			//Cookie 생성
 			Cookie cookie = new Cookie("remember", memberDTO.getId());
@@ -53,13 +54,13 @@ public class MemberController {
 		//cookie 작성 후 실행
 		memberDTO = memberService.login(memberDTO);
 			
-		String message = "Login Fail";
+		String message = "로그인에 실패했습니다.\n아이디와 비밀번호를 확인해주세요.";
 		String p = "./login";
-		
+				
 		if(memberDTO != null) {
 			session.setAttribute("member", memberDTO);
-			message = "Login Success";
-			p = "../";
+			message = "로그인에 성공했습니다.";
+			p = connectionPath;
 		}
 		
 		model.addAttribute("message", message);
@@ -69,7 +70,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.GET) 
-	public void login(Model model, @CookieValue(value = "remember", defaultValue = "") String rememberId) throws Exception {
+	public void login(HttpServletRequest request, Model model, @CookieValue(value = "remember", defaultValue = "") String rememberId) throws Exception {
+		model.addAttribute("connectionPath", request.getHeader("Referer"));
 		model.addAttribute("rememberId", rememberId);
 	}
 	

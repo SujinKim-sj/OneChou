@@ -25,6 +25,7 @@ label {
 				<div class="my-5 border border-2 rounded">
 
 					<form action="./login" method="post" class="my-5">
+						<input type="hidden" name="connectionPath" value="${connectionPath}">
 						<div class="row">
 							<div class="col"></div>
 							<div class="col-8">
