@@ -6,11 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="../template/css_import.jsp"></c:import>
-<style type="text/css">
-label {
-	margin: 10px;
-}
-</style>
 
 <title>Insert title here</title>
 </head>
@@ -18,7 +13,7 @@ label {
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container my-5">
 		<div class="align-items-center">
-			<form action="" id="frm" method="post">
+			<form action="./pwUpdateCheck" method="post">
 				<div class="row d-flex justify-content-center">
 					<div class="col-6 border border-2 rounded-3 p-5">
 						<div class="text-center mb-5">
@@ -35,7 +30,7 @@ label {
 							</fieldset>
 						</div>
 						<div class="text-end mt-4">
-							<button type="submit" id="btn" class="btn btn-outline-primary">인증하기</button>
+							<button type="submit" class="btn btn-outline-primary">인증하기</button>
 						</div>
 					</div>
 				</div>

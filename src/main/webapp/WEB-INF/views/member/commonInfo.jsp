@@ -16,6 +16,6 @@
 					</ul>
 				</div>
 				<div class="d-flex justify-content-between mt-4 ">
-					<a href="./updateCheck" class="btn btn-outline-secondary">내 정보 수정하기</a>
-					<a href="./updateCheck" class="btn btn-outline-secondary">비밀번호 변경하기</a>
+					<a href="./update" class="btn btn-outline-secondary">내 정보 수정하기</a>
+					<a href="./pwUpdateCheck" class="btn btn-outline-secondary">비밀번호 변경하기</a>
 				</div>

@@ -221,27 +221,30 @@ public class MemberController {
 		return mv;
 	} 
 	
-	@RequestMapping(value = "updateCheck", method = RequestMethod.GET)
-	public void updateCheck()throws Exception{
+	@RequestMapping(value = "pwUpdateCheck", method = RequestMethod.GET)
+	public void pwUpdateCheck()throws Exception{
 	}
 	
-	@RequestMapping(value = "updateCheck", method = RequestMethod.POST)
-	public String updateCheck(Model model, MemberDTO memberDTO, HttpSession session)throws Exception{
+	@RequestMapping(value = "pwUpdateCheck", method = RequestMethod.POST)
+	public ModelAndView pwUpdateCheck(MemberDTO memberDTO, HttpSession session)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
 		MemberDTO sessionMember = (MemberDTO) session.getAttribute("member");
 		
 		sessionMember = memberService.memberDetail(sessionMember);
 		
-		String message="확인에 실패했습니다\n 아이디와 비밀번호를 확인해주세요.";
-		String path="./updateCheck";
+		String message = "확인에 실패했습니다\\n아이디와 비밀번호를 확인해주세요.";
+		String path = "./pwUpdateCheck";
 		
 		if(sessionMember.getId().equals(memberDTO.getId()) && sessionMember.getPw().equals(memberDTO.getPw())) {
-			message="확인에 성공했습니다.";
-			path="./update";
+			message = "확인에 성공했습니다.";
+			path = "./updatePw";
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("path", path);
-		return "common/result";
+		mv.addObject("message", message);
+		mv.addObject("path", path);
+		mv.setViewName("common/result");
+		return mv;
 	}
 	
 	@RequestMapping(value = "update",method = RequestMethod.GET)
@@ -267,6 +270,11 @@ public class MemberController {
 		model.addAttribute("path", "./mypage");
 		model.addAttribute("message", message);
 		return "common/result";
+	}
+	
+	@GetMapping("updatePw")
+	public void updatePw() throws Exception {
+		
 	}
 
 }

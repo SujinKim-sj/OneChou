@@ -119,7 +119,7 @@
 	
 	<update id="update" parameterType="MemberDTO">
 		UPDATE MEMBER 
-		SET PW=#{pw} ,NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickname}, ADDRESS=#{address}
+		SET NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, NICKNAME=#{nickname}, ADDRESS=#{address}
 		WHERE ID=#{id}
 	</update>
 </mapper>

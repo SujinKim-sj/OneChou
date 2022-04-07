@@ -6,11 +6,6 @@
 <head>
 <meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
-	<style type="text/css">
-		label {
-			margin: 10px;
-		}
-	</style>
 
 <title>Insert title here</title>
 </head>
@@ -23,25 +18,7 @@
 			</div>
 			<form action="./update" method="post" id="updateForm">
 			<input type="hidden" name="id" value="${memberDTO.id}">
-			<div class="mb-5">
-				
-				<div class="row d-flex justify-content-center m-3 g-3">
-					<div class="col-6">
-					    <label for="inputPw" class="form-label fw-bold">비밀번호</label>
-					    <input type="password" class="form-control" id="inputPw" name="pw" placeholder="8글자 이상 입력해주세요">
-					    <div class="fs-6 text-danger" id="pwFeedback">
-					    </div>
-					</div>
-				</div>
-				
-				<div class="row d-flex justify-content-center m-3 g-3">					
-					<div class="col-6">
-					    <label for="inputPwCheck" class="form-label fw-bold">비밀번호확인</label>
-					    <input type="password" class="form-control" id="inputPwCheck" placeholder="비밀번호를 한번 더 입력해주세요">
-					    <div class="fs-6 text-danger" id="pwCheckFeedback">
-					    </div>
-					</div>					
-				</div>
+			<div class="mb-5">				
 				
 				<div class="row d-flex justify-content-center m-3 g-3">
 					<div class="col-6">
