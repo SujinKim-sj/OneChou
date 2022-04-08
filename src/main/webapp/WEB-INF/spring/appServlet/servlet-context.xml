@@ -30,31 +30,50 @@
 			<mapping path="/cart/**"/>
 			<mapping path="/qna/**"/>
 			<mapping path="/review/**"/>
+			<mapping path="/member/mypage"/>
+			<mapping path="/member/update"/>
+			<mapping path="/member/updatePw"/>
+			<mapping path="/member/pwUpdateCheck"/>
+			<mapping path="/favorite/**"/>
 
 			<exclude-mapping path="/product/list"/>
 			<exclude-mapping path="/product/detail"/>
 			<exclude-mapping path="/qna/list"/>						
 			<exclude-mapping path="/qna/replyList"/>
-			<exclude-mapping path="/review/list"/>						
+			<exclude-mapping path="/review/list"/>
 						
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 		
+		<!-- 일반회원 확인하는 인터셉터 -->
 		<interceptor>
 			<mapping path="/product/recommendedList"/>
 			<mapping path="/payment/list"/>
 			<mapping path="/payment/detail"/>
 			<mapping path="/cart/**"/>
+			<mapping path="/favorite/**"/>
 
 			<beans:ref bean="generalMemberCheckInterceptor"/>
 		</interceptor>
 		
+		<!-- 로스터리회원 확인하는 인터셉터 -->
 		<interceptor>
 			<mapping path="/product/add"/>
 			<mapping path="/product/myList"/>
 			<mapping path="/payment/shipmentList"/>
 			
 			<beans:ref bean="roasteryMemberCheckIntercepter"/>
+		</interceptor>
+		
+		<!-- 로그인 안됐는지 확인하는 인터셉터 -->
+		<interceptor>
+			<mapping path="/member/joinCheck"/>
+			<mapping path="/member/kindSelect"/>
+			<mapping path="/member/join"/>
+			<mapping path="/member/login"/>
+			<mapping path="/member/join"/>
+			
+			<beans:ref bean="noLoginInterceptor"/>
 		</interceptor>
 	
 	</interceptors>
