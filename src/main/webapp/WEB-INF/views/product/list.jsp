@@ -15,7 +15,7 @@
 		<div class="text-center my-5">
 			<h1>전체 원두 페이지</h1>
 		</div>
-		<div class="border border-2 rounded mt-5">
+		<div class="border border-2 rounded-3 bg-light mt-5">
 			<form action="./list" id="searchForm" method="get"> 
 				<div class="d-flex justify-content-between m-3">
 					<div class="border border-2 rounded p-3" id="sortingSection">

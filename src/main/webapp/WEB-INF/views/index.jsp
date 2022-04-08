@@ -17,7 +17,6 @@
 	            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><a class="text-decoration-none link-light" href="https://bwissue.com/news/1817865" target='_blank'>콘티(Conti)에서 출시한 <br>1그룹 에스프레소 머신,<br> 에이스(ACE)</a></h2>
 	            <ul class="d-flex list-unstyled justify-content-end mt-auto">
 	              <li class="d-flex align-items-center">
-	                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
 	                <small>2022-03-28</small>
 	              </li>
 	            </ul>
@@ -41,7 +40,7 @@
 		
 		<c:choose>
 			<c:when test="${member.kind == 2 && fn:length(recommendedProductDTOs) != 0}">
-				<div class="border border-2 border-secondary rounded-3 mt-2 mb-5" id="recommendedProductSection">
+				<div class="border border-2 bg-light rounded-3 mt-2 mb-5" id="recommendedProductSection">
 						<div class="text-center p-3">
 							<h3>${member.nickname}님을 위한 추천원두</h3>
 						</div>
@@ -115,7 +114,7 @@
 			</c:when>
 			
 			<c:otherwise>
-				<div class="border border-2 border-secondary rounded-3 mt-2 mb-5" id="newestProductSection">
+				<div class="border border-2 rounded-3 bg-light mt-2 mb-5" id="newestProductSection">
 					<div class="text-center p-3">
 						<h3>최근에 등록된 신상 원두</h3>
 					</div>
@@ -143,7 +142,7 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-		<div class="border border-2 border-secondary rounded-3 my-5" id="newestProductSection">
+		<div class="border border-2 bg-light rounded-3 my-5" id="newestProductSection">
 			<div class="text-center p-3">
 				<h3>인기 원두</h3>
 			</div>

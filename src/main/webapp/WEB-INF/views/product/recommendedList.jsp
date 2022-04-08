@@ -15,7 +15,7 @@
 		<div class="text-center my-5">
 			<h1>추천 원두 페이지</h1>
 		</div>
-		<div class="border border-2 rounded">
+		<div class="border border-2 rounded-3 bg-light">
 			<div class="text-center py-3 border-bottom border-2">
 				<h3>나의 관심원두 정보</h3>
 			</div>

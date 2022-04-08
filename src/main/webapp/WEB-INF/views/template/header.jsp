@@ -9,7 +9,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/shop/product/list" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">상품보기</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
-              <li><a class="dropdown-item" href="/shop/product/recommendedList">추천상품</a></li>
+              <c:if test="${member.kind == 2}">
+              	<li><a class="dropdown-item" href="/shop/product/recommendedList">추천상품</a></li>
+              </c:if>
               <li><a class="dropdown-item" href="/shop/product/list">전체상품</a></li>
             </ul>
           </li>
@@ -31,9 +33,11 @@
 		            <li class="nav-item">
 		              <a class="nav-link" href="/shop/member/logout">Logout</a>
 		            </li>
-		            <li class="nav-item">
-		              <a class="nav-link" href="/shop/cart/index">Cart</a>
-		            </li>
+		            <c:if test="${member.kind == 2}">
+			            <li class="nav-item">
+			              <a class="nav-link" href="/shop/cart/index">Cart</a>
+			            </li>
+		            </c:if>
 	            </c:otherwise>
             </c:choose>
         </ul>

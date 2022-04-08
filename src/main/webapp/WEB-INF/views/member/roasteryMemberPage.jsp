@@ -17,10 +17,10 @@
 		</div>
 
 		<div class="row border border-2 rounded-3 p-4 my-5 g-5">
-			<div class="col mt-0 px-5 d-flex flex-column">
+			<div class="col-8 my-4 px-5 d-flex flex-column border-end">
 				<c:import url="./commonInfo.jsp"></c:import>
 			</div>
-			<div class="col d-flex justify-content-center align-items-center text-center px-5 mt-0">
+			<div class="col-4 d-flex justify-content-center align-items-center text-center px-5 mt-0">
 				<div>
 					<div class="my-4">
 						<a class="btn btn-outline-secondary" href="../roastery/detail?num=${memberDTO.roasteryDTO.num}">로스터리 상세정보 보기</a>
