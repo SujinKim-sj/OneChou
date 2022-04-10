@@ -4,16 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" href="../resources/css/cart/list.css">
+	<title>OneChou - 장바구니</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container my-5">
 		<div class="text-center">
-			<h1>장바구니 페이지</h1>
+			<h3>내 장바구니</h3>
 		</div>
 		<div id="listResult">
 		</div>

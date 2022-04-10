@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<input class="mt-5" type="checkbox" checked id="checkAll">
+		<span class="fs-5">전체선택</span>
 		<c:forEach items="${cartDTOs}" var="cartDTO">
-			<div class="row border border-2 rounded mt-5" id="listMain${cartDTO.num}">
+			<div class="row border border-2 rounded mt-2" id="listMain${cartDTO.num}">
 				<div class="col">
 					<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
 						<div class="check text-center">
-							<input class="cartClick" type="checkbox" checked value="${cartDTO.num}">
+							<input class="cartClick" type="checkbox" checked="true" value="${cartDTO.num}">
 						</div>
 						<div class="productInfo d-flex align-items-center justify-content-center">
 							<div>

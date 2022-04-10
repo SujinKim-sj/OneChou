@@ -17,6 +17,40 @@ function getList() {
     }
 }
 
+// 장바구니 전체 선택
+
+listResult.addEventListener("click", function(event){
+    
+    if(event.target.classList.contains('cartClick')) {
+        const cartClicks = document.querySelectorAll('.cartClick');
+        let checkAll = true;
+        
+        for(let cartClick of cartClicks) {
+            if(cartClick.checked == false) {
+                checkAll = false;
+            }
+        }
+
+        document.querySelector('#checkAll').checked = checkAll;
+
+    }
+
+    // 전체 선택누르면 처리
+    if(event.target.id == "checkAll") {
+        const cartClicks = document.querySelectorAll('.cartClick');
+ 
+        for(let cartClick of cartClicks) {
+            if(event.target.checked) {
+                cartClick.checked = true;
+            } else {
+                cartClick.checked = false;
+            }
+        }
+        
+    }
+    
+})
+
 // 장바구니 삭제
 deleteBtn.addEventListener("click", function(){
     if(!confirm("삭제하시겠습니까?")){
@@ -164,7 +198,7 @@ paymentBtn.addEventListener("click", function(){
         const inputHidden = document.createElement('input');
         inputHidden.setAttribute("type", "hidden");
         inputHidden.setAttribute("name", "nums");
-        inputHidden.value=n
+        inputHidden.value = n
         paymentForm.append(inputHidden);
     }
 
