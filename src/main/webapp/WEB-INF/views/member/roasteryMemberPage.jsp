@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
-<title>Insert title here</title>
+	<title>OneChou - 로스터리회원 페이지</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>

@@ -1,21 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/payment/list.css">
+
+	<title>OneChou - 내 결제내역</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container my-5">
 		<div class="text-center mt-5">
-			<h3>결제내역 리스트 페이지</h3>
-		</div>
+		<c:choose>
+			<c:when test="${fn:length(paymentDTOs) == 0}">
+				<div class="d-flex justify-content-center align-items-center" style="height: 300px">
+					<h3 class="text-center align-items-center">아직 결제하신 상품이 없어요</h3>		
+				</div>
+			</c:when>
+			<c:otherwise>
+				<h3>${member.nickname}회원님의 결제내역입니다</h3>
+			</c:otherwise>
+		</c:choose>
+		</div>			
 		<div id="paymentSection">
+		
 		<c:forEach items="${paymentDTOs}" var="paymentDTO">
 		<div class="border border-2 rounded my-5">
 			<div class="d-flex justify-content-between m-3">
@@ -77,7 +89,8 @@
 			</c:forEach>
 		</div>
 		</c:forEach>
-		</div>	
+		</div>
+		<c:if test="${fn:length(paymentDTOs) > 1}">
 		<div class="d-flex justify-content-center my-5">
 			<nav>
 			  <ul class="pagination">		    
@@ -103,6 +116,7 @@
 			  </ul>
 			</nav>
 		</div>		
+		</c:if>
 	</div>
 
 	<c:import url="../template/footer.jsp"></c:import>

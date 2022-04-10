@@ -4,17 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" href="../resources/css/payment/add.css">
+
+	<title>OneChou - 결제정보 입력</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	
 	<div class="container my-5">
 		<div class="text-center">
-			<h1>결제정보 입력 페이지</h1>
+			<h3>결제정보를 입력해주세요</h3>
 		</div>
 		<form action="./addResult" id="addForm" method="post">
 			<div class="row border border-2 rounded text-center mt-5">
@@ -100,7 +101,6 @@
 						<select class="form-select" name="method" id="methodSelect">
 							<option value="no">결제방식을 선택해주세요</option>
 							<option value="1">카드결제</option>
-							<option value="2">현금결제</option>
 						</select>
 					</div>
 				</div>

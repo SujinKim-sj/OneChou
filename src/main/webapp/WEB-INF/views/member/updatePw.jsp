@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
-<title>Insert title here</title>
+	
+	<title>OneChou - 비밀번호 수정</title>
 </head>
 <body>
 	

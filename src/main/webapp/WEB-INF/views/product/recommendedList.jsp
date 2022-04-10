@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
-<title>Insert title here</title>
+	<title>OneChou - 추천원두</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
@@ -22,7 +22,7 @@
 			<div class="row mx-5 mt-3 text-center">
 				<div class="col fw-bold">컵노트</div>
 				<div class="col fw-bold">로스팅포인트</div>
-				<div class="col fw-bold">향미</div>
+				<div class="col fw-bold">선호하는 커피</div>
 			</div>
 			<div class="row mx-5 mb-3 text-center">
 				<div class="col">
@@ -142,7 +142,7 @@
 										</div>
 										<div class="mt-3">
 											<ul class="list-group">
-  												<li class="list-group-item">향미</li>
+  												<li class="list-group-item">전체적인 느낌</li>
   												<li class="list-group-item">
   												<c:choose>
 													<c:when test="${productDTO.productFeatureDTO.flavor == 1}">

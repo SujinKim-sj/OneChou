@@ -4,17 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/product/myList.css">
+
+	<title>OneChou - 상품목록</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	
 	<div class="container my-5">
 		<div class="text-center my-5">
-			<h3>내 상품정보 리스트 페이지</h3>
+			<h3>${member.nickname}님께서 등록한 상품목록이에요</h3>
 		</div>
 		<div class="mb-3">
 			<form class="d-flex justify-content-between" action="./myList" id="searchForm" method="get">

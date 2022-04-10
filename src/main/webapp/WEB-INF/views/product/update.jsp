@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/product/update.css">
+	<title>OneChou - 상품수정</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>

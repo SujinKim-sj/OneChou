@@ -4,16 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
-<title>Insert title here</title>
+	<title>OneChou - 전체원두</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	
 	<div class="container my-5">
 		<div class="text-center my-5">
-			<h1>전체 원두 페이지</h1>
+			<h3>OneChue에 등록된 원두</h3>
 		</div>
 		<div class="border border-2 rounded-3 bg-light mt-5">
 			<form action="./list" id="searchForm" method="get"> 

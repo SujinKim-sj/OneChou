@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/review/add.css">
+
+	<title>OneChou - 리뷰등록</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
@@ -15,7 +16,7 @@
 	<div class="container my-5">
 		<div class="mt-5"> 
 			<div class="text-center">
-				<h3>리뷰작성 페이지</h3>
+				<h3>리뷰를 작성해주세요</h3>
 			</div>
 			<div class="border border-2 rounded mx-3 my-5">
 				<div class="text-center border-bottom border-2 py-3">

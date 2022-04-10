@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
-<title>Insert title here</title>
+	<title>OneChou - 일반회원 페이지</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
@@ -57,7 +57,7 @@
 					  </li>
 					</ul>
 					<ul class="list-group my-2">
-					  <li class="list-group-item fw-bold">향미</li>
+					  <li class="list-group-item fw-bold">선호하는 커피</li>
 					  <li class="list-group-item">
 					  	<c:choose>
 					  		<c:when test="${memberDTO.favoriteDTO.flavor == 1}">

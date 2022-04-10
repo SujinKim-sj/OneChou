@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/member/generalMemberJoin.css">
 
-<title>Insert title here</title>
+	<title>OneChou - 일반회원가입</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
@@ -101,7 +101,7 @@
 						</li>
 					</ul>
 					<ul class="list-group text-center mt-5">
-						<li class="list-group-item"> 어떤 향미를 주로 선호하세요? </li>
+						<li class="list-group-item"> 전체적으로 어떤 커피를 주로 선호하세요? </li>
 						<li class="list-group-item" id="flavorSection">
 							<input type="radio" class="btn-check" name="flavor" value="1" id="acidity" autocomplete="off">
 							<label class="btn btn-outline-warning flavorRadio" for="acidity">산미 위주의 상큼한 커피</label>			

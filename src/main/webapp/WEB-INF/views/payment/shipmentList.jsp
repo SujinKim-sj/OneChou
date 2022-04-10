@@ -4,17 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/payment/list.css">
-<title>Insert title here</title>
+	<title>OneChou - 결제상품목록</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	
 	<div class="container my-5">
 		<div class="text-center my-5">
-			<h5>결제 완료된 주문정보</h5>
+			<h3>결제 완료된 주문정보</h3>
 		</div>
 		<div class="text-end">
 			

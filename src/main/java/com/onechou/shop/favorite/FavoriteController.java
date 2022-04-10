@@ -43,23 +43,18 @@ public class FavoriteController {
 			result = favoriteService.noteUpdate(cupnoteDTO);
 		}
 		
-		if(result>0) {
-			System.out.println("성공");
-		}else
-		{
-			System.out.println("실패");
+		String message = "수정에 실패했습니다";
+		String path = "./update";
+		
+		if(result > 0) {
+			message = "수정에 성공했습니다";
+			path = "../member/mypage";
 		}
 		
-		String message = "favorite update Fail";
-		String p = "./update";
-		if(result>0) {
-			message = "favorite update Success";
-			p = "../";
-		}
 		model.addAttribute("message", message);
-		model.addAttribute("path", p);
-		String path = "common/result";
-		return path;
+		model.addAttribute("path", path);
+		
+		return "common/result";
 	}
 
 }

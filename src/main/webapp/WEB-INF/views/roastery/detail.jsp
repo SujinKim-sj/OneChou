@@ -8,7 +8,7 @@
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/roastery/detail.css">
 
-<title>Insert title here</title>
+	<title>OneChou - 로스터리정보</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>

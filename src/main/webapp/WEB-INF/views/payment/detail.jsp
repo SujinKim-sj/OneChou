@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/payment/detail.css">
+
+	<title>OneChou - 상세결제정보</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
@@ -18,7 +19,7 @@
 					<h3>감사합니다. 결제가 완료되었습니다.</h3>
 				</c:when>
 				<c:otherwise>
-					<h3>결제정보 디테일 페이지</h3>
+					<h3>주문번호 ${paymentDTO.num}번의 상세정보 입니다</h3>
 				</c:otherwise>
 			</c:choose>
 		</div>

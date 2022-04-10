@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<c:import url="../template/css_import.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/roastery/update.css">
 
-<title>Insert title here</title>
+	<title>OneChou - 로스터리수정</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>

@@ -4,25 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<c:import url="../template/css_import.jsp"></c:import>
-<style type="text/css">
-label {
-	margin: 10px;
-}
-</style>
-
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<c:import url="../template/css_import.jsp"></c:import>
+	<title>OneChou - 로그인</title>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-	<div class="container my-5" style="text-align: center;">
-		<h1>Member Login Page</h1>
-
+	<div class="container text-center my-5">
+		<h3>OneChou</h3>
 		<div class="row">
 			<div class="col"></div>
 			<div class="col-6">
-				<div class="my-5 border border-2 rounded">
+				<div class="mb-5 mt-3 border border-2 rounded">
 
 					<form action="./login" method="post" class="my-5">
 						<input type="hidden" name="connectionPath" value="${connectionPath}">
