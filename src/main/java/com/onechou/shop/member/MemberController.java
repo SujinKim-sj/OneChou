@@ -99,7 +99,6 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		
 		// 회원 유형 판단 후 파라미터 MemberDTO로 합치기
-		System.out.println(memberDTO.getKind());
 		if(memberDTO.getKind() == 1) {
 			// 멤버테이블과 컬럼명이 같아서 파라미터명을 다르게 보냄
 			roasteryDTO.setName(roasteryName);
@@ -121,27 +120,28 @@ public class MemberController {
 		// 데이터 삽입하기
 		boolean result = memberService.join(memberDTO, image);
 		
-		String message = "회원가입에 성공했습니다";
+		String message = "회원가입에 성공했습니다. \\n로그인하시겠습니까?";
+		String confirmPath = "./login";
+		String notConfirmPath = "../";
 		
 		if(!result) {
-			message = "회원가입에 실패했습니다. \n다시 시도해주세요.";
+			message = "회원가입에 실패했습니다. \\n다시 시도하시겠습니까?";
+			confirmPath = "./join?kind="+memberDTO.getKind();
 		}
 		
 		mv.addObject("message", message);
-		mv.addObject("path", "../");
-		mv.setViewName("common/result");
+		mv.addObject("confirmPath", confirmPath);
+		mv.addObject("notConfirmPath", notConfirmPath);
+		mv.setViewName("common/resultConfirm");
 		
 		return mv;
 	}
 	
 	@GetMapping("idDuplicateCheck")
 	public ModelAndView idDuplicateCheck(MemberDTO memberDTO) throws Exception {
-		System.out.println(memberDTO.getId());
 		ModelAndView mv = new ModelAndView();
 		
 		Long result = memberService.idDuplicateCheck(memberDTO);
-		
-		System.out.println(result);
 		
 		mv.addObject("result", result);
 		mv.setViewName("common/ajaxResult");
