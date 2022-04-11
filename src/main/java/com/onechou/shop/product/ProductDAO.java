@@ -66,8 +66,8 @@ public class ProductDAO {
 		return sqlSession.selectList(NAMESPACE+"detailReview", productDTO);
 	}
 	
-	public Double getReviewAvg(ProductDTO productDTO) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+"getReviewAvg", productDTO);
+	public HashMap<String, Object> getReviewInfo(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getReviewInfo", productDTO);
 	}
 	
 	public List<QnaDTO> detailQna(ProductDTO productDTO) throws Exception {

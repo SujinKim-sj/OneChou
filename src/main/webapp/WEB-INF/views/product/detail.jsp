@@ -73,19 +73,13 @@
 					</tr>
 					<tr>
 						<td>리뷰평균</td>
-						<c:choose>
-							<c:when test="${reviewAvg =='n'}">
+ 						<c:choose>
+							<c:when test="${reviewInfo['COUNT'] == 0}">
 								<td colspan="3">리뷰정보없음</td>
 							</c:when>
 							<c:otherwise>
-								<td colspan="3">
-								<!-- 나중에 구현할 수 있으면 할 것 -->
-<!-- 								<span>⭐</span>
-								<span>⭐</span>
-								<span>⭐</span>
-								<span>⭐</span>
-								<span>⭐</span>		 -->						
-								<span>${reviewAvg}점/5.0점</span>
+								<td colspan="3">				
+								<span>${reviewInfo['AVG']}점/5.0점 (총 ${reviewInfo['COUNT']}개의 리뷰)</span>
 								</td>
 							</c:otherwise>
 						</c:choose>

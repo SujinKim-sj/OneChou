@@ -1,5 +1,6 @@
 package com.onechou.shop.product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,8 +105,16 @@ public class ProductService {
 		return productDAO.detailReview(productDTO);
 	}
 	
-	public Double getReviewAvg(ProductDTO productDTO) throws Exception {
-		return productDAO.getReviewAvg(productDTO);
+	public HashMap<String, Object> getReviewInfo(ProductDTO productDTO) throws Exception {
+		HashMap<String, Object> hashMap = productDAO.getReviewInfo(productDTO);
+		
+		// 리뷰 평균 DB에서 조회하고 소수점 반올림하기
+		BigDecimal searchAvg = (BigDecimal) hashMap.get("AVG");
+		String avg = String.format("%.1f", searchAvg.doubleValue());
+
+		hashMap.put("AVG", avg);
+		
+		return hashMap;
 	}
 	
 	public List<QnaDTO> detailQna(ProductDTO productDTO) throws Exception {

@@ -200,8 +200,8 @@
 	</select>
 	
 	<!-- 리뷰 별점 평균 구하기 -->
-	<select id="getReviewAvg" parameterType="productDTO" resultType="Double">
-		SELECT AVG(RATING) FROM REVIEW WHERE PRODUCTNUM = #{num}
+	<select id="getReviewInfo" parameterType="productDTO" resultType="HashMap">
+		SELECT AVG(RATING) AS AVG, COUNT(NUM) AS COUNT FROM REVIEW WHERE PRODUCTNUM = #{num}
 	</select>
 	
 	<update id="delete" parameterType="ProductDTO">

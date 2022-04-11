@@ -13,7 +13,7 @@
 	
 	<div class="container my-5">
 		<div class="text-center my-5">
-			<h3>OneChue에 등록된 원두</h3>
+			<h3>OneChou에 등록된 원두</h3>
 		</div>
 		<div class="border border-2 rounded-3 bg-light mt-5">
 			<form action="./list" id="searchForm" method="get"> 

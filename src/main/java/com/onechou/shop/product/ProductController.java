@@ -1,6 +1,7 @@
 package com.onechou.shop.product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,8 +102,8 @@ public class ProductController {
 		// 해당 상품의 옵션들 조회해오기
 		productDTO.setProductOptionDTOs(productService.detailOption(productDTO));
 		
-		// 리뷰 평균 DB에서 조회하고 소수점 반올림하기
-		String reviewAvg = String.format("%.1f", productService.getReviewAvg(productDTO));
+		// DB에서 리뷰 통계정보 조회하기 (평균, 갯수)
+		HashMap<String, Object> reviewInfo = productService.getReviewInfo(productDTO);
 		
 		if(productDTO.getSale() == 0) {
 			String path = request.getHeader("Referer"); // 이전페이지 경로 가져오기
@@ -112,7 +113,7 @@ public class ProductController {
 		} else {
 			// 조회한 정보 Attribute에 담아서 보내기
 			mv.addObject("productDTO", productDTO);
-			mv.addObject("reviewAvg", reviewAvg);
+			mv.addObject("reviewInfo", reviewInfo);
 		}
 
 		return mv;
