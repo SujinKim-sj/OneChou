@@ -16,7 +16,7 @@
 	<div class="container my-5">
 
 		<div class="row row-cols-2 border border-2 rounded-3 bg-light">
-			<div class="col col-5">
+			<div class="col col-5 d-flex justify-content-center align-items-center">
 				<img class="img-fluid" src="../resources/upload/product/${productDTO.productFileDTO.fileName}">
 			</div>
 			<div class="col col-7">
