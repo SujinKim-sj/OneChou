@@ -33,7 +33,7 @@
 	      	</form>
 		</div>
 		<div class="border border-2 rounded mb-5">
-			<div>
+			<div id="productSection">
 				<c:forEach items="${productDTOs}" var="productDTO">
 					<div class="row border border-2 rounded m-3">
 						<div class="col-2 d-flex justify-content-center align-items-center">
@@ -58,9 +58,9 @@
 						</div>
 						<div class="col-3 text-center d-flex flex-column justify-content-center my-3">
 							<div class="mb-3">
-								<form action="./update?num=${productDTO.num}" id="updateForm" method="post">
+								<form action="./update" id="updateForm${productDTO.num}" method="post">
 									<input type="hidden" name="num" value="${productDTO.num}">
-									<button type="button" class="btn btn-secondary" id="updateBtn">상품수정하기</button>
+									<button type="button" class="btn btn-secondary updateBtn" data-num="${productDTO.num}">상품수정하기</button>
 								</form>
 							</div>
 							<div>

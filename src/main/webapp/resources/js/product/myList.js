@@ -5,11 +5,16 @@ sortingSelect.addEventListener("change", function(){
     searchForm.submit();
 })
 
-const updateForm = document.querySelector('#updateForm');
-const updateBtn = document.querySelector('#updateBtn');
+const productSection = document.querySelector('#productSection');
 
-updateBtn.addEventListener("click", function(){
-    if(confirm("상품 수정 후에는 작성된 리뷰, 질문이 사라집니다.\n계속하시겠습니까?")) {
+productSection.addEventListener("click", function(event){
+    if(event.target.classList.contains('updateBtn')) {
+        if(!confirm("업데이트 하시겠습니까?\n기존의 리뷰와 질문이 사라집니다.")){
+            return;
+        }
+        const num = event.target.getAttribute('data-num');
+        const updateForm = document.querySelector('#updateForm'+num);
         updateForm.submit();
     }
+
 })
