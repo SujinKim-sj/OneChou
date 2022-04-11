@@ -74,7 +74,7 @@ public class ProductController {
 		boolean check = productService.add(productDTO, file);
 		
 		String message = "정상적으로 등록되었습니다.";
-		String path = "../"; // 나중에 내 상품 리스트로 수정
+		String path = "./myList";
 		
 		if (!check) {
 			message = "등록에 실패했습니다.";
