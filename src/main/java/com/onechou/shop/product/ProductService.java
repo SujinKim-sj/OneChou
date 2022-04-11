@@ -109,10 +109,12 @@ public class ProductService {
 		HashMap<String, Object> hashMap = productDAO.getReviewInfo(productDTO);
 		
 		// 리뷰 평균 DB에서 조회하고 소수점 반올림하기
+		if(hashMap.get("AVG") != null) {
 		BigDecimal searchAvg = (BigDecimal) hashMap.get("AVG");
 		String avg = String.format("%.1f", searchAvg.doubleValue());
 
 		hashMap.put("AVG", avg);
+		}
 		
 		return hashMap;
 	}
