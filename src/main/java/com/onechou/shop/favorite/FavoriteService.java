@@ -14,19 +14,27 @@ public class FavoriteService {
 	@Autowired
 	private FavoriteDAO favoriteDAO;
 	
-	public int update(FavoriteDTO favoriteDTO)throws Exception{
-		return favoriteDAO.update(favoriteDTO);
+	public boolean update(FavoriteDTO favoriteDTO) throws Exception{
+		boolean check = true;
+		
+		if(favoriteDAO.update(favoriteDTO) < 1) {
+			check = false;
+		}
+		
+		if(favoriteDAO.deleteCupnote(favoriteDTO) < 1) {
+			check = false;
+		}
+		
+		List<CupnoteDTO> cupnoteDTOs = favoriteDTO.getCupnoteDTOs();
+		for(int i=0;i<cupnoteDTOs.size();i++) {
+			CupnoteDTO cupnoteDTO = cupnoteDTOs.get(i);
+			cupnoteDTO.setFavoriteNum(favoriteDTO.getNum());
+			if(favoriteDAO.addCupnote(cupnoteDTO) < 1) {
+				check = false;
+			}
+		}
+		
+		return check;
 	}
-	
-	public int noteUpdate(CupnoteDTO cupnoteDTO) throws Exception{
-		return favoriteDAO.noteUpdate(cupnoteDTO);
-	}
-	public FavoriteDTO detail (FavoriteDTO favoriteDTO) throws Exception{
-		return favoriteDAO.detail(favoriteDTO);
-	}
-	public List<CupnoteDTO> noteList(FavoriteDTO favoriteDTO) throws Exception{
-		return favoriteDAO.noteList(favoriteDTO);
-	}
-	
 
 }

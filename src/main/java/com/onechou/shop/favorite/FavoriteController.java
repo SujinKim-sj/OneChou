@@ -1,6 +1,7 @@
 package com.onechou.shop.favorite;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,36 +24,30 @@ public class FavoriteController {
 	private FavoriteService favoriteService;
 	
 	@RequestMapping(value ="update",method = RequestMethod.GET)
-	public ModelAndView update(HttpSession session) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		mv.addObject("member", memberDTO);
-		return mv;
+	public void update() throws Exception{
 	}
 	
-	@RequestMapping(value = "update", method = RequestMethod.POST )
+	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(FavoriteDTO favoriteDTO , String [] noteNames ,Model model) throws Exception{
-		int result = favoriteService.update(favoriteDTO);
-		FavoriteDTO favoriteDTO2 = favoriteService.detail(favoriteDTO);
-		List<CupnoteDTO> ar = favoriteService.noteList(favoriteDTO2);
-		for(int i=0;i<ar.size();i++) {
+
+		List<CupnoteDTO> cupnoteDTOs = new ArrayList<CupnoteDTO>();
+		for(int i=0;i<noteNames.length;i++) {
 			CupnoteDTO cupnoteDTO = new CupnoteDTO();
-			cupnoteDTO.setFavoriteNum(favoriteDTO2.getNum());
 			cupnoteDTO.setNoteName(noteNames[i]);
-			cupnoteDTO.setNum(ar.get(i).getNum());
-			result = favoriteService.noteUpdate(cupnoteDTO);
+			cupnoteDTOs.add(cupnoteDTO);
 		}
+		favoriteDTO.setCupnoteDTOs(cupnoteDTOs);
 		
-		String message = "수정에 실패했습니다";
-		String path = "./update";
+		boolean result = favoriteService.update(favoriteDTO);
 		
-		if(result > 0) {
+		String message = "수정에 실패했습니다\\n다시시도해주세요";
+		
+		if(result) {
 			message = "수정에 성공했습니다";
-			path = "../member/mypage";
 		}
 		
 		model.addAttribute("message", message);
-		model.addAttribute("path", path);
+		model.addAttribute("path", "../member/mypage");
 		
 		return "common/result";
 	}
